@@ -1,24 +1,22 @@
 /*=============================================================================
 
-		ƒJƒƒ‰[ camera.cpp ]
+		ï¿½Jï¿½ï¿½ï¿½ï¿½[ camera.cpp ]
 
 -------------------------------------------------------------------------------
-	¡@»ìŽÒ
-		‘å–ì‘ñ–ç
 
-	¡@ì¬“ú
+	ï¿½ï¿½ï¿½@ï¿½ì¬ï¿½ï¿½
 		2016/10/19
 -------------------------------------------------------------------------------
-	¡@Update
+	ï¿½ï¿½ï¿½@Update
 		2016/10/19
 =============================================================================*/
 /*-----------------------------------------------------------------------------
-						scanf ‚Ìwarning–hŽ~ 
+						scanf ï¿½ï¿½warningï¿½hï¿½~ 
 -----------------------------------------------------------------------------*/
 #define _CRT_SECURE_NO_WARNINGS
 
 /*-----------------------------------------------------------------------------
-	ƒwƒbƒ_ƒtƒ@ƒCƒ‹
+	ï¿½wï¿½bï¿½_ï¿½tï¿½@ï¿½Cï¿½ï¿½
 -----------------------------------------------------------------------------*/
 #include <stdio.h>
 #include <math.h>
@@ -29,66 +27,66 @@
 #include "fade.h"
 
 /*-----------------------------------------------------------------------------
-	’è”’è‹`
+	ï¿½è”ï¿½ï¿½`
 -----------------------------------------------------------------------------*/
 #define CAMERA_NEAR ( 1.0f )	//	near
 #define CAMERA_FAR ( 3000.0f )	//	far
 
-#define SPEED ( 30.0f )	//	’Ž‹“_ˆÚ“®—Ê
+#define SPEED ( 30.0f )	//	ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½Ú“ï¿½ï¿½ï¿½
 
-#define RADIUS ( 0.05f )	//	ƒ‰ƒfƒBƒEƒX‚Ì‘‰Á—Ê
+#define RADIUS ( 0.05f )	//	ï¿½ï¿½ï¿½fï¿½Bï¿½Eï¿½Xï¿½Ì‘ï¿½ï¿½ï¿½ï¿½ï¿½
 
-#define MOVE_SPEED ( 20.0f )	//	ˆÚ“®—Ê
-#define ROT_SPEED ( 0.6f )	//	‰ñ“]—Ê
+#define MOVE_SPEED ( 20.0f )	//	ï¿½Ú“ï¿½ï¿½ï¿½
+#define ROT_SPEED ( 0.6f )	//	ï¿½ï¿½]ï¿½ï¿½
 
 /*-----------------------------------------------------------------------------
-	—ñ‹“
+	ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
-	\‘¢‘Ì
+	ï¿½\ï¿½ï¿½ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
-	ƒvƒƒgƒ^ƒCƒvéŒ¾
+	ï¿½vï¿½ï¿½ï¿½gï¿½^ï¿½Cï¿½vï¿½éŒ¾
 -----------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
-	ƒOƒ[ƒoƒ‹•Ï”
+	ï¿½Oï¿½ï¿½ï¿½[ï¿½oï¿½ï¿½ï¿½Ïï¿½
 -----------------------------------------------------------------------------*/
 #ifdef _DEBUG
 	LPD3DXFONT g_pFontCamera = NULL;
 #endif	//	_DEBUG
 
-float g_fLengthPolygon;	//	‘ÎŠpü
-float g_fAnglePolygon;	//	Šp“xƒV[ƒ^
+float g_fLengthPolygon;	//	ï¿½ÎŠpï¿½ï¿½
+float g_fAnglePolygon;	//	ï¿½pï¿½xï¿½Vï¿½[ï¿½^
 
 
-D3DXVECTOR3 g_posEye( 0.0f , 60.0f , -150.0f );	//	ƒJƒƒ‰
-D3DXVECTOR3 g_posAt( 0.0f , 30.0f , 0.0f );	//	’Ž‹“_
-D3DXVECTOR3 g_vecUp( 0.0f , 1.0f , 0.0f );	//	ã‚ÌŽ‹“_
+D3DXVECTOR3 g_posEye( 0.0f , 60.0f , -150.0f );	//	ï¿½Jï¿½ï¿½ï¿½ï¿½
+D3DXVECTOR3 g_posAt( 0.0f , 30.0f , 0.0f );	//	ï¿½ï¿½ï¿½ï¿½ï¿½_
+D3DXVECTOR3 g_vecUp( 0.0f , 1.0f , 0.0f );	//	ï¿½ï¿½ÌŽï¿½ï¿½_
 
-//	ƒrƒ…[s—ñ‚Ìì¬
+//	ï¿½rï¿½ï¿½ï¿½[ï¿½sï¿½ï¿½Ìì¬
 D3DXMATRIX g_mtxView;
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void InitCamera( void )
- ˆø”:		‚È‚µ
- –ß‚è’l:	‚È‚µ
- à–¾:		‰Šú‰»
+ ï¿½Öï¿½ï¿½ï¿½:	void InitCamera( void )
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½È‚ï¿½
+ ï¿½ß‚ï¿½l:	ï¿½È‚ï¿½
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void InitCamera( void )
 {
-	//	ƒfƒoƒCƒX‚ÌŽæ“¾
+	//	ï¿½fï¿½oï¿½Cï¿½Xï¿½ÌŽæ“¾
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 
 #ifdef _DEBUG
 	D3DXCreateFont( pDevice ,
-					18 ,	//	•¶Žš‚‚³
-					0 ,	//	•¶Žš•
-					0 ,	//	•¶Žš‚Ì‘¾‚³
-					0 ,	//	ƒ~ƒbƒvƒ}ƒbƒv
-					FALSE ,	//	ƒCƒ^ƒŠƒbƒN
+					18 ,	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+					0 ,	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+					0 ,	//	ï¿½ï¿½ï¿½ï¿½ï¿½Ì‘ï¿½ï¿½ï¿½
+					0 ,	//	ï¿½~ï¿½bï¿½vï¿½}ï¿½bï¿½v
+					FALSE ,	//	ï¿½Cï¿½^ï¿½ï¿½ï¿½bï¿½N
 					SHIFTJIS_CHARSET ,
 					OUT_DEFAULT_PRECIS ,
 					DEFAULT_QUALITY ,
@@ -98,37 +96,37 @@ void InitCamera( void )
 #endif	//	_DEBUG
 
 
-	//	‰Šú‰»
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	g_fLengthPolygon = -g_posEye.z;
 
 	g_fAnglePolygon = 0;
 
 
-	//	ŽŸ‚Ìƒ‚[ƒh‚ÌŽæ“¾
+	//	ï¿½ï¿½ï¿½Ìƒï¿½ï¿½[ï¿½hï¿½ÌŽæ“¾
 	MODE *Mode = GetNextMode();
 
 	if( *Mode == MODE_TITLE )
 	{
 
-		g_posEye = D3DXVECTOR3( 0.0f , 1100.0f , -1.0f );	//	ƒJƒƒ‰
-		g_posAt = D3DXVECTOR3( 0.0f , 30.0f , 0.0f );	//	’Ž‹“_
+		g_posEye = D3DXVECTOR3( 0.0f , 1100.0f , -1.0f );	//	ï¿½Jï¿½ï¿½ï¿½ï¿½
+		g_posAt = D3DXVECTOR3( 0.0f , 30.0f , 0.0f );	//	ï¿½ï¿½ï¿½ï¿½ï¿½_
 
 	}	//	end of if
 
 	else if( *Mode == MODE_GAME )
 	{
 
-		g_posEye = D3DXVECTOR3( 0.0f , 150.0f , -1000.0f );	//	ƒJƒƒ‰
-		g_posAt = D3DXVECTOR3( 0.0f , 0.0f , 0.0f );	//	’Ž‹“_
+		g_posEye = D3DXVECTOR3( 0.0f , 150.0f , -1000.0f );	//	ï¿½Jï¿½ï¿½ï¿½ï¿½
+		g_posAt = D3DXVECTOR3( 0.0f , 0.0f , 0.0f );	//	ï¿½ï¿½ï¿½ï¿½ï¿½_
 
 	}	//	end of if
 
 	else if( *Mode == MODE_RESULT )
 	{
 
-		g_posEye = D3DXVECTOR3( 0.0f , 1100.0f , -1.0f );	//	ƒJƒƒ‰
-		g_posAt = D3DXVECTOR3( 0.0f , 30.0f , 0.0f );	//	’Ž‹“_
+		g_posEye = D3DXVECTOR3( 0.0f , 1100.0f , -1.0f );	//	ï¿½Jï¿½ï¿½ï¿½ï¿½
+		g_posAt = D3DXVECTOR3( 0.0f , 30.0f , 0.0f );	//	ï¿½ï¿½ï¿½ï¿½ï¿½_
 
 	}	//	end of if
 
@@ -136,16 +134,16 @@ void InitCamera( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void UninitCamera( void )
- ˆø”:		‚È‚µ
- –ß‚è’l:	‚È‚µ
- à–¾:		I—¹
+ ï¿½Öï¿½ï¿½ï¿½:	void UninitCamera( void )
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½È‚ï¿½
+ ï¿½ß‚ï¿½l:	ï¿½È‚ï¿½
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½Iï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void UninitCamera( void )
 {
 #ifdef _DEBUG
 
-	if( g_pFontCamera != NULL )	//	ƒtƒHƒ“ƒgƒ|ƒCƒ“ƒ^ŠJ•ú
+	if( g_pFontCamera != NULL )	//	ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½Jï¿½ï¿½
 	{
 		g_pFontCamera -> Release();
 		g_pFontCamera = NULL;
@@ -157,17 +155,17 @@ void UninitCamera( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void UpdateCamera( void )
- ˆø”:		‚È‚µ
- –ß‚è’l:	‚È‚µ
- à–¾:		XV
+ ï¿½Öï¿½ï¿½ï¿½:	void UpdateCamera( void )
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½È‚ï¿½
+ ï¿½ß‚ï¿½l:	ï¿½È‚ï¿½
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½Xï¿½V
 -----------------------------------------------------------------------------*/
 void UpdateCamera( void )
 {
 
 #if 0
 
-	//	Ž‹“_ˆÚ“®
+	//	ï¿½ï¿½ï¿½_ï¿½Ú“ï¿½
 	if( GetKeyboardPress( DIK_W ) )
 	{
 		g_posEye.x += sin( -g_fAnglePolygon ) * MOVE_SPEED;
@@ -210,7 +208,7 @@ void UpdateCamera( void )
 
 	
 
-	//	’Ž‹“_ù‰ñ
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½
 	if( GetKeyboardPress( DIK_Q ) )
 	{
 
@@ -232,7 +230,7 @@ void UpdateCamera( void )
 	}	//	end of if
 
 
-	//	Ž‹“_ù‰ñ
+	//	ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½
 	if( GetKeyboardPress( DIK_Z ) )
 	{
 
@@ -253,7 +251,7 @@ void UpdateCamera( void )
 
 	}	//	end of if
 
-	//	’Ž‹“_ˆÚ“®
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½Ú“ï¿½
 	if( GetKeyboardPress( DIK_T ) )
 	{
 		g_posAt.y += SPEED;
@@ -266,7 +264,7 @@ void UpdateCamera( void )
 
 	}	//	end of if
 
-	//	ƒJƒƒ‰ˆÚ“®
+	//	ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½Ú“ï¿½
 	if( GetKeyboardPress( DIK_Y ) )
 	{
 		g_posEye.y += SPEED;
@@ -281,7 +279,7 @@ void UpdateCamera( void )
 
 #endif
 /*
-	//	ŽŸ‚Ìƒ‚[ƒh‚ÌŽæ“¾
+	//	ï¿½ï¿½ï¿½Ìƒï¿½ï¿½[ï¿½hï¿½ÌŽæ“¾
 	MODE *Mode = GetNextMode();
 
 	bool *FadeFlag = GetFadeFlag();
@@ -300,10 +298,10 @@ void UpdateCamera( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void DrawCamera( void )
- ˆø”:		‚È‚µ
- –ß‚è’l:	‚È‚µ
- à–¾:		•`‰æ
+ ï¿½Öï¿½ï¿½ï¿½:	void DrawCamera( void )
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½È‚ï¿½
+ ï¿½ß‚ï¿½l:	ï¿½È‚ï¿½
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½`ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void DrawCamera( void )
 {
@@ -314,56 +312,56 @@ void DrawCamera( void )
 
 #endif
 
-	//	ƒfƒoƒCƒX‚ÌŽæ“¾
+	//	ï¿½fï¿½oï¿½Cï¿½Xï¿½ÌŽæ“¾
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 
-	//	ƒ[ƒ‹ƒhÀ•W•ÏŠ·
-	//	ƒ[ƒ‹ƒhƒ}ƒgƒŠƒNƒX‚Ìì¬
+	//	ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½hï¿½ï¿½ï¿½Wï¿½ÏŠï¿½
+	//	ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½hï¿½}ï¿½gï¿½ï¿½ï¿½Nï¿½Xï¿½Ìì¬
 	D3DXMATRIX mtxWorld;
 
-	D3DXMatrixIdentity( &mtxWorld );	//	s—ñ‚ð’PˆÊs—ñ‚É‚·‚é
+	D3DXMatrixIdentity( &mtxWorld );	//	ï¿½sï¿½ï¿½ï¿½Pï¿½Êsï¿½ï¿½É‚ï¿½ï¿½ï¿½
 
-	//	ƒfƒoƒCƒX‚Éƒ[ƒ‹ƒh•ÏŠ·s—ñ‚ðÝ’è
+	//	ï¿½fï¿½oï¿½Cï¿½Xï¿½Éƒï¿½ï¿½[ï¿½ï¿½ï¿½hï¿½ÏŠï¿½ï¿½sï¿½ï¿½ï¿½Ý’ï¿½
 	pDevice -> SetTransform( D3DTS_WORLD , &mtxWorld );
 
-	//	ƒrƒ…[À•W•ÏŠ·
+	//	ï¿½rï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Wï¿½ÏŠï¿½
 	D3DXMatrixLookAtLH( &g_mtxView , &g_posEye , &g_posAt , &g_vecUp );
 
-	//	ƒfƒoƒCƒX‚Éƒrƒ…[•ÏŠ·s—ñ‚ðÝ’è
+	//	ï¿½fï¿½oï¿½Cï¿½Xï¿½Éƒrï¿½ï¿½ï¿½[ï¿½ÏŠï¿½ï¿½sï¿½ï¿½ï¿½Ý’ï¿½
 	pDevice -> SetTransform( D3DTS_VIEW , &g_mtxView );
 
-	//	ƒvƒƒWƒFƒNƒVƒ‡ƒ“•ÏŠ·
-	//	ƒvƒƒWƒFƒNƒVƒ‡ƒ“s—ñ‚Ìì¬
+	//	ï¿½vï¿½ï¿½ï¿½Wï¿½Fï¿½Nï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ÏŠï¿½
+	//	ï¿½vï¿½ï¿½ï¿½Wï¿½Fï¿½Nï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½Ìì¬
 	D3DXMATRIX mtxProj;
 
 #if 0
-	//	ƒp[ƒXƒyƒNƒeƒBƒus—ñ
+	//	ï¿½pï¿½[ï¿½Xï¿½yï¿½Nï¿½eï¿½Bï¿½uï¿½sï¿½ï¿½
 	D3DXMatrixPerspectiveFovLH( &mtxProj ,
-								D3DX_PI / 3.0f ,	//	‰æŠp
-								( float )SCREEN_WIDTH / ( SCREEN_HEIGHT / 2 ) ,	//	ƒAƒXƒyƒNƒg”ä
-								CAMERA_NEAR ,	//	near	’l‚ðâ‘Î0ˆÈ‰º‚É‚µ‚È‚¢
+								D3DX_PI / 3.0f ,	//	ï¿½ï¿½p
+								( float )SCREEN_WIDTH / ( SCREEN_HEIGHT / 2 ) ,	//	ï¿½Aï¿½Xï¿½yï¿½Nï¿½gï¿½ï¿½
+								CAMERA_NEAR ,	//	near	ï¿½lï¿½ï¿½ï¿½ï¿½0ï¿½È‰ï¿½ï¿½É‚ï¿½ï¿½È‚ï¿½
 								CAMERA_FAR );	//	far
 
 #endif
 
-	//	ƒp[ƒXƒyƒNƒeƒBƒus—ñ
+	//	ï¿½pï¿½[ï¿½Xï¿½yï¿½Nï¿½eï¿½Bï¿½uï¿½sï¿½ï¿½
 	D3DXMatrixPerspectiveFovLH( &mtxProj ,
-								D3DX_PI / 3.0f ,	//	‰æŠp
-								( float )SCREEN_WIDTH / SCREEN_HEIGHT ,	//	ƒAƒXƒyƒNƒg”ä
-								CAMERA_NEAR ,	//	near	’l‚ðâ‘Î0ˆÈ‰º‚É‚µ‚È‚¢
+								D3DX_PI / 3.0f ,	//	ï¿½ï¿½p
+								( float )SCREEN_WIDTH / SCREEN_HEIGHT ,	//	ï¿½Aï¿½Xï¿½yï¿½Nï¿½gï¿½ï¿½
+								CAMERA_NEAR ,	//	near	ï¿½lï¿½ï¿½ï¿½ï¿½0ï¿½È‰ï¿½ï¿½É‚ï¿½ï¿½È‚ï¿½
 								CAMERA_FAR );	//	far
 
-	//	ƒfƒoƒCƒX‚ÉƒvƒƒWƒFƒNƒVƒ‡ƒ“•ÏŠ·s—ñ‚ðÝ’è
+	//	ï¿½fï¿½oï¿½Cï¿½Xï¿½Éƒvï¿½ï¿½ï¿½Wï¿½Fï¿½Nï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ÏŠï¿½ï¿½sï¿½ï¿½ï¿½Ý’ï¿½
 	pDevice -> SetTransform( D3DTS_PROJECTION , &mtxProj );
 
 
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void SetCamera( D3DXVECTOR3 Pos )
- ˆø”:		D3DXVECTOR3 Pos		À•W
- –ß‚è’l:	‚È‚µ
- à–¾:		ƒJƒƒ‰‚ÌƒZƒbƒg
+ ï¿½Öï¿½ï¿½ï¿½:	void SetCamera( D3DXVECTOR3 Pos )
+ ï¿½ï¿½ï¿½ï¿½:		D3DXVECTOR3 Pos		ï¿½ï¿½ï¿½W
+ ï¿½ß‚ï¿½l:	ï¿½È‚ï¿½
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ÌƒZï¿½bï¿½g
 -----------------------------------------------------------------------------*/
 void SetCamera( D3DXVECTOR3 Pos , D3DXVECTOR3 Rot , float Rot2 )
 {
@@ -397,10 +395,10 @@ void SetCamera( D3DXVECTOR3 Pos , D3DXVECTOR3 Rot , float Rot2 )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	D3DXMATRIX *GetView( void )
- ˆø”:		‚È‚µ
- –ß‚è’l:	‚È‚µ
- à–¾:		ƒrƒ…[s—ñ‚Ìî•ñŽæ“¾
+ ï¿½Öï¿½ï¿½ï¿½:	D3DXMATRIX *GetView( void )
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½È‚ï¿½
+ ï¿½ß‚ï¿½l:	ï¿½È‚ï¿½
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½rï¿½ï¿½ï¿½[ï¿½sï¿½ï¿½Ìï¿½ï¿½æ“¾
 -----------------------------------------------------------------------------*/
 D3DXMATRIX GetView( void )
 {
@@ -409,10 +407,10 @@ D3DXMATRIX GetView( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void DebugCamera( void )
- ˆø”:		‚È‚µ
- –ß‚è’l:	‚È‚µ
- à–¾:		ƒJƒƒ‰‚Ì•¶Žš•\Ž¦
+ ï¿½Öï¿½ï¿½ï¿½:	void DebugCamera( void )
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½È‚ï¿½
+ ï¿½ß‚ï¿½l:	ï¿½È‚ï¿½
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½Ì•ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 #ifdef _DEBUG
 void DebugCamera( void )
@@ -426,9 +424,9 @@ void DebugCamera( void )
 
 	char aStr00[ 256 ] , aStr01[ 256 ] , aStr02[ 256 ];
 
-	sprintf( &aStr00[ 0 ] , "[ ƒJƒƒ‰À•W ] ( %f : %f : %f )" , g_posEye.x , g_posEye.y , g_posEye.z );
-	sprintf( &aStr01[ 0 ] , "[ ’Ž‹“_À•W ] ( %f : %f : %f )" , g_posAt.x , g_posAt.y , g_posAt.z );
-	sprintf( &aStr02[ 0 ] , "*** ƒJƒƒ‰‘€ì ***" );
+	sprintf( &aStr00[ 0 ] , "[ ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½W ] ( %f : %f : %f )" , g_posEye.x , g_posEye.y , g_posEye.z );
+	sprintf( &aStr01[ 0 ] , "[ ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½W ] ( %f : %f : %f )" , g_posAt.x , g_posAt.y , g_posAt.z );
+	sprintf( &aStr02[ 0 ] , "*** ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ***" );
 
 	g_pFontCamera -> DrawText( NULL ,
 						&aStr00[ 0 ] ,

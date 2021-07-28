@@ -1,17 +1,15 @@
 /*=============================================================================
 
-		ƒ|[ƒY[ Pause.cpp ]
+		ï¿½|ï¿½[ï¿½Y[ Pause.cpp ]
 
 -------------------------------------------------------------------------------
-	¡@»ìÒ
-		‘å–ì‘ñ–ç
 
-	¡@ì¬“ú
+	ï¿½ï¿½ï¿½@ï¿½ì¬ï¿½ï¿½
 		2017/01/16
 -------------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
-	ƒwƒbƒ_ƒtƒ@ƒCƒ‹
+	ï¿½wï¿½bï¿½_ï¿½tï¿½@ï¿½Cï¿½ï¿½
 -----------------------------------------------------------------------------*/
 #include "main.h"
 #include "input.h"
@@ -20,98 +18,98 @@
 #include "sound.h"
 
 /*-----------------------------------------------------------------------------
-	’è”’è‹`
+	ï¿½è”ï¿½ï¿½`
 -----------------------------------------------------------------------------*/
-#define POLYGON00_TEXTURENAME "data/TEXTURE/GAME/pauseBg.jpg"	//	ƒ|[ƒY”wŒi
-#define POLYGON01_TEXTURENAME "data/TEXTURE/GAME/continue.png"	//	ƒRƒ“ƒeƒBƒjƒ…[
-#define POLYGON02_TEXTURENAME "data/TEXTURE/GAME/quit.png"	//	I—¹
-#define POLYGON03_TEXTURENAME "data/TEXTURE/GAME/pauseBg1.jpg"	//	ƒ|[ƒY”wŒi1
-#define POLYGON04_TEXTURENAME "data/TEXTURE/GAME/pausescroll.png"	//	ƒ|[ƒYƒXƒNƒ[ƒ‹
+#define POLYGON00_TEXTURENAME "data/TEXTURE/GAME/pauseBg.jpg"	//	ï¿½|ï¿½[ï¿½Yï¿½wï¿½i
+#define POLYGON01_TEXTURENAME "data/TEXTURE/GAME/continue.png"	//	ï¿½Rï¿½ï¿½ï¿½eï¿½Bï¿½jï¿½ï¿½ï¿½[
+#define POLYGON02_TEXTURENAME "data/TEXTURE/GAME/quit.png"	//	ï¿½Iï¿½ï¿½
+#define POLYGON03_TEXTURENAME "data/TEXTURE/GAME/pauseBg1.jpg"	//	ï¿½|ï¿½[ï¿½Yï¿½wï¿½i1
+#define POLYGON04_TEXTURENAME "data/TEXTURE/GAME/pausescroll.png"	//	ï¿½|ï¿½[ï¿½Yï¿½Xï¿½Nï¿½ï¿½ï¿½[ï¿½ï¿½
 
-#define MAX_TEXTURE ( 5 )	//	Å‘åƒeƒNƒXƒ`ƒƒ”
+#define MAX_TEXTURE ( 5 )	//	ï¿½Å‘ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½
 
-#define MIN_ALPHA ( 0.5f )	//	ƒ¿’l‚ÌÅ¬’l
+#define MIN_ALPHA ( 0.5f )	//	ï¿½ï¿½ï¿½lï¿½ÌÅï¿½ï¿½l
 
 /*-----------------------------------------------------------------------------
-	—ñ‹“
+	ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 typedef enum
 {
 	TYPE_NONE = 0,
-	TYPE_CONTINUE,	//	ƒRƒ“ƒeƒBƒjƒ…[
-	TYPE_QUIT,		//	I—¹
+	TYPE_CONTINUE,	//	ï¿½Rï¿½ï¿½ï¿½eï¿½Bï¿½jï¿½ï¿½ï¿½[
+	TYPE_QUIT,		//	ï¿½Iï¿½ï¿½
 	TYPE_MAX
 
 }TYPE_PAUSE;
 
 /*-----------------------------------------------------------------------------
-	\‘¢‘Ì
+	ï¿½\ï¿½ï¿½ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 typedef struct
 {
-	D3DXVECTOR2 Pos;	//	À•W
-	D3DXVECTOR2 Size;	//	‘å‚«‚³
-	D3DXCOLOR Color;	//	F
+	D3DXVECTOR2 Pos;	//	ï¿½ï¿½ï¿½W
+	D3DXVECTOR2 Size;	//	ï¿½å‚«ï¿½ï¿½
+	D3DXCOLOR Color;	//	ï¿½F
 
 }PAUSE;
 
 /*-----------------------------------------------------------------------------
-	ƒvƒƒgƒ^ƒCƒvéŒ¾
+	ï¿½vï¿½ï¿½ï¿½gï¿½^ï¿½Cï¿½vï¿½éŒ¾
 -----------------------------------------------------------------------------*/
 
-//	’¸“_‚Ìì¬
+//	ï¿½ï¿½ï¿½_ï¿½Ìì¬
 HRESULT MakeVertexPause( LPDIRECT3DDEVICE9 pDevice );
 
-//	’¸“_‚Ì•ÏX
+//	ï¿½ï¿½ï¿½_ï¿½Ì•ÏX
 void VerTexPause( VERTEX_2D* pVtx , int Cnt );
 
-//	UV’l‚Ì•ÏX
+//	UVï¿½lï¿½Ì•ÏX
 void VerTexUVPause( VERTEX_2D* pVtx , int Cnt );
 
-//	ƒL[ƒ{[ƒh‚Å‚ÌˆÚ“®
+//	ï¿½Lï¿½[ï¿½{ï¿½[ï¿½hï¿½Å‚ÌˆÚ“ï¿½
 void PauseCursorKeyBoard( void );
 
-//	‘JˆÚ
+//	ï¿½Jï¿½ï¿½
 void PauseTransition( void );
 
 /*-----------------------------------------------------------------------------
-	ƒOƒ[ƒoƒ‹•Ï”
+	ï¿½Oï¿½ï¿½ï¿½[ï¿½oï¿½ï¿½ï¿½Ïï¿½
 -----------------------------------------------------------------------------*/
-LPDIRECT3DVERTEXBUFFER9 g_pVtxBufferPause = NULL;	//	’¸“_ƒoƒbƒtƒ@ƒCƒ“ƒ^ƒtƒF[ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-LPDIRECT3DTEXTURE9 g_pTexturePause[ MAX_TEXTURE ] = { NULL };//	ƒeƒNƒXƒ`ƒƒƒCƒ“ƒ^[ƒtƒF[ƒX
+LPDIRECT3DVERTEXBUFFER9 g_pVtxBufferPause = NULL;	//	ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½^ï¿½tï¿½Fï¿½[ï¿½Xï¿½Ö‚Ìƒ|ï¿½Cï¿½ï¿½ï¿½^
+LPDIRECT3DTEXTURE9 g_pTexturePause[ MAX_TEXTURE ] = { NULL };//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½^ï¿½[ï¿½tï¿½Fï¿½[ï¿½X
 
-PAUSE g_Pause[ MAX_TEXTURE ];	//	ƒ|[ƒY\‘¢‘Ì
+PAUSE g_Pause[ MAX_TEXTURE ];	//	ï¿½|ï¿½[ï¿½Yï¿½\ï¿½ï¿½ï¿½ï¿½
 
-TYPE_PAUSE g_TypePause;	//	ƒ|[ƒY—ñ‹“
+TYPE_PAUSE g_TypePause;	//	ï¿½|ï¿½[ï¿½Yï¿½ï¿½
 
-D3DXVECTOR2 g_UV_Scroll;	//	UVÀ•W
+D3DXVECTOR2 g_UV_Scroll;	//	UVï¿½ï¿½ï¿½W
 
-bool g_PauseFlag;	//	ƒ|[ƒYƒtƒ‰ƒO
+bool g_PauseFlag;	//	ï¿½|ï¿½[ï¿½Yï¿½tï¿½ï¿½ï¿½O
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void InitPause( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		‰Šú‰»
+ ï¿½Öï¿½ï¿½ï¿½:	void InitPause( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void InitPause( void )
 {
 
-	//	ƒfƒoƒCƒX‚Ìæ“¾
+	//	ï¿½fï¿½oï¿½Cï¿½Xï¿½Ìæ“¾
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 
 
-	//	ƒeƒNƒXƒ`ƒƒ‚ÌƒGƒ‰[ƒ`ƒFƒbƒN
+	//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌƒGï¿½ï¿½ï¿½[ï¿½`ï¿½Fï¿½bï¿½N
 	if( FAILED( D3DXCreateTextureFromFile(  pDevice , POLYGON00_TEXTURENAME , &g_pTexturePause[ 0 ] ) ) )
 	{
 
-		MessageBox( NULL , "[ Pause.cpp ]\n POLYGON00_TEXTURENAME\n‚Ì“Ç‚İ‚İ‚ª‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½" , "Œx" , MB_OK | MB_ICONHAND );
+		MessageBox( NULL , "[ Pause.cpp ]\n POLYGON00_TEXTURENAME\nï¿½Ì“Ç‚İï¿½ï¿½İ‚ï¿½ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½" , "ï¿½xï¿½ï¿½" , MB_OK | MB_ICONHAND );
 
 	}	//	end of if
 	if( FAILED( D3DXCreateTextureFromFile(  pDevice , POLYGON01_TEXTURENAME , &g_pTexturePause[ 1 ] ) ) )
 	{
 
-		MessageBox( NULL , "[ Pause.cpp ]\n POLYGON01_TEXTURENAME\n‚Ì“Ç‚İ‚İ‚ª‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½" , "Œx" , MB_OK | MB_ICONHAND );
+		MessageBox( NULL , "[ Pause.cpp ]\n POLYGON01_TEXTURENAME\nï¿½Ì“Ç‚İï¿½ï¿½İ‚ï¿½ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½" , "ï¿½xï¿½ï¿½" , MB_OK | MB_ICONHAND );
 
 	}	//	end of if
 
@@ -119,110 +117,110 @@ void InitPause( void )
 	if( FAILED( D3DXCreateTextureFromFile(  pDevice , POLYGON02_TEXTURENAME , &g_pTexturePause[ 2 ] ) ) )
 	{
 
-		MessageBox( NULL , "[ Pause.cpp ]\n POLYGON02_TEXTURENAME\n‚Ì“Ç‚İ‚İ‚ª‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½" , "Œx" , MB_OK | MB_ICONHAND );
+		MessageBox( NULL , "[ Pause.cpp ]\n POLYGON02_TEXTURENAME\nï¿½Ì“Ç‚İï¿½ï¿½İ‚ï¿½ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½" , "ï¿½xï¿½ï¿½" , MB_OK | MB_ICONHAND );
 
 	}	//	end of if
 
 	if( FAILED( D3DXCreateTextureFromFile(  pDevice , POLYGON03_TEXTURENAME , &g_pTexturePause[ 3 ] ) ) )
 	{
 
-		MessageBox( NULL , "[ Pause.cpp ]\n POLYGON03_TEXTURENAME\n‚Ì“Ç‚İ‚İ‚ª‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½" , "Œx" , MB_OK | MB_ICONHAND );
+		MessageBox( NULL , "[ Pause.cpp ]\n POLYGON03_TEXTURENAME\nï¿½Ì“Ç‚İï¿½ï¿½İ‚ï¿½ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½" , "ï¿½xï¿½ï¿½" , MB_OK | MB_ICONHAND );
 
 	}	//	end of if
 
 	if( FAILED( D3DXCreateTextureFromFile(  pDevice , POLYGON04_TEXTURENAME , &g_pTexturePause[ 4 ] ) ) )
 	{
 
-		MessageBox( NULL , "[ Pause.cpp ]\n POLYGON04_TEXTURENAME\n‚Ì“Ç‚İ‚İ‚ª‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½" , "Œx" , MB_OK | MB_ICONHAND );
+		MessageBox( NULL , "[ Pause.cpp ]\n POLYGON04_TEXTURENAME\nï¿½Ì“Ç‚İï¿½ï¿½İ‚ï¿½ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½" , "ï¿½xï¿½ï¿½" , MB_OK | MB_ICONHAND );
 
 	}	//	end of if
 
 
-	//	’¸“_‚Ìì¬
+	//	ï¿½ï¿½ï¿½_ï¿½Ìì¬
 	MakeVertexPause( pDevice );
 
 
-	//	\‘¢‘Ì‰Šú‰»
+	//	ï¿½\ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
 
 	for( int CntPause = 0 ; CntPause < MAX_TEXTURE ; CntPause++ )
 	{
 
-		//	F
+		//	ï¿½F
 		g_Pause[ CntPause ].Color = D3DXCOLOR( 1.0f , 1.0f , 1.0f , 1.0f );
 
 	}	//	end of for
 
 
-	//	ƒ|[ƒY”wŒi
-	//	À•W
+	//	ï¿½|ï¿½[ï¿½Yï¿½wï¿½i
+	//	ï¿½ï¿½ï¿½W
 	g_Pause[ 0 ].Pos = D3DXVECTOR2( 0.0f , 0.0f );
 
-	//	‘å‚«‚³
+	//	ï¿½å‚«ï¿½ï¿½
 	g_Pause[ 0 ].Size = D3DXVECTOR2( SCREEN_WIDTH , SCREEN_HEIGHT );
 
-	//	F
+	//	ï¿½F
 	g_Pause[ 0 ].Color = D3DXCOLOR( 1.0f , 1.0f , 1.0f , 0.5f );
 
 
-	//	ƒRƒ“ƒeƒBƒjƒ…[
-	//	À•W
+	//	ï¿½Rï¿½ï¿½ï¿½eï¿½Bï¿½jï¿½ï¿½ï¿½[
+	//	ï¿½ï¿½ï¿½W
 	g_Pause[ TYPE_CONTINUE ].Pos = D3DXVECTOR2( 330.0f , 80.0f );
 
-	//	‘å‚«‚³
+	//	ï¿½å‚«ï¿½ï¿½
 	g_Pause[ TYPE_CONTINUE ].Size = D3DXVECTOR2( 200.0f , 100.0f );
 
 
-	//	I—¹
-	//	À•W
+	//	ï¿½Iï¿½ï¿½
+	//	ï¿½ï¿½ï¿½W
 	g_Pause[ TYPE_QUIT ].Pos = D3DXVECTOR2( g_Pause[ TYPE_CONTINUE ].Pos.x , g_Pause[ TYPE_CONTINUE ].Pos.y + 325.0f );
 
-	//	‘å‚«‚³
+	//	ï¿½å‚«ï¿½ï¿½
 	g_Pause[ TYPE_QUIT ].Size = g_Pause[ TYPE_CONTINUE ].Size;
 
-	//	F
+	//	ï¿½F
 	g_Pause[ TYPE_QUIT ].Color = D3DXCOLOR( 1.0f , 1.0f , 1.0f , 0.5f );
 
 
-	//	ƒ|[ƒY”wŒi1
-	//	À•W
+	//	ï¿½|ï¿½[ï¿½Yï¿½wï¿½i1
+	//	ï¿½ï¿½ï¿½W
 	g_Pause[ 3 ].Pos = D3DXVECTOR2( SCREEN_WIDTH * 0.3f , SCREEN_HEIGHT * 0.05f );
 
-	//	‘å‚«‚³
+	//	ï¿½å‚«ï¿½ï¿½
 	g_Pause[ 3 ].Size = D3DXVECTOR2( 350.0f , 500.0f );
 
 
-	//	ƒ|[ƒYƒXƒNƒ[ƒ‹
-	//	À•W
+	//	ï¿½|ï¿½[ï¿½Yï¿½Xï¿½Nï¿½ï¿½ï¿½[ï¿½ï¿½
+	//	ï¿½ï¿½ï¿½W
 	g_Pause[ 4 ].Pos = D3DXVECTOR2( SCREEN_WIDTH * 0.31f , SCREEN_HEIGHT * 0.08f );
 
-	//	‘å‚«‚³
+	//	ï¿½å‚«ï¿½ï¿½
 	g_Pause[ 4 ].Size = D3DXVECTOR2( 330.0f , 475.0f );
 
 
-	//	—ñ‹“‰Šú‰»
+	//	ï¿½ñ‹“ï¿½ï¿½ï¿½ï¿½ï¿½
 	g_TypePause = TYPE_CONTINUE;
 
 
-	//	•Ï”‰Šú‰»
+	//	ï¿½Ïï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	//	UVÀ•W
+	//	UVï¿½ï¿½ï¿½W
 	g_UV_Scroll = D3DXVECTOR2( 0.0f , 0.0f );
 
-	//	ƒ|[ƒYƒtƒ‰ƒO
+	//	ï¿½|ï¿½[ï¿½Yï¿½tï¿½ï¿½ï¿½O
 	g_PauseFlag = false;
 
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void UninitPause( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		I—¹
+ ï¿½Öï¿½ï¿½ï¿½:	void UninitPause( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½Iï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void UninitPause( void )
 {
 
-	if(g_pVtxBufferPause != NULL)	//’¸“_ƒoƒbƒtƒ@‚ÌƒCƒ“ƒ^[ƒtƒF[ƒXƒ|ƒCƒ“ƒ^‚Ì‰ğ•ú
+	if(g_pVtxBufferPause != NULL)	//ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½ÌƒCï¿½ï¿½ï¿½^ï¿½[ï¿½tï¿½Fï¿½[ï¿½Xï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½Ì‰ï¿½ï¿½
 	{
 		g_pVtxBufferPause -> Release();
 		g_pVtxBufferPause  = NULL;
@@ -233,7 +231,7 @@ void UninitPause( void )
 	for( int Cnt = 0 ; Cnt < MAX_TEXTURE ; Cnt++ )
 	{
 
-		if( g_pTexturePause[ Cnt ] != NULL )	//	ƒeƒNƒXƒ`ƒƒƒ|ƒŠƒSƒ“ŠJ•ú
+		if( g_pTexturePause[ Cnt ] != NULL )	//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½Jï¿½ï¿½
 		{
 			g_pTexturePause[ Cnt ] -> Release();
 			g_pTexturePause[ Cnt ] = NULL;
@@ -245,33 +243,33 @@ void UninitPause( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void UpdatePause( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		XV
+ ï¿½Öï¿½ï¿½ï¿½:	void UpdatePause( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½Xï¿½V
 -----------------------------------------------------------------------------*/
 void UpdatePause( void )
 {
 
-	//	‰¼‘zƒAƒhƒŒƒX‚ğæ“¾‚·‚éƒ|ƒCƒ“ƒ^•Ï”
+	//	ï¿½ï¿½ï¿½zï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½Ïï¿½
 	VERTEX_2D* pVtx;
 
 
-	// ƒoƒbƒtƒ@‚ğƒƒbƒN‚µA‰¼‘zƒAƒhƒŒƒX‚ğæ“¾
+	// ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½zï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½æ“¾
 	g_pVtxBufferPause -> Lock ( 0 , 0 , ( void** )&pVtx , 0 );
 
 
 	for( int Cnt = 0 ; Cnt < MAX_TEXTURE ; Cnt++ )
 	{
 
-		//	ƒ|[ƒY’†‚¾‚Á‚½‚ç
+		//	ï¿½|ï¿½[ï¿½Yï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if( g_PauseFlag == true )
 		{
 
-			//	’¸“_‚Ì•ÏX
+			//	ï¿½ï¿½ï¿½_ï¿½Ì•ÏX
 			VerTexPause( pVtx , Cnt );
 
-			//	UV’l‚Ì•ÏX
+			//	UVï¿½lï¿½Ì•ÏX
 			VerTexUVPause( pVtx , MAX_TEXTURE - 1 );
 
 		}	//	end of if
@@ -279,34 +277,34 @@ void UpdatePause( void )
 	}	//	end of for
 
 
-	g_pVtxBufferPause -> Unlock(); //‚±‚êˆÈ~G‚ê‚Ä‚Í‚¢‚¯‚È‚¢
+	g_pVtxBufferPause -> Unlock(); //ï¿½ï¿½ï¿½ï¿½È~ï¿½Gï¿½ï¿½Ä‚Í‚ï¿½ï¿½ï¿½ï¿½È‚ï¿½
 
 
 	if( GetKeyboardTrigger( DIK_P ) )
 	{
 
-		//	ƒ|[ƒYƒtƒ‰ƒO‚ğON‚É‚·‚é
+		//	ï¿½|ï¿½[ï¿½Yï¿½tï¿½ï¿½ï¿½Oï¿½ï¿½ONï¿½É‚ï¿½ï¿½ï¿½
 		g_PauseFlag = true;
 
-		//	‰¹ŠyÄ¶
+		//	ï¿½ï¿½ï¿½yï¿½Äï¿½
 		PlaySound( SOUND_LABEL_SE_MENU );
 
 	}	//	end of if
 
 
-	//	ƒ|[ƒY’†‚¾‚Á‚½‚ç
+	//	ï¿½|ï¿½[ï¿½Yï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if( g_PauseFlag == true )
 	{
 
-		//	ƒL[ƒ{[ƒh‚Å‚ÌˆÚ“®
+		//	ï¿½Lï¿½[ï¿½{ï¿½[ï¿½hï¿½Å‚ÌˆÚ“ï¿½
 		PauseCursorKeyBoard();
 
 
-		//	‘JˆÚ
+		//	ï¿½Jï¿½ï¿½
 		PauseTransition();
 
 
-		//	ƒeƒNƒXƒ`ƒƒƒAƒjƒ[ƒVƒ‡ƒ“
+		//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½
 		g_UV_Scroll.x += 0.004f;
 		g_UV_Scroll.y += 0.004f;
 
@@ -315,56 +313,56 @@ void UpdatePause( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void DrawPause( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		•`‰æ
+ ï¿½Öï¿½ï¿½ï¿½:	void DrawPause( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½`ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void DrawPause( void )
 {
 
-	//	ƒfƒoƒCƒX‚Ìæ“¾
+	//	ï¿½fï¿½oï¿½Cï¿½Xï¿½Ìæ“¾
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 
-	//	’¸“_ƒtƒH[ƒ}ƒbƒg‚Ìİ’è
+	//	ï¿½ï¿½ï¿½_ï¿½tï¿½Hï¿½[ï¿½}ï¿½bï¿½gï¿½Ìİ’ï¿½
 	pDevice -> SetFVF( FVF_VERTEX_2D );
 
-	//	ƒXƒgƒŠ[ƒ€‚ğİ’è‚·‚é
+	//	ï¿½Xï¿½gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½İ’è‚·ï¿½ï¿½
 	pDevice -> SetStreamSource( 0 , g_pVtxBufferPause , 0 , sizeof( VERTEX_2D ) );
 
 
-	//	ƒ|[ƒY’†‚¾‚Á‚½‚ç
+	//	ï¿½|ï¿½[ï¿½Yï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if( g_PauseFlag == true )
 	{
 
-		//	ƒeƒNƒXƒ`ƒƒ‚ÌƒZƒbƒg
+		//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌƒZï¿½bï¿½g
 		pDevice -> SetTexture( 0 , g_pTexturePause[ 0 ] );
 
-		//	ƒ|ƒŠƒSƒ“‚Ì•`‰æ
+		//	ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½Ì•`ï¿½ï¿½
 		pDevice -> DrawPrimitive( D3DPT_TRIANGLESTRIP , 0 , NUM_POLYGON);
 
-		//	ƒeƒNƒXƒ`ƒƒ‚ÌƒZƒbƒg
+		//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌƒZï¿½bï¿½g
 		pDevice -> SetTexture( 0 , g_pTexturePause[ 3 ] );
 
-		//	ƒ|ƒŠƒSƒ“‚Ì•`‰æ
+		//	ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½Ì•`ï¿½ï¿½
 		pDevice -> DrawPrimitive( D3DPT_TRIANGLESTRIP , 12 , NUM_POLYGON);
 
-		//	ƒeƒNƒXƒ`ƒƒ‚ÌƒZƒbƒg
+		//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌƒZï¿½bï¿½g
 		pDevice -> SetTexture( 0 , g_pTexturePause[ 4 ] );
 
-		//	ƒ|ƒŠƒSƒ“‚Ì•`‰æ
+		//	ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½Ì•`ï¿½ï¿½
 		pDevice -> DrawPrimitive( D3DPT_TRIANGLESTRIP , 16 , NUM_POLYGON);
 
-		//	ƒeƒNƒXƒ`ƒƒ‚ÌƒZƒbƒg
+		//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌƒZï¿½bï¿½g
 		pDevice -> SetTexture( 0 , g_pTexturePause[ 1 ] );
 
-		//	ƒ|ƒŠƒSƒ“‚Ì•`‰æ
+		//	ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½Ì•`ï¿½ï¿½
 		pDevice -> DrawPrimitive( D3DPT_TRIANGLESTRIP , 4 , NUM_POLYGON);
 
-		//	ƒeƒNƒXƒ`ƒƒ‚ÌƒZƒbƒg
+		//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌƒZï¿½bï¿½g
 		pDevice -> SetTexture( 0 , g_pTexturePause[ 2 ] );
 
-		//	ƒ|ƒŠƒSƒ“‚Ì•`‰æ
+		//	ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½Ì•`ï¿½ï¿½
 		pDevice -> DrawPrimitive( D3DPT_TRIANGLESTRIP , 8 , NUM_POLYGON);
 
 	}	//	end of if
@@ -372,10 +370,10 @@ void DrawPause( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void PauseCursorKeyBoard( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		ƒL[ƒ{[ƒh‚Å‚ÌˆÚ“®
+ ï¿½Öï¿½ï¿½ï¿½:	void PauseCursorKeyBoard( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½Lï¿½[ï¿½{ï¿½[ï¿½hï¿½Å‚ÌˆÚ“ï¿½
 -----------------------------------------------------------------------------*/
 void PauseCursorKeyBoard( void )
 {
@@ -386,11 +384,11 @@ void PauseCursorKeyBoard( void )
 		if( g_TypePause == TYPE_QUIT )
 		{
 
-			//	ƒ^ƒCƒv‚ÌØ‚è‘Ö‚¦
+			//	ï¿½^ï¿½Cï¿½vï¿½ÌØ‚ï¿½Ö‚ï¿½
 			g_TypePause = TYPE_CONTINUE;
 
 
-			//	ƒ¿’l‚Ì•ÏX
+			//	ï¿½ï¿½ï¿½lï¿½Ì•ÏX
 			g_Pause[ TYPE_CONTINUE ].Color.a = 1.0f;
 			g_Pause[ TYPE_QUIT ].Color.a = MIN_ALPHA;
 
@@ -404,11 +402,11 @@ void PauseCursorKeyBoard( void )
 		if( g_TypePause == TYPE_CONTINUE )
 		{
 
-			//	ƒ^ƒCƒv‚ÌØ‚è‘Ö‚¦
+			//	ï¿½^ï¿½Cï¿½vï¿½ÌØ‚ï¿½Ö‚ï¿½
 			g_TypePause = TYPE_QUIT;
 
 
-			//	ƒ¿’l‚Ì•ÏX
+			//	ï¿½ï¿½ï¿½lï¿½Ì•ÏX
 			g_Pause[ TYPE_CONTINUE ].Color.a = MIN_ALPHA;
 			g_Pause[ TYPE_QUIT ].Color.a = 1.0f;
 
@@ -419,10 +417,10 @@ void PauseCursorKeyBoard( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void PauseTransition( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		‘JˆÚ
+ ï¿½Öï¿½ï¿½ï¿½:	void PauseTransition( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½Jï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void PauseTransition( void )
 {
@@ -440,7 +438,7 @@ void PauseTransition( void )
 		else if( g_TypePause == TYPE_QUIT )
 		{
 
-			//	ƒtƒF[ƒhó‘Ôİ’è
+			//	ï¿½tï¿½Fï¿½[ï¿½hï¿½ï¿½Ôİ’ï¿½
 			SetFade( FADE_OUT , MODE_TITLE );
 
 		}	//	end of else if
@@ -450,20 +448,20 @@ void PauseTransition( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	HRESULT MakeVertexPause( LPDIRECT3DDEVICE9 pDevice )
- ˆø”:		LPDIRECT3DDEVICE9 pDevice	ƒfƒoƒCƒX
- –ß‚è’l:	—Ç‚¢ê‡	return S_OK;
-			ƒ_ƒ‚Èê‡	return E_FAIL;
- à–¾:		’¸“_‚Ìì¬
+ ï¿½Öï¿½ï¿½ï¿½:	HRESULT MakeVertexPause( LPDIRECT3DDEVICE9 pDevice )
+ ï¿½ï¿½ï¿½ï¿½:		LPDIRECT3DDEVICE9 pDevice	ï¿½fï¿½oï¿½Cï¿½X
+ ï¿½ß‚ï¿½l:	ï¿½Ç‚ï¿½ï¿½ê‡	return S_OK;
+			ï¿½_ï¿½ï¿½ï¿½Èê‡	return E_FAIL;
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½ï¿½ï¿½_ï¿½Ìì¬
 -----------------------------------------------------------------------------*/
 HRESULT MakeVertexPause( LPDIRECT3DDEVICE9 pDevice )
 {
 
-	//	‰¼‘zƒAƒhƒŒƒX‚ğæ“¾‚·‚éƒ|ƒCƒ“ƒ^•Ï”
+	//	ï¿½ï¿½ï¿½zï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½Ïï¿½
 	VERTEX_2D* pVtx;
 
 
-	// FAILEDƒ}ƒNƒ‚ÅƒGƒ‰[ƒ`ƒFƒbƒN
+	// FAILEDï¿½}ï¿½Nï¿½ï¿½ï¿½ÅƒGï¿½ï¿½ï¿½[ï¿½`ï¿½Fï¿½bï¿½N
 	if ( FAILED ( pDevice -> CreateVertexBuffer ( sizeof ( VERTEX_2D ) * NUM_VERTEX * MAX_TEXTURE , D3DUSAGE_WRITEONLY , FVF_VERTEX_2D , D3DPOOL_MANAGED , &g_pVtxBufferPause , NULL ) ) )
 	{
 
@@ -472,32 +470,32 @@ HRESULT MakeVertexPause( LPDIRECT3DDEVICE9 pDevice )
 	}	//	end of if
 
 
-	// ƒoƒbƒtƒ@‚ğƒƒbƒN‚µA‰¼‘zƒAƒhƒŒƒX‚ğæ“¾
+	// ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½zï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½æ“¾
 	g_pVtxBufferPause -> Lock ( 0 , 0 , ( void** )&pVtx , 0 );
 
 
 	for( int Cnt = 0 ; Cnt < MAX_TEXTURE ; Cnt++ )
 	{
 
-		//	’¸“_À•W‚Ìİ’è
+		//	ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½Wï¿½Ìİ’ï¿½
 		pVtx[ 0 ].pos = D3DXVECTOR3( g_Pause[ Cnt ].Pos.x                         , g_Pause[ Cnt ].Pos.y , 0.0f );
 		pVtx[ 1 ].pos = D3DXVECTOR3( g_Pause[ Cnt ].Pos.x + g_Pause[ Cnt ].Size.x , g_Pause[ Cnt ].Pos.y , 0.0f );
 		pVtx[ 2 ].pos = D3DXVECTOR3( g_Pause[ Cnt ].Pos.x                         , g_Pause[ Cnt ].Pos.y + g_Pause[ Cnt ].Size.y , 0.0f );
 		pVtx[ 3 ].pos = D3DXVECTOR3( g_Pause[ Cnt ].Pos.x + g_Pause[ Cnt ].Size.x , g_Pause[ Cnt ].Pos.y + g_Pause[ Cnt ].Size.y , 0.0f );
 
-		//	À•W•ÏŠ·Ï‚İ’¸“_ƒtƒ‰ƒO‚Ìİ’è
+		//	ï¿½ï¿½ï¿½Wï¿½ÏŠï¿½ï¿½Ï‚İ’ï¿½ï¿½_ï¿½tï¿½ï¿½ï¿½Oï¿½Ìİ’ï¿½
 		pVtx[ 0 ].rhw = 1.0f;
 		pVtx[ 1 ].rhw = 1.0f;
 		pVtx[ 2 ].rhw = 1.0f;
 		pVtx[ 3 ].rhw = 1.0f;
 
-		//	’¸“_F‚Ìİ’è
+		//	ï¿½ï¿½ï¿½_ï¿½Fï¿½Ìİ’ï¿½
 		pVtx[ 0 ].color = D3DCOLOR_RGBA( 255 , 255 , 255 , 100 );
 		pVtx[ 1 ].color = D3DCOLOR_RGBA( 255 , 255 , 255 , 100 );
 		pVtx[ 2 ].color = D3DCOLOR_RGBA( 255 , 255 , 255 , 100 );
 		pVtx[ 3 ].color = D3DCOLOR_RGBA( 255 , 255 , 255 , 100 );
 
-		//	ƒeƒNƒXƒ`ƒƒÀ•W‚Ìİ’è
+		//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½Ìİ’ï¿½
 		pVtx[ 0 ].tex = D3DXVECTOR2( 0 , 0 );
 		pVtx[ 1 ].tex = D3DXVECTOR2( 1 , 0 );
 		pVtx[ 2 ].tex = D3DXVECTOR2( 0 , 1 );
@@ -508,32 +506,32 @@ HRESULT MakeVertexPause( LPDIRECT3DDEVICE9 pDevice )
 	}	//	end of for
 
 
-	g_pVtxBufferPause -> Unlock(); //‚±‚êˆÈ~G‚ê‚Ä‚Í‚¢‚¯‚È‚¢
+	g_pVtxBufferPause -> Unlock(); //ï¿½ï¿½ï¿½ï¿½È~ï¿½Gï¿½ï¿½Ä‚Í‚ï¿½ï¿½ï¿½ï¿½È‚ï¿½
 
 	return S_OK;
 
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void VerTexPause( VERTEX_2D* pVtx , int Cnt )
- ˆø”:		VERTEX_2D* pVtx		‰¼‘zƒAƒhƒŒƒX‚ğæ“¾‚·‚éƒ|ƒCƒ“ƒ^•Ï”
-			int Cnt				ƒ|[ƒY\‘¢‘Ì‚ÌƒJƒEƒ“ƒ^
- –ß‚è’l:	
- à–¾:		’¸“_‚Ì•ÏX
+ ï¿½Öï¿½ï¿½ï¿½:	void VerTexPause( VERTEX_2D* pVtx , int Cnt )
+ ï¿½ï¿½ï¿½ï¿½:		VERTEX_2D* pVtx		ï¿½ï¿½ï¿½zï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½Ïï¿½
+			int Cnt				ï¿½|ï¿½[ï¿½Yï¿½\ï¿½ï¿½ï¿½Ì‚ÌƒJï¿½Eï¿½ï¿½ï¿½^
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½ï¿½ï¿½_ï¿½Ì•ÏX
 -----------------------------------------------------------------------------*/
 void VerTexPause( VERTEX_2D* pVtx , int Cnt )
 {
 
 	pVtx += Cnt * NUM_VERTEX;
 
-	//	’¸“_À•W‚Ìİ’è
+	//	ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½Wï¿½Ìİ’ï¿½
 	pVtx[ 0 ].pos = D3DXVECTOR3( g_Pause[ Cnt ].Pos.x                         , g_Pause[ Cnt ].Pos.y , 0.0f );
 	pVtx[ 1 ].pos = D3DXVECTOR3( g_Pause[ Cnt ].Pos.x + g_Pause[ Cnt ].Size.x , g_Pause[ Cnt ].Pos.y , 0.0f );
 	pVtx[ 2 ].pos = D3DXVECTOR3( g_Pause[ Cnt ].Pos.x                         , g_Pause[ Cnt ].Pos.y + g_Pause[ Cnt ].Size.y , 0.0f );
 	pVtx[ 3 ].pos = D3DXVECTOR3( g_Pause[ Cnt ].Pos.x + g_Pause[ Cnt ].Size.x , g_Pause[ Cnt ].Pos.y + g_Pause[ Cnt ].Size.y , 0.0f );
 
 
-	//	’¸“_F‚Ìİ’è
+	//	ï¿½ï¿½ï¿½_ï¿½Fï¿½Ìİ’ï¿½
 	pVtx[ 0 ].color = D3DXCOLOR( g_Pause[ Cnt ].Color.r , g_Pause[ Cnt ].Color.g , g_Pause[ Cnt ].Color.b , g_Pause[ Cnt ].Color.a );
 	pVtx[ 1 ].color = D3DXCOLOR( g_Pause[ Cnt ].Color.r , g_Pause[ Cnt ].Color.g , g_Pause[ Cnt ].Color.b , g_Pause[ Cnt ].Color.a );
 	pVtx[ 2 ].color = D3DXCOLOR( g_Pause[ Cnt ].Color.r , g_Pause[ Cnt ].Color.g , g_Pause[ Cnt ].Color.b , g_Pause[ Cnt ].Color.a );
@@ -542,18 +540,18 @@ void VerTexPause( VERTEX_2D* pVtx , int Cnt )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void VerTexUVPause( VERTEX_2D* pVtx , int Cnt )
- ˆø”:		VERTEX_2D* pVtx		‰¼‘zƒAƒhƒŒƒX‚ğæ“¾‚·‚éƒ|ƒCƒ“ƒ^•Ï”
-			int CntPause		ƒ|[ƒY\‘¢‘Ì‚ÌƒJƒEƒ“ƒ^
- –ß‚è’l:	
- à–¾:		UV’l‚Ì•ÏX
+ ï¿½Öï¿½ï¿½ï¿½:	void VerTexUVPause( VERTEX_2D* pVtx , int Cnt )
+ ï¿½ï¿½ï¿½ï¿½:		VERTEX_2D* pVtx		ï¿½ï¿½ï¿½zï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½Ïï¿½
+			int CntPause		ï¿½|ï¿½[ï¿½Yï¿½\ï¿½ï¿½ï¿½Ì‚ÌƒJï¿½Eï¿½ï¿½ï¿½^
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		UVï¿½lï¿½Ì•ÏX
 -----------------------------------------------------------------------------*/
 void VerTexUVPause( VERTEX_2D* pVtx , int Cnt )
 {
 
 	pVtx += Cnt * NUM_VERTEX;
 
-	//	ƒeƒNƒXƒ`ƒƒÀ•W‚Ìİ’è
+	//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½Ìİ’ï¿½
 	pVtx[ 0 ].tex = D3DXVECTOR2( 0 + g_UV_Scroll.x , 0 + g_UV_Scroll.y );
 	pVtx[ 1 ].tex = D3DXVECTOR2( 1 + g_UV_Scroll.x , 0 + g_UV_Scroll.y );
 	pVtx[ 2 ].tex = D3DXVECTOR2( 0 + g_UV_Scroll.x , 1 + g_UV_Scroll.y );
@@ -562,12 +560,12 @@ void VerTexUVPause( VERTEX_2D* pVtx , int Cnt )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	bool *GetPauseFlag( void )
- ˆø”:		
- –ß‚è’l:	return &g_PauseFlag;
-			ƒ|[ƒY’†	true
-			ƒ|[ƒYI—¹	false
- à–¾:		ƒ|[ƒYƒtƒ‰ƒOî•ñ‚Ìæ“¾
+ ï¿½Öï¿½ï¿½ï¿½:	bool *GetPauseFlag( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	return &g_PauseFlag;
+			ï¿½|ï¿½[ï¿½Yï¿½ï¿½	true
+			ï¿½|ï¿½[ï¿½Yï¿½Iï¿½ï¿½	false
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½|ï¿½[ï¿½Yï¿½tï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½Ìæ“¾
 -----------------------------------------------------------------------------*/
 bool *GetPauseFlag( void )
 {

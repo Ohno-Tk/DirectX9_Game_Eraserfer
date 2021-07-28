@@ -1,22 +1,20 @@
 /*=============================================================================
 
-		ƒp[ƒeƒBƒNƒ‹[ Particle.cpp ]
+		ï¿½pï¿½[ï¿½eï¿½Bï¿½Nï¿½ï¿½[ Particle.cpp ]
 
 -------------------------------------------------------------------------------
-	¡@»ìÒ
-		‘å–ì‘ñ–ç
 
-	¡@ì¬“ú
+	ï¿½ï¿½ï¿½@ï¿½ì¬ï¿½ï¿½
 		2016/11/16
 -------------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
-						scanf ‚Ìwarning–h~ 
+						scanf ï¿½ï¿½warningï¿½hï¿½~ 
 -----------------------------------------------------------------------------*/
 #define _CRT_SECURE_NO_WARNINGS
 
 /*-----------------------------------------------------------------------------
-	ƒwƒbƒ_ƒtƒ@ƒCƒ‹
+	ï¿½wï¿½bï¿½_ï¿½tï¿½@ï¿½Cï¿½ï¿½
 -----------------------------------------------------------------------------*/
 #include <stdio.h>
 #include <math.h>
@@ -26,45 +24,45 @@
 #include "input.h"
 
 /*-----------------------------------------------------------------------------
-	’è”’è‹`
+	ï¿½è”ï¿½ï¿½`
 -----------------------------------------------------------------------------*/
 #define POLYGON00_TEXTURENAME "data/TEXTURE/GAME/effect000.jpg"
 
-#define MAX_PARTICLE ( 500 )	//	ƒp[ƒeƒBƒNƒ‹Å‘å”
+#define MAX_PARTICLE ( 500 )	//	ï¿½pï¿½[ï¿½eï¿½Bï¿½Nï¿½ï¿½ï¿½Å‘å”
 
 /*-----------------------------------------------------------------------------
-	\‘¢‘Ì
+	ï¿½\ï¿½ï¿½ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 typedef struct
 {
-	WORLD World;	//	ƒ[ƒ‹ƒh•ÏŠ·—p•Ï”
-	D3DXVECTOR3 Move;	//	ˆÚ“®—Ê
-	D3DXCOLOR Color;	//	ƒJƒ‰[
-	int Life;	//	õ–½
-	float length;	//	’·‚³
-	float Radius;	//”¼Œa
-	float RadiusValue;	//”¼Œa‚Ì•Ï‰»—Ê
-	bool Use;	//	g—pƒtƒ‰ƒO
+	WORLD World;	//	ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½hï¿½ÏŠï¿½ï¿½pï¿½Ïï¿½
+	D3DXVECTOR3 Move;	//	ï¿½Ú“ï¿½ï¿½ï¿½
+	D3DXCOLOR Color;	//	ï¿½Jï¿½ï¿½ï¿½[
+	int Life;	//	ï¿½ï¿½ï¿½ï¿½
+	float length;	//	ï¿½ï¿½ï¿½ï¿½
+	float Radius;	//ï¿½ï¿½ï¿½a
+	float RadiusValue;	//ï¿½ï¿½ï¿½aï¿½Ì•Ï‰ï¿½ï¿½ï¿½
+	bool Use;	//	ï¿½gï¿½pï¿½tï¿½ï¿½ï¿½O
 }PARTICLE;
 
 /*-----------------------------------------------------------------------------
-	ƒvƒƒgƒ^ƒCƒvéŒ¾
+	ï¿½vï¿½ï¿½ï¿½gï¿½^ï¿½Cï¿½vï¿½éŒ¾
 -----------------------------------------------------------------------------*/
 
-//	’¸“_‚Ìì¬
+//	ï¿½ï¿½ï¿½_ï¿½Ìì¬
 HRESULT MakeVertexParticle( LPDIRECT3DDEVICE9 pDevice );
 
-//	À•W•ÏX
+//	ï¿½ï¿½ï¿½Wï¿½ÏX
 void VerTexParticle( VERTEX_3D* pVtx , int Cnt );
 
-//	ƒfƒoƒbƒO—p
+//	ï¿½fï¿½oï¿½bï¿½Oï¿½p
 void DegubParticle( void );
 
 /*-----------------------------------------------------------------------------
-	ƒOƒ[ƒoƒ‹•Ï”
+	ï¿½Oï¿½ï¿½ï¿½[ï¿½oï¿½ï¿½ï¿½Ïï¿½
 -----------------------------------------------------------------------------*/
-LPDIRECT3DVERTEXBUFFER9 g_pVtxBufferParticle = NULL;	//	’¸“_ƒoƒbƒtƒ@ƒCƒ“ƒ^ƒtƒF[ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-LPDIRECT3DTEXTURE9 g_pTextureParticle = NULL;//	ƒeƒNƒXƒ`ƒƒƒCƒ“ƒ^[ƒtƒF[ƒX
+LPDIRECT3DVERTEXBUFFER9 g_pVtxBufferParticle = NULL;	//	ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½^ï¿½tï¿½Fï¿½[ï¿½Xï¿½Ö‚Ìƒ|ï¿½Cï¿½ï¿½ï¿½^
+LPDIRECT3DTEXTURE9 g_pTextureParticle = NULL;//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½^ï¿½[ï¿½tï¿½Fï¿½[ï¿½X
 
 #ifdef _DEBUG
 
@@ -75,92 +73,92 @@ LPDIRECT3DTEXTURE9 g_pTextureParticle = NULL;//	ƒeƒNƒXƒ`ƒƒƒCƒ“ƒ^[ƒtƒF[ƒX
 PARTICLE g_Particle[ MAX_PARTICLE ];
 
 D3DXVECTOR3 g_Rot = D3DXVECTOR3( 0.0f , 0.0f , 0.0f );
-float g_ScatteringWidth  = 1.0f;	//	”òU•
-float g_Legth  = 100.0f;	//	’·‚³
+float g_ScatteringWidth  = 1.0f;	//	ï¿½ï¿½Uï¿½ï¿½
+float g_Legth  = 100.0f;	//	ï¿½ï¿½ï¿½ï¿½
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void InitParticle( void )
- ˆø”:		‚È‚µ
- –ß‚è’l:	‚È‚µ
- à–¾:		‰Šú‰»
+ ï¿½Öï¿½ï¿½ï¿½:	void InitParticle( void )
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½È‚ï¿½
+ ï¿½ß‚ï¿½l:	ï¿½È‚ï¿½
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void InitParticle( void )
 {
 
-	//	ƒfƒoƒCƒX‚Ìæ“¾
+	//	ï¿½fï¿½oï¿½Cï¿½Xï¿½Ìæ“¾
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 
-	//	Œ»İ‚Ì‚ğæ“¾
+	//	ï¿½ï¿½ï¿½İ‚Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾
 	srand((unsigned)time(NULL));
 
 
-	//	ƒGƒ‰[ƒ`ƒFƒbƒN
+	//	ï¿½Gï¿½ï¿½ï¿½[ï¿½`ï¿½Fï¿½bï¿½N
 	if( FAILED( D3DXCreateTextureFromFile(  pDevice , POLYGON00_TEXTURENAME , &g_pTextureParticle  ) ) )
 	{
 
-		MessageBox( NULL , "[ Particle.cpp ]\n POLYGON00_TEXTURENAME\n‚Ì“Ç‚İ‚İ‚ª‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½" , "Œx" , MB_OK | MB_ICONHAND );
+		MessageBox( NULL , "[ Particle.cpp ]\n POLYGON00_TEXTURENAME\nï¿½Ì“Ç‚İï¿½ï¿½İ‚ï¿½ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½" , "ï¿½xï¿½ï¿½" , MB_OK | MB_ICONHAND );
 
 	}	//	end of if
 
 
-	//	’¸“_‚Ìì¬
+	//	ï¿½ï¿½ï¿½_ï¿½Ìì¬
 	MakeVertexParticle( pDevice );
 
 
-	//	\‘¢‘Ì‰Šú‰»
+	//	ï¿½\ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
 	for( int Cnt = 0 ; Cnt < MAX_PARTICLE ; Cnt++ )
 	{
-		//	À•W
+		//	ï¿½ï¿½ï¿½W
 		g_Particle[ Cnt ].World.Pos.x = 0.0f;
 		g_Particle[ Cnt ].World.Pos.y = 0.0f;
 		g_Particle[ Cnt ].World.Pos.z = 0.0f;
 
-		//	‰ñ“]—Ê
+		//	ï¿½ï¿½]ï¿½ï¿½
 		g_Particle[ Cnt ].World.Rot.x = 0.0f;
 		g_Particle[ Cnt ].World.Rot.y = 0.0f;
 		g_Particle[ Cnt ].World.Rot.z = 0.0f;
 
-		//	Šg‘å—¦
+		//	ï¿½gï¿½å—¦
 		g_Particle[ Cnt ].World.Scl.x = 1.0f;
 		g_Particle[ Cnt ].World.Scl.y = 1.0f;
 		g_Particle[ Cnt ].World.Scl.z = 1.0f;
 
-		//	ˆÚ“®—Ê
+		//	ï¿½Ú“ï¿½ï¿½ï¿½
 		g_Particle[ Cnt ].Move.x = 0.0f;
 		g_Particle[ Cnt ].Move.y = 0.0f;
 		g_Particle[ Cnt ].Move.z = 0.0f;
 
-		//	ƒJƒ‰[
+		//	ï¿½Jï¿½ï¿½ï¿½[
 		g_Particle[ Cnt ].Color.r = 10;
 		g_Particle[ Cnt ].Color.g = 10;
 		g_Particle[ Cnt ].Color.b = 10;
 		g_Particle[ Cnt ].Color.a = 255;
 
-		//	õ–½
+		//	ï¿½ï¿½ï¿½ï¿½
 		g_Particle[ Cnt ].Life = 50;
 
-		//	’·‚³
+		//	ï¿½ï¿½ï¿½ï¿½
 		g_Particle[ Cnt ].length = 0.5f;
 
-		//”¼Œa
+		//ï¿½ï¿½ï¿½a
 		g_Particle[ Cnt ].Radius = 3.0f;
 
-		//”¼Œa‚Ì•Ï‰»—Ê
+		//ï¿½ï¿½ï¿½aï¿½Ì•Ï‰ï¿½ï¿½ï¿½
 		g_Particle[ Cnt ].RadiusValue = 0.0f;
 
-		//	g—pƒtƒ‰ƒO
+		//	ï¿½gï¿½pï¿½tï¿½ï¿½ï¿½O
 		g_Particle[ Cnt ].Use = false;
 
 	}	//	end of for
 
 #ifdef _DEBUG
-	//	ƒtƒHƒ“ƒg‚Ìİ’è
+	//	ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½Ìİ’ï¿½
 	D3DXCreateFont( pDevice ,
-				18 ,	//	•¶š‚‚³
-				0 ,	//	•¶š•
-				0 ,	//	•¶š‚Ì‘¾‚³
-				0 ,	//	ƒ~ƒbƒvƒ}ƒbƒv
-				FALSE ,	//	ƒCƒ^ƒŠƒbƒN
+				18 ,	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				0 ,	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				0 ,	//	ï¿½ï¿½ï¿½ï¿½ï¿½Ì‘ï¿½ï¿½ï¿½
+				0 ,	//	ï¿½~ï¿½bï¿½vï¿½}ï¿½bï¿½v
+				FALSE ,	//	ï¿½Cï¿½^ï¿½ï¿½ï¿½bï¿½N
 				SHIFTJIS_CHARSET ,
 				OUT_DEFAULT_PRECIS ,
 				DEFAULT_QUALITY ,
@@ -173,22 +171,22 @@ void InitParticle( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void UninitParticle( void )
- ˆø”:		‚È‚µ
- –ß‚è’l:	‚È‚µ
- à–¾:		I—¹
+ ï¿½Öï¿½ï¿½ï¿½:	void UninitParticle( void )
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½È‚ï¿½
+ ï¿½ß‚ï¿½l:	ï¿½È‚ï¿½
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½Iï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void UninitParticle( void )
 {
 
-	if( g_pVtxBufferParticle != NULL )	//	’¸“_ƒoƒbƒtƒ@ƒCƒ“ƒ^ƒtƒF[ƒXŠJ•ú
+	if( g_pVtxBufferParticle != NULL )	//	ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½^ï¿½tï¿½Fï¿½[ï¿½Xï¿½Jï¿½ï¿½
 	{
 		g_pVtxBufferParticle -> Release();
 		g_pVtxBufferParticle = NULL;
 
 	}	//	end of if
 
-	if( g_pTextureParticle != NULL )	//	ƒeƒNƒXƒ`ƒƒƒ|ƒŠƒSƒ“ŠJ•ú
+	if( g_pTextureParticle != NULL )	//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½Jï¿½ï¿½
 	{
 		g_pTextureParticle -> Release();
 		g_pTextureParticle = NULL;
@@ -210,19 +208,19 @@ void UninitParticle( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void UpdateParticle( void )
- ˆø”:		‚È‚µ
- –ß‚è’l:	‚È‚µ
- à–¾:		XV
+ ï¿½Öï¿½ï¿½ï¿½:	void UpdateParticle( void )
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½È‚ï¿½
+ ï¿½ß‚ï¿½l:	ï¿½È‚ï¿½
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½Xï¿½V
 -----------------------------------------------------------------------------*/
 void UpdateParticle( void )
 {
 
-	// \‘¢‘Ì‚Ìƒ|ƒCƒ“ƒ^éŒ¾
+	// ï¿½\ï¿½ï¿½ï¿½Ì‚Ìƒ|ï¿½Cï¿½ï¿½ï¿½^ï¿½éŒ¾
 	VERTEX_3D* pVtx;
 
 
-	//	ƒoƒbƒtƒ@‚ğƒƒbƒN‚µ‰¼‘zƒAƒhƒŒƒX‚ğæ“¾‚·‚é
+	//	ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½zï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
 	g_pVtxBufferParticle -> Lock( 0 , 0 , (void**)&pVtx , 0 );
 
 
@@ -230,13 +228,13 @@ void UpdateParticle( void )
 	{
 		if( g_Particle[ Cnt ].Use == true )
 		{
-			//	À•WˆÚ“®
+			//	ï¿½ï¿½ï¿½Wï¿½Ú“ï¿½
 			g_Particle[ Cnt ].World.Pos += g_Particle[ Cnt ].Move;
 
-			//	”¼Œa‚ğŒ¸‚ç‚·
+			//	ï¿½ï¿½ï¿½aï¿½ï¿½ï¿½ï¿½ï¿½ç‚·
 			g_Particle[ Cnt ].Radius -= g_Particle[ Cnt ].RadiusValue;
 
-			//	õ–½‚ğŒ¸‚ç‚·
+			//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ç‚·
 			g_Particle[ Cnt ].Life--;
 
 			if( g_Particle[ Cnt ].Life <= 0 )
@@ -245,14 +243,14 @@ void UpdateParticle( void )
 
 			}	//	end of if
 
-			//	’¸“_•ÏX
+			//	ï¿½ï¿½ï¿½_ï¿½ÏX
 			VerTexParticle( pVtx , Cnt );
 
 		}	//	end of if
 
 	}	//	end of for
 
-	//	ƒoƒbƒtƒ@‚ÌƒAƒ“ƒƒbƒN
+	//	ï¿½oï¿½bï¿½tï¿½@ï¿½ÌƒAï¿½ï¿½ï¿½ï¿½ï¿½bï¿½N
 	g_pVtxBufferParticle -> Unlock();
 
 #ifdef _DEBUG
@@ -291,32 +289,32 @@ void UpdateParticle( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void DrawParticle( void )
- ˆø”:		‚È‚µ
- –ß‚è’l:	‚È‚µ
- à–¾:		ƒp[ƒeƒBƒNƒ‹‚Ì•`‰æ
+ ï¿½Öï¿½ï¿½ï¿½:	void DrawParticle( void )
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½È‚ï¿½
+ ï¿½ß‚ï¿½l:	ï¿½È‚ï¿½
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½pï¿½[ï¿½eï¿½Bï¿½Nï¿½ï¿½ï¿½Ì•`ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void DrawParticle( void )
 {
-	//	ƒfƒoƒCƒX‚Ìæ“¾
+	//	ï¿½fï¿½oï¿½Cï¿½Xï¿½Ìæ“¾
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 
 
-	//	ƒpƒCƒvƒ‰ƒCƒ“‚ÌƒXƒgƒŠ[ƒ€
+	//	ï¿½pï¿½Cï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ÌƒXï¿½gï¿½ï¿½ï¿½[ï¿½ï¿½
 	pDevice -> SetStreamSource( 0 , g_pVtxBufferParticle , 0 , sizeof( VERTEX_3D ));
 
-	//	’¸“_ƒtƒH[ƒ}ƒbƒg‚Ìİ’è
+	//	ï¿½ï¿½ï¿½_ï¿½tï¿½Hï¿½[ï¿½}ï¿½bï¿½gï¿½Ìİ’ï¿½
 	pDevice -> SetFVF( FVF_VERTEX_3D );
 
-	//	ƒeƒNƒXƒ`ƒƒ‚ÌƒZƒbƒg
+	//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌƒZï¿½bï¿½g
 	pDevice -> SetTexture( 0 , g_pTextureParticle );
 
-	//	aƒuƒŒƒ“ƒhi‰ÁZ‡¬j
-	pDevice -> SetRenderState( D3DRS_BLENDOP , D3DBLENDOP_ADD );	//	Init‚É‘‚¢‚Ä‚ ‚é‚Ì‚ÅÈ—ª‰Â
-	pDevice -> SetRenderState( D3DRS_SRCBLEND , D3DBLEND_SRCALPHA );	//	Init‚É‘‚¢‚Ä‚ ‚é‚Ì‚ÅÈ—ª‰Â
+	//	aï¿½uï¿½ï¿½ï¿½ï¿½ï¿½hï¿½iï¿½ï¿½ï¿½Zï¿½ï¿½ï¿½ï¿½ï¿½j
+	pDevice -> SetRenderState( D3DRS_BLENDOP , D3DBLENDOP_ADD );	//	Initï¿½Éï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Ì‚ÅÈ—ï¿½ï¿½ï¿½
+	pDevice -> SetRenderState( D3DRS_SRCBLEND , D3DBLEND_SRCALPHA );	//	Initï¿½Éï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Ì‚ÅÈ—ï¿½ï¿½ï¿½
 	pDevice -> SetRenderState( D3DRS_DESTBLEND , D3DBLEND_ONE );
 
-	//	Zƒoƒbƒtƒ@
+	//	Zï¿½oï¿½bï¿½tï¿½@
 	pDevice -> SetRenderState( D3DRS_ZENABLE , D3DZB_TRUE );
 	pDevice -> SetRenderState( D3DRS_ZWRITEENABLE , FALSE );
 
@@ -324,13 +322,13 @@ void DrawParticle( void )
 	for( int Cnt = 0 ; Cnt < MAX_PARTICLE ; Cnt++ )
 	{
 
-		//	‹ts—ñ‚ ‚è‚Ìƒ[ƒ‹ƒhÀ•W•ÏŠ·
+		//	ï¿½tï¿½sï¿½ñ‚ ‚ï¿½Ìƒï¿½ï¿½[ï¿½ï¿½ï¿½hï¿½ï¿½ï¿½Wï¿½ÏŠï¿½
 		SetWorldInv( g_Particle[ Cnt ].World.Pos , g_Particle[ Cnt ].World.Scl );
 
 
 		if( g_Particle[ Cnt ].Use == true )
 		{
-			//	ƒ|ƒŠƒSƒ“‚Ì•`‰æ
+			//	ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½Ì•`ï¿½ï¿½
 			pDevice -> DrawPrimitive( D3DPT_TRIANGLESTRIP , Cnt * NUM_VERTEX , NUM_POLYGON );
 
 		}	//	end of if
@@ -338,7 +336,7 @@ void DrawParticle( void )
 	}	//	end of for
 
 
-	//	Œ³‚É–ß‚·
+	//	ï¿½ï¿½ï¿½É–ß‚ï¿½
 	pDevice -> SetRenderState( D3DRS_ALPHABLENDENABLE , TRUE );
 	pDevice -> SetRenderState( D3DRS_SRCBLEND , D3DBLEND_SRCALPHA );
 	pDevice -> SetRenderState( D3DRS_DESTBLEND , D3DBLEND_INVSRCALPHA );
@@ -356,57 +354,57 @@ void DrawParticle( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	HRESULT MakeVertexParticle( LPDIRECT3DDEVICE9 pDevice )
- ˆø”:		LPDIRECT3DDEVICE9 pDevice
- –ß‚è’l:	‚È‚µ
- à–¾:		’¸“_‚Ìì¬
+ ï¿½Öï¿½ï¿½ï¿½:	HRESULT MakeVertexParticle( LPDIRECT3DDEVICE9 pDevice )
+ ï¿½ï¿½ï¿½ï¿½:		LPDIRECT3DDEVICE9 pDevice
+ ï¿½ß‚ï¿½l:	ï¿½È‚ï¿½
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½ï¿½ï¿½_ï¿½Ìì¬
 -----------------------------------------------------------------------------*/
 HRESULT MakeVertexParticle( LPDIRECT3DDEVICE9 pDevice )
 {
-	VERTEX_3D* pVtx;	//	‰¼‘zƒAƒhƒŒƒX‚ğæ“¾‚·‚éƒ|ƒCƒ“ƒ^•Ï”
+	VERTEX_3D* pVtx;	//	ï¿½ï¿½ï¿½zï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½Ïï¿½
 
-	//	’¸“_ƒoƒbƒtƒ@‚Ì¶¬
+	//	ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½Ìï¿½ï¿½ï¿½
 	if( FAILED( pDevice -> CreateVertexBuffer( sizeof( VERTEX_3D ) * NUM_VERTEX * MAX_PARTICLE , D3DUSAGE_WRITEONLY , FVF_VERTEX_3D , D3DPOOL_MANAGED , &g_pVtxBufferParticle , NULL ) ) )
 	{
 		return E_FAIL;
 
 	}	//	end of if
 
-	//	ƒoƒbƒtƒ@‚ğƒƒbƒN‚µ‰¼‘zƒAƒhƒŒƒX‚ğæ“¾‚·‚é
+	//	ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½zï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
 	g_pVtxBufferParticle -> Lock( 0 , 0 , (void**)&pVtx , 0 );
 
 	for( int CntParticle = 0 ; CntParticle < MAX_PARTICLE ; CntParticle++ )
 	{
 
-		//	’¸“_À•W‚Ìİ’è
+		//	ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½Wï¿½Ìİ’ï¿½
 		pVtx[ 0 ].pos = D3DXVECTOR3( -g_Particle[ CntParticle ].Radius , g_Particle[ CntParticle ].Radius  , 0.0f );
 		pVtx[ 1 ].pos = D3DXVECTOR3( g_Particle[ CntParticle ].Radius  , g_Particle[ CntParticle ].Radius  , 0.0f );
 		pVtx[ 2 ].pos = D3DXVECTOR3( -g_Particle[ CntParticle ].Radius , 0.0f                              , 0.0f );
 		pVtx[ 3 ].pos = D3DXVECTOR3( g_Particle[ CntParticle ].Radius  , 0.0f                              , 0.0f );
 
-		//	–@ü‚Ìİ’è
+		//	ï¿½@ï¿½ï¿½ï¿½Ìİ’ï¿½
 		pVtx[ 0 ].normal = D3DXVECTOR3( 0.0f , 1.0f , -1.0f );
 		pVtx[ 1 ].normal = D3DXVECTOR3( 0.0f , 1.0f , -1.0f );
 		pVtx[ 2 ].normal = D3DXVECTOR3( 0.0f , 1.0f , -1.0f );
 		pVtx[ 3 ].normal = D3DXVECTOR3( 0.0f , 1.0f , -1.0f );
 
-		//	’¸“_F‚Ìİ’è
+		//	ï¿½ï¿½ï¿½_ï¿½Fï¿½Ìİ’ï¿½
 		pVtx[ 0 ].color = D3DXCOLOR( g_Particle[ CntParticle ].Color.r , g_Particle[ CntParticle ].Color.g , g_Particle[ CntParticle ].Color.b , g_Particle[ CntParticle ].Color.a );
 		pVtx[ 1 ].color = D3DXCOLOR( g_Particle[ CntParticle ].Color.r , g_Particle[ CntParticle ].Color.g , g_Particle[ CntParticle ].Color.b , g_Particle[ CntParticle ].Color.a );
 		pVtx[ 2 ].color = D3DXCOLOR( g_Particle[ CntParticle ].Color.r , g_Particle[ CntParticle ].Color.g , g_Particle[ CntParticle ].Color.b , g_Particle[ CntParticle ].Color.a );
 		pVtx[ 3 ].color = D3DXCOLOR( g_Particle[ CntParticle ].Color.r , g_Particle[ CntParticle ].Color.g , g_Particle[ CntParticle ].Color.b , g_Particle[ CntParticle ].Color.a );
 
-		//	ƒeƒNƒXƒ`ƒƒÀ•W‚Ìİ’è
+		//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½Ìİ’ï¿½
 		pVtx[ 0 ].tex = D3DXVECTOR2( 0 , 0 );
 		pVtx[ 1 ].tex = D3DXVECTOR2( 1 , 0 );
 		pVtx[ 2 ].tex = D3DXVECTOR2( 0 , 1 );
 		pVtx[ 3 ].tex = D3DXVECTOR2( 1 , 1 );
 
-		pVtx += 4;	//	pVtx‚ğ‚¸‚ç‚·
+		pVtx += 4;	//	pVtxï¿½ï¿½ï¿½ï¿½ï¿½ç‚·
 
 	}	//	end of for
 
-	//	ƒoƒbƒtƒ@‚ÌƒAƒ“ƒƒbƒN
+	//	ï¿½oï¿½bï¿½tï¿½@ï¿½ÌƒAï¿½ï¿½ï¿½ï¿½ï¿½bï¿½N
 	g_pVtxBufferParticle -> Unlock();
 
 	return S_OK;
@@ -414,25 +412,25 @@ HRESULT MakeVertexParticle( LPDIRECT3DDEVICE9 pDevice )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void VerTexParticle( VERTEX_3D* pVtx , int Cnt )
- ˆø”:		VERTEX_3D* pVtx
+ ï¿½Öï¿½ï¿½ï¿½:	void VerTexParticle( VERTEX_3D* pVtx , int Cnt )
+ ï¿½ï¿½ï¿½ï¿½:		VERTEX_3D* pVtx
 			int CntParticle
- –ß‚è’l:	‚È‚µ
- à–¾:		’¸“_•ÏX
+ ï¿½ß‚ï¿½l:	ï¿½È‚ï¿½
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½ï¿½ï¿½_ï¿½ÏX
 -----------------------------------------------------------------------------*/
 void VerTexParticle( VERTEX_3D* pVtx , int Cnt )
 {
 
 	pVtx += Cnt * NUM_VERTEX;
 
-	//	’¸“_À•W‚Ìİ’è
+	//	ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½Wï¿½Ìİ’ï¿½
 	pVtx[ 0 ].pos = D3DXVECTOR3( -g_Particle[ Cnt ].Radius , g_Particle[ Cnt ].Radius  , 0.0f );
 	pVtx[ 1 ].pos = D3DXVECTOR3(  g_Particle[ Cnt ].Radius , g_Particle[ Cnt ].Radius  , 0.0f );
 	pVtx[ 2 ].pos = D3DXVECTOR3( -g_Particle[ Cnt ].Radius , 0.0f                      , 0.0f );
 	pVtx[ 3 ].pos = D3DXVECTOR3(  g_Particle[ Cnt ].Radius , 0.0f                      , 0.0f );
 
 
-	//	’¸“_F‚Ìİ’è
+	//	ï¿½ï¿½ï¿½_ï¿½Fï¿½Ìİ’ï¿½
 	pVtx[ 0 ].color = D3DXCOLOR( g_Particle[ Cnt ].Color.r , g_Particle[ Cnt ].Color.g , g_Particle[ Cnt ].Color.b , g_Particle[ Cnt ].Color.a );
 	pVtx[ 1 ].color = D3DXCOLOR( g_Particle[ Cnt ].Color.r , g_Particle[ Cnt ].Color.g , g_Particle[ Cnt ].Color.b , g_Particle[ Cnt ].Color.a );
 	pVtx[ 2 ].color = D3DXCOLOR( g_Particle[ Cnt ].Color.r , g_Particle[ Cnt ].Color.g , g_Particle[ Cnt ].Color.b , g_Particle[ Cnt ].Color.a );
@@ -441,23 +439,23 @@ void VerTexParticle( VERTEX_3D* pVtx , int Cnt )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void SetParticle( D3DXVECTOR3 Pos , D3DXVECTOR3 Rot , D3DXCOLOR Color , float ScatteringWidth , int Life , float Length , float Radius )
- ˆø”:		D3DXVECTOR3 Pos			À•W
-			D3DXVECTOR3 Rot			Šp“x
-			D3DXCOLOR Color			ƒJƒ‰[
-			float ScatteringWidth	”òU•( 1.0f ~ 6.28 )
-			int Life				õ–½
-			float Length			’·‚³
-			float Radius			”¼Œa
- –ß‚è’l:	‚È‚µ
- à–¾:		ƒp[ƒeƒBƒNƒ‹‚ÌƒZƒbƒg
+ ï¿½Öï¿½ï¿½ï¿½:	void SetParticle( D3DXVECTOR3 Pos , D3DXVECTOR3 Rot , D3DXCOLOR Color , float ScatteringWidth , int Life , float Length , float Radius )
+ ï¿½ï¿½ï¿½ï¿½:		D3DXVECTOR3 Pos			ï¿½ï¿½ï¿½W
+			D3DXVECTOR3 Rot			ï¿½pï¿½x
+			D3DXCOLOR Color			ï¿½Jï¿½ï¿½ï¿½[
+			float ScatteringWidth	ï¿½ï¿½Uï¿½ï¿½( 1.0f ~ 6.28 )
+			int Life				ï¿½ï¿½ï¿½ï¿½
+			float Length			ï¿½ï¿½ï¿½ï¿½
+			float Radius			ï¿½ï¿½ï¿½a
+ ï¿½ß‚ï¿½l:	ï¿½È‚ï¿½
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½pï¿½[ï¿½eï¿½Bï¿½Nï¿½ï¿½ï¿½ÌƒZï¿½bï¿½g
 -----------------------------------------------------------------------------*/
 void SetParticle( D3DXVECTOR3 Pos , D3DXVECTOR3 Rot , D3DXCOLOR Color , float ScatteringWidth , int Life , float Length , float Radius )
 {
 
-	int ScatWidth = ( int )( ScatteringWidth * 100 );	//	”òU•‚Ì”’l‚ğ®”‚É‚·‚é
+	int ScatWidth = ( int )( ScatteringWidth * 100 );	//	ï¿½ï¿½Uï¿½ï¿½ï¿½Ìï¿½ï¿½lï¿½ğ®ï¿½ï¿½É‚ï¿½ï¿½ï¿½
 
-	//	Šp“x‚ğƒ‰ƒ“ƒ_ƒ€‚Å‹‚ß‚é
+	//	ï¿½pï¿½xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½Å‹ï¿½ï¿½ß‚ï¿½
 	float Dam = ( rand()%ScatWidth - 314 ) * 0.01f;
 
 
@@ -466,26 +464,26 @@ void SetParticle( D3DXVECTOR3 Pos , D3DXVECTOR3 Rot , D3DXCOLOR Color , float Sc
 		if( g_Particle[ Cnt ].Use == false )
 		{
 
-			//	À•W
+			//	ï¿½ï¿½ï¿½W
 			g_Particle[ Cnt ].World.Pos = Pos;
 
-			//	ˆÚ“®—Ê
+			//	ï¿½Ú“ï¿½ï¿½ï¿½
 			g_Particle[ Cnt ].Move.x = cosf( Dam + Rot.x ) * g_Particle[Cnt].length;
 			g_Particle[ Cnt ].Move.y = sinf( Dam + Rot.x ) * g_Particle[Cnt].length;
 
-			//	ƒJƒ‰[
+			//	ï¿½Jï¿½ï¿½ï¿½[
 			g_Particle[ Cnt ].Color = Color;
 
-			//	õ–½
+			//	ï¿½ï¿½ï¿½ï¿½
 			g_Particle[ Cnt ].Life = Life;
 
-			//”¼Œa
+			//ï¿½ï¿½ï¿½a
 			g_Particle[ Cnt ].Radius = Radius;
 
-			//”¼Œa‚Ì•Ï‰»—Ê
+			//ï¿½ï¿½ï¿½aï¿½Ì•Ï‰ï¿½ï¿½ï¿½
 			g_Particle[ Cnt ].RadiusValue = g_Particle[ Cnt ].Radius / g_Particle[ Cnt ].Life;
 
-			//	g—pƒtƒ‰ƒO
+			//	ï¿½gï¿½pï¿½tï¿½ï¿½ï¿½O
 			g_Particle[ Cnt ].Use = true;
 
 			break;
@@ -499,10 +497,10 @@ void SetParticle( D3DXVECTOR3 Pos , D3DXVECTOR3 Rot , D3DXCOLOR Color , float Sc
 #ifdef _DEBUG
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void DegubParticle( void )
- ˆø”:		
- –ß‚è’l:	‚È‚µ
- à–¾:		ƒfƒoƒbƒO—p
+ ï¿½Öï¿½ï¿½ï¿½:	void DegubParticle( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	ï¿½È‚ï¿½
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½fï¿½oï¿½bï¿½Oï¿½p
 -----------------------------------------------------------------------------*/
 void DegubParticle( void )
 {
@@ -516,9 +514,9 @@ void DegubParticle( void )
 
 	char aStr00[ 256 ] , aStr01[ 256 ] , aStr02[ 256 ];
 
-	sprintf( &aStr00[ 0 ] , "[ Šp“x ] ( %f : %f : %f )" , g_Rot.x , g_Rot.y , g_Rot.z );
-	sprintf( &aStr01[ 0 ] , "[ ”òU• ] ( %.3f )" , g_ScatteringWidth );
-	sprintf( &aStr02[ 0 ] , "[ ’·‚³ ] ( %.3f )" , g_Legth );
+	sprintf( &aStr00[ 0 ] , "[ ï¿½pï¿½x ] ( %f : %f : %f )" , g_Rot.x , g_Rot.y , g_Rot.z );
+	sprintf( &aStr01[ 0 ] , "[ ï¿½ï¿½Uï¿½ï¿½ ] ( %.3f )" , g_ScatteringWidth );
+	sprintf( &aStr02[ 0 ] , "[ ï¿½ï¿½ï¿½ï¿½ ] ( %.3f )" , g_Legth );
 
 	g_pFontParticle -> DrawText( NULL ,
 						&aStr00[ 0 ] ,

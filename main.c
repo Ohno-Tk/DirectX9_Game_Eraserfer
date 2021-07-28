@@ -3,22 +3,20 @@
 		[ main.cpp ]
 
 -------------------------------------------------------------------------------
-	¡@»ìÒ
-		‘å–ì‘ñ–ç
 
-	¡@ì¬“ú
+	ï¿½ï¿½ï¿½@ï¿½ì¬ï¿½ï¿½
 		2016/12/07
 -------------------------------------------------------------------------------
-	¡@Update
+	ï¿½ï¿½ï¿½@Update
 =============================================================================*/
 
 /*-----------------------------------------------------------------------------
-						scanf ‚Ìwarning–h~ 
+						scanf ï¿½ï¿½warningï¿½hï¿½~ 
 -----------------------------------------------------------------------------*/
 #define _CRT_SECURE_NO_WARNINGS
 
 /*-----------------------------------------------------------------------------
-	ƒwƒbƒ_ƒtƒ@ƒCƒ‹
+	ï¿½wï¿½bï¿½_ï¿½tï¿½@ï¿½Cï¿½ï¿½
 -----------------------------------------------------------------------------*/
 #include <stdio.h>
 #include "main.h"
@@ -34,28 +32,28 @@
 #include "result.h"
 
 /*-----------------------------------------------------------------------------
-	’è”’è‹`
+	ï¿½è”ï¿½ï¿½`
 -----------------------------------------------------------------------------*/
-#define CLASS_NAME     "3DƒQ[ƒ€"			//	ƒEƒCƒ“ƒhƒEƒNƒ‰ƒX‚Ì–¼‘O
-#define WINDOW_NAME    "Eraserfer"	//	ƒEƒCƒ“ƒhƒE‚Ì–¼‘O
+#define CLASS_NAME     "3Dï¿½Qï¿½[ï¿½ï¿½"			//	ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½Nï¿½ï¿½ï¿½Xï¿½Ì–ï¿½ï¿½O
+#define WINDOW_NAME    "Eraserfer"	//	ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½Ì–ï¿½ï¿½O
 
 /*-----------------------------------------------------------------------------
-	—ñ‹“
------------------------------------------------------------------------------*/
-
-/*-----------------------------------------------------------------------------
-	\‘¢‘Ì
+	ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
-	ƒvƒƒgƒ^ƒCƒvéŒ¾
+	ï¿½\ï¿½ï¿½ï¿½ï¿½
+-----------------------------------------------------------------------------*/
+
+/*-----------------------------------------------------------------------------
+	ï¿½vï¿½ï¿½ï¿½gï¿½^ï¿½Cï¿½vï¿½éŒ¾
 -----------------------------------------------------------------------------*/
 LRESULT CALLBACK WndProc( HWND hWnd , UINT uMsg , WPARAM wParam , LPARAM lParam );
 
-HRESULT Init( HINSTANCE hInstance , HWND hWnd , BOOL bWindow );	//	‰Šú‰»ŠÖ”
-void Uninit( void );	//	I—¹ˆ—
-void Update( void );	//	XVˆ—
-void Draw( void );	//	•`‰æˆ—
+HRESULT Init( HINSTANCE hInstance , HWND hWnd , BOOL bWindow );	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öï¿½
+void Uninit( void );	//	ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+void Update( void );	//	ï¿½Xï¿½Vï¿½ï¿½ï¿½ï¿½
+void Draw( void );	//	ï¿½`ï¿½æˆï¿½ï¿½
 
 #ifdef _DEBUG
 
@@ -63,18 +61,18 @@ void DrawFPS( void );
 
 #endif	//	_DEBUG
 
-//	ƒƒCƒ„[ƒtƒŒ[ƒ€
+//	ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½
 void Wireframe( void );
 
 /*-----------------------------------------------------------------------------
-	ƒOƒ[ƒoƒ‹•Ï”
+	ï¿½Oï¿½ï¿½ï¿½[ï¿½oï¿½ï¿½ï¿½Ïï¿½
 -----------------------------------------------------------------------------*/
-//	Direct3DƒCƒ“ƒ^[ƒtƒF[ƒXæ“¾
+//	Direct3Dï¿½Cï¿½ï¿½ï¿½^ï¿½[ï¿½tï¿½Fï¿½[ï¿½Xï¿½æ“¾
 LPDIRECT3D9 g_pD3D = NULL;
 
-LPDIRECT3DDEVICE9 g_pD3DDevice = NULL;	//	Direct3DƒfƒoƒCƒXƒCƒ“ƒ^[ƒtƒF[ƒXiƒ|ƒCƒ“ƒ^j
+LPDIRECT3DDEVICE9 g_pD3DDevice = NULL;	//	Direct3Dï¿½fï¿½oï¿½Cï¿½Xï¿½Cï¿½ï¿½ï¿½^ï¿½[ï¿½tï¿½Fï¿½[ï¿½Xï¿½iï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½j
 
-MODE g_mode = MODE_TITLE;	//	¡‚Ìƒ‚[ƒh
+MODE g_mode = MODE_TITLE;	//	ï¿½ï¿½ï¿½Ìƒï¿½ï¿½[ï¿½h
 
 #ifdef _DEBUG
 
@@ -82,9 +80,9 @@ MODE g_mode = MODE_TITLE;	//	¡‚Ìƒ‚[ƒh
 
 #endif	//	_DEBUG
 
-int g_nCountFPS = 0;	//	FPSƒJƒEƒ“ƒ^
+int g_nCountFPS = 0;	//	FPSï¿½Jï¿½Eï¿½ï¿½ï¿½^
 
-bool g_WireframeFlag = false;	//	ƒƒCƒ„[ƒtƒŒ[ƒ€ƒtƒ‰ƒO
+bool g_WireframeFlag = false;	//	ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½O
 
 ModeFunc pInitFunc[]={
 	InitTitle,
@@ -115,40 +113,40 @@ ModeFunc pDrawFunc[]={
 	};
 
 /*-----------------------------------------------------------------------------
-	ƒƒCƒ“ŠÖ”
+	ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Öï¿½
 -----------------------------------------------------------------------------*/
 int APIENTRY WinMain( HINSTANCE hInstance , HINSTANCE hPrevInstance , LPSTR IpCmdLine , int nCmdShow )
 {
-	//  waring‚ÌŒx‚ğÁ‚¹‚é
+	//  waringï¿½ÌŒxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	UNREFERENCED_PARAMETER( hPrevInstance );
 	UNREFERENCED_PARAMETER( IpCmdLine );
 
-	//	ƒEƒCƒ“ƒhƒE‚Ìƒp[ƒc“o˜^
+	//	ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½Ìƒpï¿½[ï¿½cï¿½oï¿½^
 	WNDCLASSEX wcex =
 	{
-		sizeof( WNDCLASSEX ) ,					//	WNDCLASSEX‚Ìƒƒ‚ƒŠƒTƒCƒY‚ğw’è
-		CS_CLASSDC ,							//	•\¦‚·‚éƒEƒCƒ“ƒhƒE‚ÌƒXƒ^ƒCƒ‹‚ğİ’è
-		WndProc ,								//	ƒEƒBƒ“ƒhƒEƒvƒƒV[ƒWƒƒ‚ÌƒAƒhƒŒƒX( ŠÖ”–¼ )‚ğw’è@ƒvƒƒgƒ^ƒCƒvéŒ¾‚µ‚½ŠÖ”‚ğ‘‚­id—vIIj
-		0 ,										//	’Êí‚Íg—p‚µ‚È‚¢‚Ì‚Å" 0 "‚ğw’è
-		0 ,										//	’Êí‚Íg—p‚µ‚È‚¢‚Ì‚Å" 0 "‚ğw’è
-		hInstance ,								//	WinMain‚Ìƒpƒ‰ƒ[ƒ^‚ÌƒCƒ“ƒXƒ^ƒ“ƒXƒnƒ“ƒhƒ‹‚ğİ’è
-		NULL ,									//	g—p‚·‚éƒAƒCƒRƒ“‚ğw’è( Windows‚ª‚Á‚Ä‚¢‚éƒAƒCƒRƒ“‚ğg‚¤‚È‚ç )
-		LoadCursor( NULL , IDC_ARROW ),			//	ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ğw’è	iö‹Æ‚Å‚Í‚â‚ç‚È‚¢j
-		( HBRUSH )( COLOR_WINDOW + 1 ) ,		//	ƒEƒCƒ“ƒhƒE‚ÌƒNƒ‰ƒCƒAƒ“ƒg—Ìˆæ‚Ì”wŒiF‚ğİ’è	iö‹Æ‚Å‚Í‚â‚ç‚È‚¢j
-		NULL ,									//	Windows‚É‚Â‚¯‚éƒƒjƒ…[‚ğİ’è
-		CLASS_NAME ,							//	ƒEƒCƒ“ƒhƒEƒNƒ‰ƒX‚Ì–¼‘O	id—vIIj
-		NULL									//	¬‚³‚¢ƒAƒCƒRƒ“‚ªİ’è‚³‚ê‚½ê‡‚Ìî•ñ‚ğ‹Lq	iö‹Æ‚Å‚Í‚â‚ç‚È‚¢j
+		sizeof( WNDCLASSEX ) ,					//	WNDCLASSEXï¿½Ìƒï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Tï¿½Cï¿½Yï¿½ï¿½ï¿½wï¿½ï¿½
+		CS_CLASSDC ,							//	ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½ÌƒXï¿½^ï¿½Cï¿½ï¿½ï¿½ï¿½İ’ï¿½
+		WndProc ,								//	ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½vï¿½ï¿½ï¿½Vï¿½[ï¿½Wï¿½ï¿½ï¿½ÌƒAï¿½hï¿½ï¿½ï¿½X( ï¿½Öï¿½ï¿½ï¿½ )ï¿½ï¿½ï¿½wï¿½ï¿½@ï¿½vï¿½ï¿½ï¿½gï¿½^ï¿½Cï¿½vï¿½éŒ¾ï¿½ï¿½ï¿½ï¿½ï¿½Öï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½dï¿½vï¿½Iï¿½Iï¿½j
+		0 ,										//	ï¿½Êï¿½Ígï¿½pï¿½ï¿½ï¿½È‚ï¿½ï¿½Ì‚ï¿½" 0 "ï¿½ï¿½ï¿½wï¿½ï¿½
+		0 ,										//	ï¿½Êï¿½Ígï¿½pï¿½ï¿½ï¿½È‚ï¿½ï¿½Ì‚ï¿½" 0 "ï¿½ï¿½ï¿½wï¿½ï¿½
+		hInstance ,								//	WinMainï¿½Ìƒpï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½^ï¿½ÌƒCï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½ï¿½İ’ï¿½
+		NULL ,									//	ï¿½gï¿½pï¿½ï¿½ï¿½ï¿½Aï¿½Cï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½wï¿½ï¿½( Windowsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Aï¿½Cï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½È‚ï¿½ )
+		LoadCursor( NULL , IDC_ARROW ),			//	ï¿½}ï¿½Eï¿½Xï¿½Jï¿½[ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½wï¿½ï¿½	ï¿½iï¿½ï¿½ï¿½Æ‚Å‚Í‚ï¿½ï¿½È‚ï¿½ï¿½j
+		( HBRUSH )( COLOR_WINDOW + 1 ) ,		//	ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½ÌƒNï¿½ï¿½ï¿½Cï¿½Aï¿½ï¿½ï¿½gï¿½Ìˆï¿½Ì”wï¿½iï¿½Fï¿½ï¿½İ’ï¿½	ï¿½iï¿½ï¿½ï¿½Æ‚Å‚Í‚ï¿½ï¿½È‚ï¿½ï¿½j
+		NULL ,									//	Windowsï¿½É‚Â‚ï¿½ï¿½éƒï¿½jï¿½ï¿½ï¿½[ï¿½ï¿½İ’ï¿½
+		CLASS_NAME ,							//	ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½Nï¿½ï¿½ï¿½Xï¿½Ì–ï¿½ï¿½O	ï¿½iï¿½dï¿½vï¿½Iï¿½Iï¿½j
+		NULL									//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½Cï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½İ’è‚³ï¿½ê‚½ï¿½ê‡ï¿½Ìï¿½ï¿½ï¿½ï¿½Lï¿½q	ï¿½iï¿½ï¿½ï¿½Æ‚Å‚Í‚ï¿½ï¿½È‚ï¿½ï¿½j
 	};
 
-	//	ƒEƒCƒ“ƒhƒEƒNƒ‰ƒX‚Ì“o˜^
-	RegisterClassEx( &wcex );	//	ƒIƒŠƒWƒiƒ‹‚ÌƒEƒCƒ“ƒhƒEƒp[ƒc‚Ì–¼‘O‚ğ‚Â‚¯‚é( ƒJƒXƒ^ƒ€ƒEƒCƒ“ƒhƒE—p‚Ìİ’è )
+	//	ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½Nï¿½ï¿½ï¿½Xï¿½Ì“oï¿½^
+	RegisterClassEx( &wcex );	//	ï¿½Iï¿½ï¿½ï¿½Wï¿½iï¿½ï¿½ï¿½ÌƒEï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½pï¿½[ï¿½cï¿½Ì–ï¿½ï¿½Oï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½( ï¿½Jï¿½Xï¿½^ï¿½ï¿½ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½pï¿½Ìİ’ï¿½ )
 
-	HWND hWnd;	//	ƒEƒCƒ“ƒhƒEƒnƒ“ƒhƒ‹i@ƒƒCƒ“ƒnƒ“ƒhƒ‹@j
+	HWND hWnd;	//	ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½iï¿½@ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½@ï¿½j
 	MSG msg;
 
 	const int Windowstyle = WS_OVERLAPPEDWINDOW ^  WS_MINIMIZEBOX ^ WS_MAXIMIZEBOX ^ WS_THICKFRAME;
 
-	//	•`‰æ—Ìˆæ‚ÌƒTƒCƒY‚©‚çƒEƒCƒ“ƒhƒE‚Ì‹éŒ`‚ğæ“¾
+	//	ï¿½`ï¿½ï¿½Ìˆï¿½ÌƒTï¿½Cï¿½Yï¿½ï¿½ï¿½ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½Ì‹ï¿½`ï¿½ï¿½ï¿½æ“¾
 	RECT cr = { 0 , 0 , SCREEN_WIDTH , SCREEN_HEIGHT };
 	AdjustWindowRect( &cr , Windowstyle , FALSE );
 
@@ -164,76 +162,76 @@ int APIENTRY WinMain( HINSTANCE hInstance , HINSTANCE hPrevInstance , LPSTR IpCm
 	int wx = ww > dw ? 0 : ( dw - ww ) / 2 ;
 	int wy = wh > dh ? 0 : ( dh - wh ) / 2 ;
 
-	//	ƒEƒCƒ“ƒhƒE‚Ìì¬
-	hWnd/*©ƒEƒCƒ“ƒhƒnƒ“ƒhƒ‹*/ = CreateWindowEx( 0 ,		//	Šg’£ƒEƒCƒ“ƒhƒEƒXƒ^ƒCƒ‹i@‚«‚¿‚ñ‚Æİ’è‚·‚é@j
-		CLASS_NAME ,										//	ƒEƒCƒ“ƒhƒEƒNƒ‰ƒX‚Ì–¼‘O
-		WINDOW_NAME ,										//	ƒEƒCƒ“ƒhƒE‚Ì–¼‘O
-		Windowstyle ,								//	ƒEƒCƒ“ƒhƒEƒXƒ^ƒCƒ‹
-		wx ,										//	ƒEƒCƒ“ƒhƒE‚Ì¶ã‚wÀ•W
-		wy ,										//	ƒEƒCƒ“ƒhƒE‚Ì¶ã‚xÀ•W
-		ww ,										//	ƒEƒCƒ“ƒhƒE‚Ì•i@ƒtƒŒ[ƒ€‚à‡‚í‚¹‚½•@j
-		wh ,										//	ƒEƒCƒ“ƒhƒE‚Ì‚‚³i@ƒtƒŒ[ƒ€‚à‡‚í‚¹‚½‚‚³@j
-		NULL ,												//	eƒEƒCƒ“ƒhƒE‚Ìƒnƒ“ƒhƒ‹i@ƒ|ƒCƒ“ƒ^@j
-		NULL ,												//	ƒƒjƒ…[ƒnƒ“ƒhƒ‹‚Ü‚½‚ÍqƒEƒCƒ“ƒhƒEID
-		hInstance ,											//	ƒCƒ“ƒXƒ^ƒ“ƒXƒnƒ“ƒhƒ‹
-		NULL );												//	ƒEƒCƒ“ƒhƒEì¬ƒf[ƒ^
+	//	ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½Ìì¬
+	hWnd/*ï¿½ï¿½ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½nï¿½ï¿½ï¿½hï¿½ï¿½*/ = CreateWindowEx( 0 ,		//	ï¿½gï¿½ï¿½ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½Xï¿½^ï¿½Cï¿½ï¿½ï¿½iï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æİ’è‚·ï¿½ï¿½@ï¿½j
+		CLASS_NAME ,										//	ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½Nï¿½ï¿½ï¿½Xï¿½Ì–ï¿½ï¿½O
+		WINDOW_NAME ,										//	ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½Ì–ï¿½ï¿½O
+		Windowstyle ,								//	ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½Xï¿½^ï¿½Cï¿½ï¿½
+		wx ,										//	ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½Ìï¿½ï¿½ï¿½wï¿½ï¿½ï¿½W
+		wy ,										//	ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½Ìï¿½ï¿½ï¿½xï¿½ï¿½ï¿½W
+		ww ,										//	ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½Ì•ï¿½ï¿½iï¿½@ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½í‚¹ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½j
+		wh ,										//	ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½Ìï¿½ï¿½ï¿½ï¿½iï¿½@ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½í‚¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½j
+		NULL ,												//	ï¿½eï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½Ìƒnï¿½ï¿½ï¿½hï¿½ï¿½ï¿½iï¿½@ï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½@ï¿½j
+		NULL ,												//	ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½Ü‚ï¿½ï¿½Íqï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½EID
+		hInstance ,											//	ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½nï¿½ï¿½ï¿½hï¿½ï¿½
+		NULL );												//	ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½ì¬ï¿½fï¿½[ï¿½^
 
-	//	ƒEƒCƒ“ƒhƒE‚Ì•\¦
-	ShowWindow( hWnd , nCmdShow );		//	w’è‚³‚ê‚½ƒEƒCƒ“ƒhƒE‚Ì•\¦
-	UpdateWindow( hWnd );				//	ƒEƒCƒ“ƒhƒE‚Ìó‘Ô‚ğ’¼‚¿‚É”½‰f
+	//	ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½Ì•\ï¿½ï¿½
+	ShowWindow( hWnd , nCmdShow );		//	ï¿½wï¿½è‚³ï¿½ê‚½ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½Ì•\ï¿½ï¿½
+	UpdateWindow( hWnd );				//	ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½Ìï¿½Ô‚ğ’¼‚ï¿½ï¿½É”ï¿½ï¿½f
 
-	Init( hInstance , hWnd , TRUE );	//	‰Šú‰»ŠÖ”
+	Init( hInstance , hWnd , TRUE );	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öï¿½
 
 	GetDevice();
 
-	//	•ª‰ğ”\‚Ìİ’èiƒ^ƒCƒ}[‚Ì¸“x‚ğ—Ç‚­‚·‚éj
+	//	ï¿½ï¿½ï¿½ï¿½\ï¿½Ìİ’ï¿½iï¿½^ï¿½Cï¿½}ï¿½[ï¿½Ìï¿½ï¿½xï¿½ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½ï¿½j
 	timeBeginPeriod( 1 );
 
-	//	ŠeƒJƒEƒ“ƒ^[‚Ì‰Šú‰»
+	//	ï¿½eï¿½Jï¿½Eï¿½ï¿½ï¿½^ï¿½[ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
 	DWORD dwFrameCount = 0;
-	DWORD dwCurrentTime = 0;	//	Œ»İ‚ÌŠÔ
-	DWORD dwExecLastTime = timeGetTime();	//	Œ»İ‚Ì‚ğƒ~ƒŠ’PˆÊ‚Åæ“¾
+	DWORD dwCurrentTime = 0;	//	ï¿½ï¿½ï¿½İ‚Ìï¿½ï¿½ï¿½
+	DWORD dwExecLastTime = timeGetTime();	//	ï¿½ï¿½ï¿½İ‚Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½~ï¿½ï¿½ï¿½Pï¿½Ê‚Åæ“¾
 	DWORD dwFPSLastTime = dwExecLastTime;
 
-	//	ƒƒbƒZ[ƒWƒ‹[ƒv
-	//	‘æ‚Pˆø”FƒƒbƒZ[ƒWî•ñ
-	//	‘æ‚Qˆø”FƒEƒCƒ“ƒhƒE‚Ìƒnƒ“ƒhƒ‹
-	//	‘æ‚Rˆø”FÅ‰‚ÌƒƒbƒZ[ƒW
-	//	‘æ‚Sˆø”FÅŒã‚ÌƒƒbƒZ[ƒW
+	//	ï¿½ï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½ï¿½ï¿½[ï¿½v
+	//	ï¿½ï¿½Pï¿½ï¿½ï¿½ï¿½ï¿½Fï¿½ï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½ï¿½ï¿½
+	//	ï¿½ï¿½Qï¿½ï¿½ï¿½ï¿½ï¿½Fï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½Ìƒnï¿½ï¿½ï¿½hï¿½ï¿½
+	//	ï¿½ï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½Fï¿½Åï¿½ï¿½Ìƒï¿½ï¿½bï¿½Zï¿½[ï¿½W
+	//	ï¿½ï¿½Sï¿½ï¿½ï¿½ï¿½ï¿½Fï¿½ÅŒï¿½Ìƒï¿½ï¿½bï¿½Zï¿½[ï¿½W
 	for( ;; )
 	{
 		if( PeekMessage( &msg , NULL , 0 , 0 , PM_REMOVE ) != 0 )
 		{
-			//	Windows‚Ìˆ—
+			//	Windowsï¿½Ìï¿½ï¿½ï¿½
 			if( msg.message == WM_QUIT )
 			{
 				break;
 			}
 			else
 			{
-				//	ŒÄ‚Ño‚µ‘¤ƒXƒŒƒbƒh‚ÌƒƒbƒZ[ƒWƒLƒ…[‚©‚ç
-				//	ƒƒbƒZ[ƒW‚Ì–|–ó‚Æ‘—o
+				//	ï¿½Ä‚Ñoï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½bï¿½hï¿½Ìƒï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½Lï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½
+				//	ï¿½ï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½Ì–|ï¿½ï¿½Æ‘ï¿½ï¿½o
 				TranslateMessage( &msg );
 				DispatchMessage( &msg );
 			}
 		}
 		else
 		{
-			dwCurrentTime = timeGetTime();	//	Œ»İ‚Ì‚ğƒ~ƒŠ’PˆÊ‚Åæ“¾
+			dwCurrentTime = timeGetTime();	//	ï¿½ï¿½ï¿½İ‚Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½~ï¿½ï¿½ï¿½Pï¿½Ê‚Åæ“¾
 			if( (dwCurrentTime - dwFPSLastTime) >= 500 )
 			{
 				g_nCountFPS = ( dwFrameCount * 1000 ) / (dwCurrentTime - dwFPSLastTime);
 				dwFPSLastTime = dwCurrentTime;
 				dwFrameCount = 0;
 			}
-			if( (dwCurrentTime - dwExecLastTime) >= (1000/60) )	//	Œ»İ‚ÌƒtƒŒ[ƒ€‚©‚ç‚Ç‚êˆÊ‚½‚Á‚½‚Ì‚©( ·•ªŒvZ )	ƒfƒoƒbƒO‚ÅŒv‘ª‚µ‚½‚¢‚Æ‚«‚Íif‚ğƒRƒƒ“ƒgƒAƒEƒg
+			if( (dwCurrentTime - dwExecLastTime) >= (1000/60) )	//	ï¿½ï¿½ï¿½İ‚Ìƒtï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‚ï¿½Ê‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½( ï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Z )	ï¿½fï¿½oï¿½bï¿½Oï¿½ÅŒvï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ifï¿½ï¿½ï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½gï¿½Aï¿½Eï¿½g
 			{
-				dwExecLastTime = dwCurrentTime;	//	ˆ—‚µ‚½ŠÔ‚ğ•Û‘¶
+				dwExecLastTime = dwCurrentTime;	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½Û‘ï¿½
 
-				//	DirectX‚Ìˆ—iƒQ[ƒ€ˆ—j
-				Update();	//	XVˆ—
+				//	DirectXï¿½Ìï¿½ï¿½ï¿½ï¿½iï¿½Qï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½j
+				Update();	//	ï¿½Xï¿½Vï¿½ï¿½ï¿½ï¿½
 
-				Draw();	//	•`‰æˆ—
+				Draw();	//	ï¿½`ï¿½æˆï¿½ï¿½
 
 				dwFrameCount++;
 
@@ -241,41 +239,41 @@ int APIENTRY WinMain( HINSTANCE hInstance , HINSTANCE hPrevInstance , LPSTR IpCm
 		}
 	}
 
-	//	ƒEƒCƒ“ƒhƒEƒNƒ‰ƒX‚Ì“o˜^‚ğ‰ğœ
-	//	‘æˆêˆø”FƒƒNƒ‰ƒX–¼
-	//	‘æ“ñˆø”FƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒCƒ“ƒXƒ^ƒ“ƒX
+	//	ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½Nï¿½ï¿½ï¿½Xï¿½Ì“oï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Fï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½Xï¿½ï¿½
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Fï¿½Aï¿½vï¿½ï¿½ï¿½Pï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½X
 	UnregisterClass( CLASS_NAME , wcex.hInstance );
 
-	Uninit();	//	I—¹ˆ—
+	Uninit();	//	ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	return ( int )msg.wParam;
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
-				ƒEƒCƒ“ƒhƒEƒvƒƒV[ƒWƒƒ
-		( CALLBACK:Win32APIŠÖ”‚ğŒÄ‚Ño‚·‚Æ‚«‚Ì‹K–ñ )
-		hWnd :   ƒEƒCƒ“ƒhƒE‚Ìƒnƒ“ƒhƒ‹
-		uMsg :   ƒƒbƒZ[ƒW‚Ì¯•Êq
-		wParam : ƒƒbƒZ[ƒW‚ÌÅ‰‚Ìƒpƒ‰ƒ[ƒ^
-		lParam : ƒƒbƒZ[ƒW‚Ì‚Q”Ô–Ú‚Ìƒpƒ‰ƒ[ƒ^
+				ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½vï¿½ï¿½ï¿½Vï¿½[ï¿½Wï¿½ï¿½
+		( CALLBACK:Win32APIï¿½Öï¿½ï¿½ï¿½ï¿½Ä‚Ñoï¿½ï¿½ï¿½Æ‚ï¿½ï¿½Ì‹Kï¿½ï¿½ )
+		hWnd :   ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½Ìƒnï¿½ï¿½ï¿½hï¿½ï¿½
+		uMsg :   ï¿½ï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½Ìï¿½ï¿½Êq
+		wParam : ï¿½ï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½ÌÅï¿½ï¿½Ìƒpï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½^
+		lParam : ï¿½ï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½Ì‚Qï¿½Ô–Ú‚Ìƒpï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½^
 -------------------------------------------------------------------------------*/
 LRESULT CALLBACK WndProc( HWND hWnd , UINT uMsg , WPARAM wParam , LPARAM lParam )
 {
-	UINT nSelect;	//	EscƒL[‚Ì“ü—Í”»’è
+	UINT nSelect;	//	Escï¿½Lï¿½[ï¿½Ì“ï¿½ï¿½Í”ï¿½ï¿½ï¿½
 
 	switch( uMsg )
 	{
 
-	case WM_DESTROY:										//	ƒEƒCƒ“ƒhƒE”jŠü‚ÌƒƒbƒZ[ƒW
-		//MessageBox( NULL , "WM_DESTROY‚ªÀs‚³‚ê‚½" , "" , MB_OK );
-		PostQuitMessage( 0 );								//	"WM_QUIT"ƒƒbƒZ[ƒW‚ğ•Ô‚·
+	case WM_DESTROY:										//	ï¿½Eï¿½Cï¿½ï¿½ï¿½hï¿½Eï¿½jï¿½ï¿½ï¿½Ìƒï¿½ï¿½bï¿½Zï¿½[ï¿½W
+		//MessageBox( NULL , "WM_DESTROYï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ê‚½" , "" , MB_OK );
+		PostQuitMessage( 0 );								//	"WM_QUIT"ï¿½ï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½ï¿½Ô‚ï¿½
 		break;
 
-	case WM_KEYDOWN:	//	ƒL[“ü—Í
+	case WM_KEYDOWN:	//	ï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½
 		switch( wParam )
 		{
-			case VK_ESCAPE:	//	ESCAPEƒL[
-			nSelect = MessageBox( NULL , "I—¹‚µ‚Ü‚·‚©H" , "I—¹ƒƒbƒZ[ƒW" , MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON2 );
+			case VK_ESCAPE:	//	ESCAPEï¿½Lï¿½[
+			nSelect = MessageBox( NULL , "ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½H" , "ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½bï¿½Zï¿½[ï¿½W" , MB_YESNO | MB_ICONQUESTION | MB_DEFBUTTON2 );
 			if( nSelect == IDYES )
 			{
 				DestroyWindow( hWnd );
@@ -283,42 +281,42 @@ LRESULT CALLBACK WndProc( HWND hWnd , UINT uMsg , WPARAM wParam , LPARAM lParam 
 			break;
 		}
 	case WM_CLOSE:
-		//MessageBox( NULL , "WM_CLOSE‚ªÀs‚³‚ê‚½" , "" , MB_OK );
+		//MessageBox( NULL , "WM_CLOSEï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ê‚½" , "" , MB_OK );
 		break;
 
 	default:
 		break;
 	}
 
-	return DefWindowProc( hWnd , uMsg , wParam , lParam );	//	Šù’è‚Ìˆ—‚ğ’ñ‹Ÿ
+	return DefWindowProc( hWnd , uMsg , wParam , lParam );	//	ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	HRESULT Init( HINSTANCE hInstance , HWND hWnd , BOOL bWindow )
- ˆø”:		HINSTANCE hInstance
+ ï¿½Öï¿½ï¿½ï¿½:	HRESULT Init( HINSTANCE hInstance , HWND hWnd , BOOL bWindow )
+ ï¿½ï¿½ï¿½ï¿½:		HINSTANCE hInstance
 			HWND hWnd
 			BOOL bWindow
- –ß‚è’l:	S_OK
- à–¾:		‰Šú‰»ŠÖ”
+ ï¿½ß‚ï¿½l:	S_OK
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öï¿½
 -----------------------------------------------------------------------------*/
 HRESULT Init( HINSTANCE hInstance , HWND hWnd , BOOL bWindow )
 {
 	D3DPRESENT_PARAMETERS d3dpp;
 	D3DDISPLAYMODE d3ddm;
 
-	//	D3D9ƒCƒ“ƒ^[ƒtƒF[ƒX‚Ìæ“¾
+	//	D3D9ï¿½Cï¿½ï¿½ï¿½^ï¿½[ï¿½tï¿½Fï¿½[ï¿½Xï¿½Ìæ“¾
 	g_pD3D = Direct3DCreate9( D3D_SDK_VERSION );
 	if( g_pD3D == NULL )
 	{
 		return E_FAIL;
 	}	//	end of if
-	//	Œ»İ‚ÌƒfƒBƒXƒvƒŒƒCƒ‚[ƒh‚Ìæ“¾
+	//	ï¿½ï¿½ï¿½İ‚Ìƒfï¿½Bï¿½Xï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½hï¿½Ìæ“¾
 	if( FAILED( g_pD3D -> GetAdapterDisplayMode( D3DADAPTER_DEFAULT , &d3ddm ) ) )
 	{
 		return E_FAIL;
 	}	//	end of if
 
-	//	ƒfƒoƒCƒX‚ÌƒvƒŒƒ[ƒ“ƒe[ƒVƒ‡ƒ“ƒpƒ‰ƒ[ƒ^‚Ìİ’è(ƒfƒoƒCƒX‚Ìİ’è‚Ì‚½‚ß‚Ìİ’è)
+	//	ï¿½fï¿½oï¿½Cï¿½Xï¿½Ìƒvï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½eï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½^ï¿½Ìİ’ï¿½(ï¿½fï¿½oï¿½Cï¿½Xï¿½Ìİ’ï¿½Ì‚ï¿½ï¿½ß‚Ìİ’ï¿½)
 	ZeroMemory( &d3dpp , sizeof( d3dpp ) );
 	d3dpp.BackBufferWidth = SCREEN_WIDTH;
 	d3dpp.BackBufferHeight = SCREEN_HEIGHT;
@@ -331,24 +329,24 @@ HRESULT Init( HINSTANCE hInstance , HWND hWnd , BOOL bWindow )
 	d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
 	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
 
-	//	Direct3DƒfƒoƒCƒX‚Ìì¬
-	//	‚Ç‚¿‚ç‚àƒn[ƒhƒEƒFƒAˆ—
+	//	Direct3Dï¿½fï¿½oï¿½Cï¿½Xï¿½Ìì¬
+	//	ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½ï¿½nï¿½[ï¿½hï¿½Eï¿½Fï¿½Aï¿½ï¿½ï¿½ï¿½
 	if( FAILED( g_pD3D -> CreateDevice( D3DADAPTER_DEFAULT , D3DDEVTYPE_HAL , hWnd , D3DCREATE_HARDWARE_VERTEXPROCESSING , &d3dpp , &g_pD3DDevice ) ) )
 	{
-		//	•`‰æˆ—‚Íƒn[ƒhƒEƒFƒAˆ—@’¸“_ˆ—‚Íƒ\ƒtƒgƒEƒFƒAˆ—
+		//	ï¿½`ï¿½æˆï¿½ï¿½ï¿½Íƒnï¿½[ï¿½hï¿½Eï¿½Fï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½Íƒ\ï¿½tï¿½gï¿½Eï¿½Fï¿½Aï¿½ï¿½ï¿½ï¿½
 		if( FAILED( g_pD3D -> CreateDevice( D3DADAPTER_DEFAULT , D3DDEVTYPE_HAL , hWnd , D3DCREATE_SOFTWARE_VERTEXPROCESSING , &d3dpp , &g_pD3DDevice ) ) )
 		{
-			//	‚Ç‚¿‚ç‚àƒ\ƒtƒgƒEƒFƒAˆ—
+			//	ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½tï¿½gï¿½Eï¿½Fï¿½Aï¿½ï¿½ï¿½ï¿½
 			if( FAILED( g_pD3D -> CreateDevice( D3DADAPTER_DEFAULT , D3DDEVTYPE_REF , hWnd , D3DCREATE_SOFTWARE_VERTEXPROCESSING , &d3dpp , &g_pD3DDevice ) ) )
 			{
-				MessageBox( NULL , "ƒfƒoƒCƒX‚ªì‚ê‚Ü‚¹‚ñ‚Å‚µ‚½" , "Œx" , MB_OK | MB_ICONHAND );
+				MessageBox( NULL , "ï¿½fï¿½oï¿½Cï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½" , "ï¿½xï¿½ï¿½" , MB_OK | MB_ICONHAND );
 				return E_FAIL;
 			}	//	end of if
 		}	//	end of if
 	}	//	end of if
 
 #if 0
-	//	ƒrƒ…[ƒ|[ƒg•Ï”
+	//	ï¿½rï¿½ï¿½ï¿½[ï¿½|ï¿½[ï¿½gï¿½Ïï¿½
 	D3DVIEWPORT9 vp;
 
 
@@ -359,48 +357,48 @@ HRESULT Init( HINSTANCE hInstance , HWND hWnd , BOOL bWindow )
 	vp.Width = SCREEN_WIDTH;
 	vp.Height = SCREEN_HEIGHT / 2;
 
-	//	ƒrƒ…[ƒ|[ƒg‚ğ‚¢‚¶‚é
+	//	ï¿½rï¿½ï¿½ï¿½[ï¿½|ï¿½[ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	g_pD3DDevice -> SetViewport( &vp );
 
 #endif
 
-	// ‹tŒv‰ñ‚è‚ğ— –Ê‚Æ‚·‚é
+	// ï¿½tï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ğ— –Ê‚Æ‚ï¿½ï¿½ï¿½
 	g_pD3DDevice -> SetRenderState( D3DRS_CULLMODE , D3DCULL_CCW );
 #if 0
-	// Œv‰ñ‚è‚ğ— –Ê‚Æ‚·‚é
+	// ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ğ— –Ê‚Æ‚ï¿½ï¿½ï¿½
 	_pD3DDevice -> SetRenderState( D3DRS_CULLMODE , D3DCULL_CW );
 
-	// —¼–Ê‚É‚·‚é
+	// ï¿½ï¿½ï¿½Ê‚É‚ï¿½ï¿½ï¿½
 	g_pD3DDevice -> SetRenderState( D3DRS_CULLMODE , D3DCULL_NONE );
 #endif
 
 	
-	//	aƒuƒŒƒ“ƒh
-	//	‰ÁZ‡¬
+	//	aï¿½uï¿½ï¿½ï¿½ï¿½ï¿½h
+	//	ï¿½ï¿½ï¿½Zï¿½ï¿½ï¿½ï¿½
 	g_pD3DDevice -> SetRenderState( D3DRS_ALPHABLENDENABLE , TRUE );
 	g_pD3DDevice -> SetRenderState( D3DRS_SRCBLEND , D3DBLEND_SRCALPHA );
 	g_pD3DDevice -> SetRenderState( D3DRS_DESTBLEND , D3DBLEND_INVSRCALPHA );
 
-	//	ƒAƒ‹ƒtƒ@ƒuƒŒƒ“ƒh‚Ìİ’è
+	//	ï¿½Aï¿½ï¿½ï¿½tï¿½@ï¿½uï¿½ï¿½ï¿½ï¿½ï¿½hï¿½Ìİ’ï¿½
 	g_pD3DDevice -> SetTextureStageState( 0 , D3DTSS_ALPHAOP , D3DTOP_MODULATE );
 	g_pD3DDevice -> SetTextureStageState( 0 , D3DTSS_ALPHAARG1 , D3DTA_TEXTURE );
 	g_pD3DDevice -> SetTextureStageState( 0 , D3DTSS_ALPHAARG2 , D3DTA_DIFFUSE );
 
 
-	// Œ»İ‰æ–Ê‚É•`‚©‚ê‚Ä‚¢‚éó‘Ô‚É‘Î‚µ‚Ä¡‚©‚ç•`‰æ‚·‚é“à—e
+	// ï¿½ï¿½ï¿½İ‰ï¿½Ê‚É•`ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½Ô‚É‘Î‚ï¿½ï¿½Äï¿½ï¿½ï¿½ï¿½ï¿½`ï¿½æ‚·ï¿½ï¿½ï¿½ï¿½e
 
-	// ƒTƒ“ƒvƒ‰[ƒXƒe[ƒg‚Ìİ’è
-	// k¬
+	// ï¿½Tï¿½ï¿½ï¿½vï¿½ï¿½ï¿½[ï¿½Xï¿½eï¿½[ï¿½gï¿½Ìİ’ï¿½
+	// ï¿½kï¿½ï¿½ï¿½ï¿½
 	g_pD3DDevice -> SetSamplerState( 0 , D3DSAMP_MINFILTER , D3DTEXF_LINEAR );
 
-	// Šg‘å
+	// ï¿½gï¿½å
 	g_pD3DDevice -> SetSamplerState( 0 , D3DSAMP_MAGFILTER , D3DTEXF_LINEAR );
 
 #if 0
-	// ¶‰Eƒ~ƒ‰[
+	// ï¿½ï¿½ï¿½Eï¿½~ï¿½ï¿½ï¿½[
 	g_pD3DDevice -> SetSamplerState( 0 , D3DSAMP_ADDRESSU , D3DTADDRESS_MIRROR );
 
-	// ã‰ºƒ~ƒ‰[
+	// ï¿½ã‰ºï¿½~ï¿½ï¿½ï¿½[
 	g_pD3DDevice -> SetSamplerState( 0 , D3DSAMP_ADDRESSV , D3DTADDRESS_MIRROR );
 
 	// CLAMP
@@ -414,11 +412,11 @@ HRESULT Init( HINSTANCE hInstance , HWND hWnd , BOOL bWindow )
 
 #ifdef _DEBUG
 	D3DXCreateFont( g_pD3DDevice ,
-					18 ,	//	•¶š‚‚³
-					0 ,	//	•¶š•
-					0 ,	//	•¶š‚Ì‘¾‚³
-					0 ,	//	ƒ~ƒbƒvƒ}ƒbƒv
-					FALSE ,	//	ƒCƒ^ƒŠƒbƒN
+					18 ,	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+					0 ,	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+					0 ,	//	ï¿½ï¿½ï¿½ï¿½ï¿½Ì‘ï¿½ï¿½ï¿½
+					0 ,	//	ï¿½~ï¿½bï¿½vï¿½}ï¿½bï¿½v
+					FALSE ,	//	ï¿½Cï¿½^ï¿½ï¿½ï¿½bï¿½N
 					SHIFTJIS_CHARSET ,
 					OUT_DEFAULT_PRECIS ,
 					DEFAULT_QUALITY ,
@@ -427,78 +425,78 @@ HRESULT Init( HINSTANCE hInstance , HWND hWnd , BOOL bWindow )
 					&g_pFont);
 #endif	//	_DEBUG
 
-	//	‰Šú‰»
-	g_WireframeFlag = false;	//	ƒƒCƒ„[ƒtƒŒ[ƒ€ƒtƒ‰ƒO
+	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	g_WireframeFlag = false;	//	ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½O
 
-	InitKeyboard( hInstance, hWnd);	//	ƒL[ƒ{[ƒh‰Šú‰»
+	InitKeyboard( hInstance, hWnd);	//	ï¿½Lï¿½[ï¿½{ï¿½[ï¿½hï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	InitSound( hWnd );	//	‰¹Šy‚Ì‰Šú‰»
+	InitSound( hWnd );	//	ï¿½ï¿½ï¿½yï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
 
-	InitFade();	//	ƒtƒF[ƒh‚Ì‰Šú‰»
+	InitFade();	//	ï¿½tï¿½Fï¿½[ï¿½hï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
 
 	pInitFunc[ g_mode ]();
 
 
-//	InitCamera();	//	ƒJƒƒ‰‚Ì‰Šú‰»
+//	InitCamera();	//	ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
 
-	InitLight();		//	ƒ‰ƒCƒg‚Ì‰Šú‰»
+	InitLight();		//	ï¿½ï¿½ï¿½Cï¿½gï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
 
 	return S_OK;
 
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void Uninit( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		I—¹ŠÖ”
+ ï¿½Öï¿½ï¿½ï¿½:	void Uninit( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½Iï¿½ï¿½ï¿½Öï¿½
 -----------------------------------------------------------------------------*/
 void Uninit( void )
 {
 
 	if( g_pD3DDevice != NULL )
 	{
-		g_pD3DDevice -> Release();	//	Direct3DDeviceŠJ•ú
+		g_pD3DDevice -> Release();	//	Direct3DDeviceï¿½Jï¿½ï¿½
 		g_pD3DDevice = NULL;	
 	}
 	if( g_pD3D != NULL )
 	{
-		g_pD3D -> Release();	//	Direct3DƒCƒ“ƒ^[ƒtƒF[ƒXŠJ•ú
+		g_pD3D -> Release();	//	Direct3Dï¿½Cï¿½ï¿½ï¿½^ï¿½[ï¿½tï¿½Fï¿½[ï¿½Xï¿½Jï¿½ï¿½
 		g_pD3D = NULL;
 	}
 
 #ifdef _DEBUG
 	if( g_pFont != NULL )
 	{
-		g_pFont -> Release();	//	ƒtƒHƒ“ƒg‚ÌƒCƒ“ƒ^[ƒtƒF[ƒXŠJ•ú
+		g_pFont -> Release();	//	ï¿½tï¿½Hï¿½ï¿½ï¿½gï¿½ÌƒCï¿½ï¿½ï¿½^ï¿½[ï¿½tï¿½Fï¿½[ï¿½Xï¿½Jï¿½ï¿½
 		g_pFont = NULL;
 	}
 #endif	//	_DEBUG
 
-	UninitKeyboard();	//	ƒL[ƒ{[ƒh‚ÌI—¹
+	UninitKeyboard();	//	ï¿½Lï¿½[ï¿½{ï¿½[ï¿½hï¿½ÌIï¿½ï¿½
 
-	UninitSound();	//	‰¹Šy‚ÌI—¹
+	UninitSound();	//	ï¿½ï¿½ï¿½yï¿½ÌIï¿½ï¿½
 
-	UninitFade();	//	ƒtƒF[ƒh‚ÌI—¹
+	UninitFade();	//	ï¿½tï¿½Fï¿½[ï¿½hï¿½ÌIï¿½ï¿½
 
 	pUninitFunc[g_mode]();
 
-	UninitCamera();	//	ƒJƒƒ‰‚ÌI—¹
+	UninitCamera();	//	ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ÌIï¿½ï¿½
 
-	UninitLight();	//	ƒ‰ƒCƒg‚ÌI—¹
+	UninitLight();	//	ï¿½ï¿½ï¿½Cï¿½gï¿½ÌIï¿½ï¿½
 
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void Update( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		XVŠÖ”
+ ï¿½Öï¿½ï¿½ï¿½:	void Update( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½Xï¿½Vï¿½Öï¿½
 -----------------------------------------------------------------------------*/
 void Update( void )
 {
 	
-	//	ƒƒCƒ„[ƒtƒŒ[ƒ€‚ÌONEOFF
+	//	ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ONï¿½EOFF
 	if( GetKeyboardTrigger( DIK_F2 ) )
 	{
 		if( g_WireframeFlag == false )
@@ -515,50 +513,50 @@ void Update( void )
 
 	}
 
-	Wireframe();	//	ƒƒCƒ„[ƒtƒŒ[ƒ€
+	Wireframe();	//	ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½
 
-	UpdateKeyboard();	//	ƒL[ƒ{[ƒh‚ÌXV
+	UpdateKeyboard();	//	ï¿½Lï¿½[ï¿½{ï¿½[ï¿½hï¿½ÌXï¿½V
 
-	UpdateFade();	//	ƒtƒF[ƒh‚ÌXV
+	UpdateFade();	//	ï¿½tï¿½Fï¿½[ï¿½hï¿½ÌXï¿½V
 
 	pUpdateFunc[g_mode]();
 
-	UpdateCamera();	//	ƒJƒƒ‰‚ÌXV
+	UpdateCamera();	//	ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ÌXï¿½V
 
-	UpdateLight();	//	ƒ‰ƒCƒg‚ÌXV
+	UpdateLight();	//	ï¿½ï¿½ï¿½Cï¿½gï¿½ÌXï¿½V
 
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void Draw( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		•`‰æŠÖ”
+ ï¿½Öï¿½ï¿½ï¿½:	void Draw( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½`ï¿½ï¿½Öï¿½
 -----------------------------------------------------------------------------*/
 void Draw( void )
 {
 
-	//	ƒoƒbƒNƒoƒbƒtƒ@‚Æ‚yƒoƒbƒtƒ@‚ÌƒNƒŠƒA
+	//	ï¿½oï¿½bï¿½Nï¿½oï¿½bï¿½tï¿½@ï¿½Æ‚yï¿½oï¿½bï¿½tï¿½@ï¿½ÌƒNï¿½ï¿½ï¿½A
 	g_pD3DDevice ->Clear( 0 , NULL , D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER , D3DCOLOR_RGBA( 0 , 177 , 184 , 255 ) , 1.0f , 0 );
 
-	//	•`‰æ‚ÌŠJn
+	//	ï¿½`ï¿½ï¿½ÌŠJï¿½n
 	if( SUCCEEDED( g_pD3DDevice -> BeginScene() ) )
 	{
 
-		DrawCamera();	//	ƒJƒƒ‰‚Ì•`‰æ
+		DrawCamera();	//	ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½Ì•`ï¿½ï¿½
 
-		DrawLight();	//	ƒ‰ƒCƒg‚Ì•`‰æ
+		DrawLight();	//	ï¿½ï¿½ï¿½Cï¿½gï¿½Ì•`ï¿½ï¿½
 
 		pDrawFunc[g_mode]();
 
-		DrawFade();	//	ƒtƒF[ƒh‚Ì•`‰æ
+		DrawFade();	//	ï¿½tï¿½Fï¿½[ï¿½hï¿½Ì•`ï¿½ï¿½
 		
 #ifdef _DEBUG
-		DrawFPS();	//	FPS•\¦
+		DrawFPS();	//	FPSï¿½\ï¿½ï¿½
 
 #endif
 
-		//	•`‰æI—¹
+		//	ï¿½`ï¿½ï¿½Iï¿½ï¿½
 		g_pD3DDevice -> EndScene();
 
 	}	//	end of if
@@ -568,10 +566,10 @@ void Draw( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void SetMode(MODE mode)
- ˆø”:		MODE mode
- –ß‚è’l:	
- à–¾:		ƒ‚[ƒhİ’u
+ ï¿½Öï¿½ï¿½ï¿½:	void SetMode(MODE mode)
+ ï¿½ï¿½ï¿½ï¿½:		MODE mode
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½ï¿½ï¿½[ï¿½hï¿½İ’u
 -----------------------------------------------------------------------------*/
 void SetMode( MODE mode )
 {
@@ -585,10 +583,10 @@ void SetMode( MODE mode )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	LPDIRECT3DDEVICE9 GetDevice( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		D3DDevice‚Ìæ“¾
+ ï¿½Öï¿½ï¿½ï¿½:	LPDIRECT3DDEVICE9 GetDevice( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		D3DDeviceï¿½Ìæ“¾
 -----------------------------------------------------------------------------*/
 LPDIRECT3DDEVICE9 GetDevice( void )
 {
@@ -598,10 +596,10 @@ LPDIRECT3DDEVICE9 GetDevice( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	MODE *GetMode( void )
- ˆø”:		
- –ß‚è’l:	return &g_mode;
- à–¾:		ƒ‚[ƒh‚Ìæ“¾
+ ï¿½Öï¿½ï¿½ï¿½:	MODE *GetMode( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	return &g_mode;
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½ï¿½ï¿½[ï¿½hï¿½Ìæ“¾
 -----------------------------------------------------------------------------*/
 MODE *GetMode( void )
 {
@@ -611,110 +609,110 @@ MODE *GetMode( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void SetWorldInv( D3DXVECTOR3 Pos , D3DXVECTOR3 Scl )
- ˆø”:		D3DXVECTOR3 Pos		À•W
-			D3DXVECTOR3 Scl		Šg‘å—¦
- –ß‚è’l:	
- à–¾:		‹ts—ñ‚ ‚è‚Ìƒ[ƒ‹ƒhÀ•W•ÏŠ·
+ ï¿½Öï¿½ï¿½ï¿½:	void SetWorldInv( D3DXVECTOR3 Pos , D3DXVECTOR3 Scl )
+ ï¿½ï¿½ï¿½ï¿½:		D3DXVECTOR3 Pos		ï¿½ï¿½ï¿½W
+			D3DXVECTOR3 Scl		ï¿½gï¿½å—¦
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½tï¿½sï¿½ñ‚ ‚ï¿½Ìƒï¿½ï¿½[ï¿½ï¿½ï¿½hï¿½ï¿½ï¿½Wï¿½ÏŠï¿½
 -----------------------------------------------------------------------------*/
 void SetWorldInv( D3DXVECTOR3 Pos , D3DXVECTOR3 Scl )
 {
-	//	ƒrƒ…[s—ñ‚Ì‹ts—ñ‚Ìì¬
+	//	ï¿½rï¿½ï¿½ï¿½[ï¿½sï¿½ï¿½Ì‹tï¿½sï¿½ï¿½Ìì¬
 	D3DXMATRIX mtxViewInverse;
 
-	//	ƒrƒ…[s—ñ‚Ìî•ñæ“¾
+	//	ï¿½rï¿½ï¿½ï¿½[ï¿½sï¿½ï¿½Ìï¿½ï¿½æ“¾
 	D3DXMATRIX mtxView = GetView();
 
-	//	“]’us—ñ
+	//	ï¿½]ï¿½uï¿½sï¿½ï¿½
 	D3DXMatrixTranspose( &mtxViewInverse , &mtxView );
 
-	//	•½sˆÚ“®¬•ª‚ğƒJƒbƒg
+	//	ï¿½ï¿½ï¿½sï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Jï¿½bï¿½g
 	mtxViewInverse._14 = 0.0f;
 	mtxViewInverse._24 = 0.0f;
 	mtxViewInverse._34 = 0.0f;
 
 	D3DXMATRIX mtxWorld , mtxScl , mtxPos;
 
-	D3DXMatrixIdentity( &mtxWorld );	//	s—ñ‚ğ’PˆÊs—ñ‚É‚·‚é
+	D3DXMatrixIdentity( &mtxWorld );	//	ï¿½sï¿½ï¿½ï¿½Pï¿½Êsï¿½ï¿½É‚ï¿½ï¿½ï¿½
 
-		//	Šg‘ås—ñ‚ğì‚é
-	D3DXMatrixScaling( &mtxScl ,	//Šg‘ås—ñ‚ªì‚ç‚ê‚é
-		Scl.x ,	//	X²Šg‘å
-		Scl.y ,	//	Y²Šg‘å
-		Scl.z );	//	Z²Šg‘å
+		//	ï¿½gï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	D3DXMatrixScaling( &mtxScl ,	//ï¿½gï¿½ï¿½sï¿½ñ‚ªï¿½ï¿½ï¿½ï¿½
+		Scl.x ,	//	Xï¿½ï¿½ï¿½gï¿½ï¿½
+		Scl.y ,	//	Yï¿½ï¿½ï¿½gï¿½ï¿½
+		Scl.z );	//	Zï¿½ï¿½ï¿½gï¿½ï¿½
 
-	//	•½sˆÚ“®s—ñ‚ğì‚é
+	//	ï¿½ï¿½ï¿½sï¿½Ú“ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	D3DXMatrixTranslation( &mtxPos ,
-		Pos.x ,	//	X²ˆÚ“®
-		Pos.y ,	//	Y²ˆÚ“®
-		Pos.z );	//	Z²ˆÚ“®
+		Pos.x ,	//	Xï¿½ï¿½ï¿½Ú“ï¿½
+		Pos.y ,	//	Yï¿½ï¿½ï¿½Ú“ï¿½
+		Pos.z );	//	Zï¿½ï¿½ï¿½Ú“ï¿½
 
 
-	//	Š|‚¯‚Ä‚ ‚°‚é
+	//	ï¿½|ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½
 	D3DXMatrixMultiply( &mtxWorld , &mtxWorld , &mtxViewInverse );
 
 	D3DXMatrixMultiply( &mtxWorld , &mtxWorld , &mtxScl );
 
 	D3DXMatrixMultiply( &mtxWorld , &mtxWorld , &mtxPos );
 
-	//	ƒfƒoƒCƒX‚Éƒ[ƒ‹ƒh•ÏŠ·s—ñ‚ğİ’è
+	//	ï¿½fï¿½oï¿½Cï¿½Xï¿½Éƒï¿½ï¿½[ï¿½ï¿½ï¿½hï¿½ÏŠï¿½ï¿½sï¿½ï¿½ï¿½İ’ï¿½
 	g_pD3DDevice -> SetTransform( D3DTS_WORLD , &mtxWorld );
 
 
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void SetWorld( D3DXVECTOR3 Pos , D3DXVECTOR3 Rot , D3DXVECTOR3 Scl )
- ˆø”:		D3DXVECTOR3 Pos		À•W
-			D3DXVECTOR3 Rot		‰ñ“]
-			D3DXVECTOR3 Scl		Šg‘å—¦
- –ß‚è’l:	
- à–¾:		‹ts—ñ‚È‚µ‚Ìƒ[ƒ‹ƒhÀ•W•ÏŠ·
+ ï¿½Öï¿½ï¿½ï¿½:	void SetWorld( D3DXVECTOR3 Pos , D3DXVECTOR3 Rot , D3DXVECTOR3 Scl )
+ ï¿½ï¿½ï¿½ï¿½:		D3DXVECTOR3 Pos		ï¿½ï¿½ï¿½W
+			D3DXVECTOR3 Rot		ï¿½ï¿½]
+			D3DXVECTOR3 Scl		ï¿½gï¿½å—¦
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½tï¿½sï¿½ï¿½È‚ï¿½ï¿½Ìƒï¿½ï¿½[ï¿½ï¿½ï¿½hï¿½ï¿½ï¿½Wï¿½ÏŠï¿½
 -----------------------------------------------------------------------------*/
 void SetWorld( D3DXVECTOR3 Pos , D3DXVECTOR3 Rot , D3DXVECTOR3 Scl )
 {
 
 	D3DXMATRIX mtxWorld , mtxScl , mtxRot , mtxPos;
 
-	D3DXMatrixIdentity( &mtxWorld );	//	s—ñ‚ğ’PˆÊs—ñ‚É‚·‚é
+	D3DXMatrixIdentity( &mtxWorld );	//	ï¿½sï¿½ï¿½ï¿½Pï¿½Êsï¿½ï¿½É‚ï¿½ï¿½ï¿½
 
-		//	Šg‘ås—ñ‚ğì‚é
-	D3DXMatrixScaling( &mtxScl ,	//Šg‘ås—ñ‚ªì‚ç‚ê‚é
-		Scl.x ,	//	X²Šg‘å
-		Scl.y ,	//	Y²Šg‘å
-		Scl.z );	//	Z²Šg‘å
+		//	ï¿½gï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	D3DXMatrixScaling( &mtxScl ,	//ï¿½gï¿½ï¿½sï¿½ñ‚ªï¿½ï¿½ï¿½ï¿½
+		Scl.x ,	//	Xï¿½ï¿½ï¿½gï¿½ï¿½
+		Scl.y ,	//	Yï¿½ï¿½ï¿½gï¿½ï¿½
+		Scl.z );	//	Zï¿½ï¿½ï¿½gï¿½ï¿½
 
-	//	‰ñ“]s—ñ‚ğì‚é
-	D3DXMatrixRotationYawPitchRoll( &mtxRot ,	//	‰ñ“]s—ñ‚ªì‚ç‚ê‚é
-		D3DXToRadian( Rot.y ) , //	Y²‰ñ“]
-		D3DXToRadian( Rot.x ) , //	X²‰ñ“]
-		D3DXToRadian( Rot.z ) ); //	Z²‰ñ“]
+	//	ï¿½ï¿½]ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	D3DXMatrixRotationYawPitchRoll( &mtxRot ,	//	ï¿½ï¿½]ï¿½sï¿½ñ‚ªï¿½ï¿½ï¿½ï¿½
+		D3DXToRadian( Rot.y ) , //	Yï¿½ï¿½ï¿½ï¿½]
+		D3DXToRadian( Rot.x ) , //	Xï¿½ï¿½ï¿½ï¿½]
+		D3DXToRadian( Rot.z ) ); //	Zï¿½ï¿½ï¿½ï¿½]
 
-	//	•½sˆÚ“®s—ñ‚ğì‚é
+	//	ï¿½ï¿½ï¿½sï¿½Ú“ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	D3DXMatrixTranslation( &mtxPos ,
-		Pos.x ,	//	X²ˆÚ“®
-		Pos.y ,	//	Y²ˆÚ“®
-		Pos.z );	//	Z²ˆÚ“®
+		Pos.x ,	//	Xï¿½ï¿½ï¿½Ú“ï¿½
+		Pos.y ,	//	Yï¿½ï¿½ï¿½Ú“ï¿½
+		Pos.z );	//	Zï¿½ï¿½ï¿½Ú“ï¿½
 
 
-	//	Š|‚¯‚Ä‚ ‚°‚é
+	//	ï¿½|ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½
 	D3DXMatrixMultiply( &mtxWorld , &mtxWorld , &mtxScl );
 
 	D3DXMatrixMultiply( &mtxWorld , &mtxWorld , &mtxRot );
 
 	D3DXMatrixMultiply( &mtxWorld , &mtxWorld , &mtxPos );
 
-	//	ƒfƒoƒCƒX‚Éƒ[ƒ‹ƒh•ÏŠ·s—ñ‚ğİ’è
+	//	ï¿½fï¿½oï¿½Cï¿½Xï¿½Éƒï¿½ï¿½[ï¿½ï¿½ï¿½hï¿½ÏŠï¿½ï¿½sï¿½ï¿½ï¿½İ’ï¿½
 	g_pD3DDevice -> SetTransform( D3DTS_WORLD , &mtxWorld );
 
 
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void Wireframe( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		ƒƒCƒ„[ƒtƒŒ[ƒ€
+ ï¿½Öï¿½ï¿½ï¿½:	void Wireframe( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void Wireframe( void )
 {
@@ -722,7 +720,7 @@ void Wireframe( void )
 	if( g_WireframeFlag == false )
 	{
 
-		// ƒƒCƒ„[ƒtƒŒ[ƒ€•\¦‚É‚·‚é
+		// ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½
 		g_pD3DDevice -> SetRenderState( D3DRS_FILLMODE , D3DFILL_FORCE_DWORD );
 
 	}	//	end of if
@@ -730,7 +728,7 @@ void Wireframe( void )
 	else if( g_WireframeFlag == true )
 	{
 
-		// ƒƒCƒ„[ƒtƒŒ[ƒ€•\¦‚É‚·‚é
+		// ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½
 		g_pD3DDevice -> SetRenderState( D3DRS_FILLMODE , D3DFILL_WIREFRAME );
 
 	}	//	end of else if
@@ -739,10 +737,10 @@ void Wireframe( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void DrawFPS( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		FPS•\¦
+ ï¿½Öï¿½ï¿½ï¿½:	void DrawFPS( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		FPSï¿½\ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 #ifdef _DEBUG
 void DrawFPS( void )

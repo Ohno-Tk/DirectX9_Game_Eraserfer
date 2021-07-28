@@ -1,17 +1,15 @@
 /*=============================================================================
 
-		ƒJƒEƒ“ƒgƒ_ƒEƒ“[ CountDown.cpp ]
+		ï¿½Jï¿½Eï¿½ï¿½ï¿½gï¿½_ï¿½Eï¿½ï¿½[ CountDown.cpp ]
 
 -------------------------------------------------------------------------------
-	¡@»ìÒ
-		‘å–ì‘ñ–ç
 
-	¡@ì¬“ú
+	ï¿½ï¿½ï¿½@ï¿½ì¬ï¿½ï¿½
 		2016/01/05
 -------------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
-	ƒwƒbƒ_ƒtƒ@ƒCƒ‹
+	ï¿½wï¿½bï¿½_ï¿½tï¿½@ï¿½Cï¿½ï¿½
 -----------------------------------------------------------------------------*/
 #include <stdio.h>
 #include "main.h"
@@ -19,23 +17,23 @@
 #include "sound.h"
 
 /*-----------------------------------------------------------------------------
-	’è”’è‹`
+	ï¿½è”ï¿½ï¿½`
 -----------------------------------------------------------------------------*/
 #define POLYGON00_TEXTURENAME "data/TEXTURE/GAME/CountDown_Start.png"
 #define POLYGON01_TEXTURENAME "data/TEXTURE/GAME/CountDown_1.png"
 #define POLYGON02_TEXTURENAME "data/TEXTURE/GAME/CountDown_2.png"
 #define POLYGON03_TEXTURENAME "data/TEXTURE/GAME/CountDown_3.png"
 
-#define MAX_TEXTURE ( 4 )	//	ƒeƒNƒXƒ`ƒƒ‚ÌÅ‘å”
+#define MAX_TEXTURE ( 4 )	//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌÅ‘å”
 
 
-#define COUNTDOWN_X ( SCREEN_WIDTH * 0.35f )		//	ƒXƒRƒA‚ÌX
-#define COUNTDOWN_Y ( SCREEN_HEIGHT * 0.4f )		//	ƒXƒRƒA‚ÌY
-#define COUNTDOWN_WIDTH  ( 250.0f )	//	ƒXƒRƒA‚ÌWidth
-#define COUNTDOWN_HEIGHT ( 150.0f )	//	ƒXƒRƒA‚ÌHeight
+#define COUNTDOWN_X ( SCREEN_WIDTH * 0.35f )		//	ï¿½Xï¿½Rï¿½Aï¿½ï¿½X
+#define COUNTDOWN_Y ( SCREEN_HEIGHT * 0.4f )		//	ï¿½Xï¿½Rï¿½Aï¿½ï¿½Y
+#define COUNTDOWN_WIDTH  ( 250.0f )	//	ï¿½Xï¿½Rï¿½Aï¿½ï¿½Width
+#define COUNTDOWN_HEIGHT ( 150.0f )	//	ï¿½Xï¿½Rï¿½Aï¿½ï¿½Height
 
 /*-----------------------------------------------------------------------------
-	—ñ‹“
+	ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 typedef enum
 {
@@ -48,76 +46,76 @@ typedef enum
 }COUNTDOWN;
 
 /*-----------------------------------------------------------------------------
-	\‘¢‘Ì
+	ï¿½\ï¿½ï¿½ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
-	ƒvƒƒgƒ^ƒCƒvéŒ¾
+	ï¿½vï¿½ï¿½ï¿½gï¿½^ï¿½Cï¿½vï¿½éŒ¾
 -----------------------------------------------------------------------------*/
 
-//	’¸“_‚Ìì¬
+//	ï¿½ï¿½ï¿½_ï¿½Ìì¬
 HRESULT MakeVertexCountDown( LPDIRECT3DDEVICE9 pDevice );
 
 /*-----------------------------------------------------------------------------
-	ƒOƒ[ƒoƒ‹•Ï”
+	ï¿½Oï¿½ï¿½ï¿½[ï¿½oï¿½ï¿½ï¿½Ïï¿½
 -----------------------------------------------------------------------------*/
-LPDIRECT3DVERTEXBUFFER9 g_pVtxBufferCountDown = NULL;	//	’¸“_ƒoƒbƒtƒ@ƒCƒ“ƒ^ƒtƒF[ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-LPDIRECT3DTEXTURE9 g_pTextureCountDown[ MAX_TEXTURE ] = { NULL };//	ƒeƒNƒXƒ`ƒƒƒCƒ“ƒ^[ƒtƒF[ƒX
+LPDIRECT3DVERTEXBUFFER9 g_pVtxBufferCountDown = NULL;	//	ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½^ï¿½tï¿½Fï¿½[ï¿½Xï¿½Ö‚Ìƒ|ï¿½Cï¿½ï¿½ï¿½^
+LPDIRECT3DTEXTURE9 g_pTextureCountDown[ MAX_TEXTURE ] = { NULL };//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½^ï¿½[ï¿½tï¿½Fï¿½[ï¿½X
 
 
-COUNTDOWN g_CountDown = COUNTDOWN_3;	// ƒJƒEƒ“ƒgƒ_ƒEƒ“‚Ì—ñ‹“
+COUNTDOWN g_CountDown = COUNTDOWN_3;	// ï¿½Jï¿½Eï¿½ï¿½ï¿½gï¿½_ï¿½Eï¿½ï¿½ï¿½Ì—ï¿½
 
-int g_CountDown_TexNo;	// ƒeƒNƒXƒ`ƒƒNO
-int g_CountDown_Time;	// ƒ^ƒCƒ}[ƒJƒEƒ“ƒ^
-int g_CountDown_Frame;	// ƒtƒŒ[ƒ€ƒJƒEƒ“ƒ^
+int g_CountDown_TexNo;	// ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½NO
+int g_CountDown_Time;	// ï¿½^ï¿½Cï¿½}ï¿½[ï¿½Jï¿½Eï¿½ï¿½ï¿½^
+int g_CountDown_Frame;	// ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Jï¿½Eï¿½ï¿½ï¿½^
 
-bool g_Start;			// ƒXƒ^[ƒg‚µ‚½‚©‚Ç‚¤‚©
+bool g_Start;			// ï¿½Xï¿½^ï¿½[ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½
 
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void InitCountDown( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		‰Šú‰»
+ ï¿½Öï¿½ï¿½ï¿½:	void InitCountDown( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void InitCountDown( void )
 {
 
-	//	ƒfƒoƒCƒX‚Ìæ“¾
+	//	ï¿½fï¿½oï¿½Cï¿½Xï¿½Ìæ“¾
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 
 
-	//	ƒeƒNƒXƒ`ƒƒ‚ÌƒGƒ‰[ƒ`ƒFƒbƒN
+	//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌƒGï¿½ï¿½ï¿½[ï¿½`ï¿½Fï¿½bï¿½N
 	if( FAILED( D3DXCreateTextureFromFile(  pDevice , POLYGON00_TEXTURENAME , &g_pTextureCountDown[ 0 ] ) ) )
 	{
-		MessageBox( NULL , "[ CountDown.cpp ]\n POLYGON00_TEXTURENAME\n‚Ì“Ç‚İ‚İ‚ª‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½" , "Œx" , MB_OK | MB_ICONHAND );
+		MessageBox( NULL , "[ CountDown.cpp ]\n POLYGON00_TEXTURENAME\nï¿½Ì“Ç‚İï¿½ï¿½İ‚ï¿½ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½" , "ï¿½xï¿½ï¿½" , MB_OK | MB_ICONHAND );
 
 	}	//	end of if
 
 	if( FAILED( D3DXCreateTextureFromFile(  pDevice , POLYGON01_TEXTURENAME , &g_pTextureCountDown[ 1 ] ) ) )
 	{
-		MessageBox( NULL , "[ CountDown.cpp ]\n POLYGON01_TEXTURENAME\n‚Ì“Ç‚İ‚İ‚ª‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½" , "Œx" , MB_OK | MB_ICONHAND );
+		MessageBox( NULL , "[ CountDown.cpp ]\n POLYGON01_TEXTURENAME\nï¿½Ì“Ç‚İï¿½ï¿½İ‚ï¿½ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½" , "ï¿½xï¿½ï¿½" , MB_OK | MB_ICONHAND );
 
 	}	//	end of if
 
 	if( FAILED( D3DXCreateTextureFromFile(  pDevice , POLYGON02_TEXTURENAME , &g_pTextureCountDown[ 2 ] ) ) )
 	{
-		MessageBox( NULL , "[ CountDown.cpp ]\n POLYGON02_TEXTURENAME\n‚Ì“Ç‚İ‚İ‚ª‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½" , "Œx" , MB_OK | MB_ICONHAND );
+		MessageBox( NULL , "[ CountDown.cpp ]\n POLYGON02_TEXTURENAME\nï¿½Ì“Ç‚İï¿½ï¿½İ‚ï¿½ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½" , "ï¿½xï¿½ï¿½" , MB_OK | MB_ICONHAND );
 
 	}	//	end of if
 
 	if( FAILED( D3DXCreateTextureFromFile(  pDevice , POLYGON03_TEXTURENAME , &g_pTextureCountDown[ 3 ] ) ) )
 	{
-		MessageBox( NULL , "[ CountDown.cpp ]\n POLYGON03_TEXTURENAME\n‚Ì“Ç‚İ‚İ‚ª‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½" , "Œx" , MB_OK | MB_ICONHAND );
+		MessageBox( NULL , "[ CountDown.cpp ]\n POLYGON03_TEXTURENAME\nï¿½Ì“Ç‚İï¿½ï¿½İ‚ï¿½ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½" , "ï¿½xï¿½ï¿½" , MB_OK | MB_ICONHAND );
 
 	}	//	end of if
 
 
-	//	’¸“_‚Ìì¬
+	//	ï¿½ï¿½ï¿½_ï¿½Ìì¬
 	MakeVertexCountDown( pDevice );
 
 
-	// •Ï”‰Šú‰»
+	// ï¿½Ïï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	g_CountDown_TexNo = (int)g_CountDown;
 
 	g_CountDown_Time = (int)g_CountDown;
@@ -130,15 +128,15 @@ void InitCountDown( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void UninitCountDown( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		I—¹
+ ï¿½Öï¿½ï¿½ï¿½:	void UninitCountDown( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½Iï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void UninitCountDown( void )
 {
 
-	if(g_pVtxBufferCountDown != NULL)	//’¸“_ƒoƒbƒtƒ@‚ÌƒCƒ“ƒ^[ƒtƒF[ƒXƒ|ƒCƒ“ƒ^‚Ì‰ğ•ú
+	if(g_pVtxBufferCountDown != NULL)	//ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½ÌƒCï¿½ï¿½ï¿½^ï¿½[ï¿½tï¿½Fï¿½[ï¿½Xï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½Ì‰ï¿½ï¿½
 	{
 		g_pVtxBufferCountDown -> Release();
 		g_pVtxBufferCountDown  = NULL;
@@ -149,7 +147,7 @@ void UninitCountDown( void )
 	for( int CntCountDown = 0 ; CntCountDown < MAX_TEXTURE ; CntCountDown++ )
 	{
 
-		if( g_pTextureCountDown[ CntCountDown ] != NULL )	//	ƒeƒNƒXƒ`ƒƒƒ|ƒŠƒSƒ“ŠJ•ú
+		if( g_pTextureCountDown[ CntCountDown ] != NULL )	//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½Jï¿½ï¿½
 		{
 			g_pTextureCountDown[ CntCountDown ] -> Release();
 			g_pTextureCountDown[ CntCountDown ] = NULL;
@@ -162,10 +160,10 @@ void UninitCountDown( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void UpdateCountDown( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		XV
+ ï¿½Öï¿½ï¿½ï¿½:	void UpdateCountDown( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½Xï¿½V
 -----------------------------------------------------------------------------*/
 void UpdateCountDown( void )
 {
@@ -188,13 +186,13 @@ void UpdateCountDown( void )
 			if( g_CountDown_TexNo == COUNTDOWN_GO )
 			{
 
-				PlaySound( SOUND_LABEL_SE_COUNTDOWN02 );	//	‰¹ŠyÄ¶
+				PlaySound( SOUND_LABEL_SE_COUNTDOWN02 );	//	ï¿½ï¿½ï¿½yï¿½Äï¿½
 
 			}
 			else
 			{
 
-				PlaySound( SOUND_LABEL_SE_COUNTDOWN01 );	//	‰¹ŠyÄ¶
+				PlaySound( SOUND_LABEL_SE_COUNTDOWN01 );	//	ï¿½ï¿½ï¿½yï¿½Äï¿½
 
 			}
 
@@ -202,11 +200,11 @@ void UpdateCountDown( void )
 
 	}	//	end of if
 
-	//ƒQ[ƒ€ƒXƒ^[ƒg
+	//ï¿½Qï¿½[ï¿½ï¿½ï¿½Xï¿½^ï¿½[ï¿½g
 	else
 	{
 
-		// 60ƒtƒŒ[ƒ€‚¾‚¯•\¦
+		// 60ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½
 		if( g_CountDown_Frame != 60 )
 		{
 
@@ -227,31 +225,31 @@ void UpdateCountDown( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void DrawCountDown( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		•`‰æ
+ ï¿½Öï¿½ï¿½ï¿½:	void DrawCountDown( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½`ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void DrawCountDown( void )
 {
 
-	//	ƒfƒoƒCƒX‚Ìæ“¾
+	//	ï¿½fï¿½oï¿½Cï¿½Xï¿½Ìæ“¾
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 
-	//	’¸“_ƒtƒH[ƒ}ƒbƒg‚Ìİ’è
+	//	ï¿½ï¿½ï¿½_ï¿½tï¿½Hï¿½[ï¿½}ï¿½bï¿½gï¿½Ìİ’ï¿½
 	pDevice -> SetFVF( FVF_VERTEX_2D );
 
-	//	ƒXƒgƒŠ[ƒ€‚ğİ’è‚·‚é
+	//	ï¿½Xï¿½gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½İ’è‚·ï¿½ï¿½
 	pDevice -> SetStreamSource( 0 , g_pVtxBufferCountDown , 0 , sizeof( VERTEX_2D ) );
 
-	//	ƒeƒNƒXƒ`ƒƒ‚ÌƒZƒbƒg
+	//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌƒZï¿½bï¿½g
 	pDevice -> SetTexture( 0 , g_pTextureCountDown[ g_CountDown_TexNo ] );
 
 
 	if( g_Start == false )
 	{
 
-		//	ƒ|ƒŠƒSƒ“‚Ì•`‰æ
+		//	ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½Ì•`ï¿½ï¿½
 		pDevice -> DrawPrimitive( D3DPT_TRIANGLESTRIP , 0 , NUM_POLYGON);
 
 	}	//	end of if
@@ -260,20 +258,20 @@ void DrawCountDown( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	HRESULT MakeVertexCountDown( LPDIRECT3DDEVICE9 pDevice )
- ˆø”:		LPDIRECT3DDEVICE9 pDevice	ƒfƒoƒCƒX
- –ß‚è’l:	—Ç‚¢ê‡	return S_OK;
-			ƒ_ƒ‚Èê‡	return E_FAIL;
- à–¾:		’¸“_‚Ìì¬
+ ï¿½Öï¿½ï¿½ï¿½:	HRESULT MakeVertexCountDown( LPDIRECT3DDEVICE9 pDevice )
+ ï¿½ï¿½ï¿½ï¿½:		LPDIRECT3DDEVICE9 pDevice	ï¿½fï¿½oï¿½Cï¿½X
+ ï¿½ß‚ï¿½l:	ï¿½Ç‚ï¿½ï¿½ê‡	return S_OK;
+			ï¿½_ï¿½ï¿½ï¿½Èê‡	return E_FAIL;
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½ï¿½ï¿½_ï¿½Ìì¬
 -----------------------------------------------------------------------------*/
 HRESULT MakeVertexCountDown( LPDIRECT3DDEVICE9 pDevice )
 {
 
-	// \‘¢‘Ì‚Ìƒ|ƒCƒ“ƒ^éŒ¾
+	// ï¿½\ï¿½ï¿½ï¿½Ì‚Ìƒ|ï¿½Cï¿½ï¿½ï¿½^ï¿½éŒ¾
 	VERTEX_2D* pVtx;
 
 
-	// FAILEDƒ}ƒNƒ‚ÅƒGƒ‰[ƒ`ƒFƒbƒN
+	// FAILEDï¿½}ï¿½Nï¿½ï¿½ï¿½ÅƒGï¿½ï¿½ï¿½[ï¿½`ï¿½Fï¿½bï¿½N
 	if ( FAILED ( pDevice -> CreateVertexBuffer ( sizeof ( VERTEX_2D ) * NUM_VERTEX , D3DUSAGE_WRITEONLY , FVF_VERTEX_2D , D3DPOOL_MANAGED , &g_pVtxBufferCountDown , NULL ) ) )
 	{
 
@@ -282,46 +280,46 @@ HRESULT MakeVertexCountDown( LPDIRECT3DDEVICE9 pDevice )
 	}	//	end of if
 
 
-	//ƒoƒbƒtƒ@‚ğƒƒbƒN‚µ‰¼‘zƒAƒhƒŒƒX‚ğæ“¾‚·‚é
+	//ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½zï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
 	g_pVtxBufferCountDown -> Lock( 0 , 0 ,	( void** )&pVtx , 0 );
 
 
-	//	’¸“_À•W‚Ìİ’è
+	//	ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½Wï¿½Ìİ’ï¿½
 	pVtx[ 0 ].pos = D3DXVECTOR3( COUNTDOWN_X                   , COUNTDOWN_Y                    , 0.0f );
 	pVtx[ 1 ].pos = D3DXVECTOR3( COUNTDOWN_X + COUNTDOWN_WIDTH , COUNTDOWN_Y                    , 0.0f );
 	pVtx[ 2 ].pos = D3DXVECTOR3( COUNTDOWN_X                   , COUNTDOWN_Y + COUNTDOWN_HEIGHT , 0.0f );
 	pVtx[ 3 ].pos = D3DXVECTOR3( COUNTDOWN_X + COUNTDOWN_WIDTH , COUNTDOWN_Y + COUNTDOWN_HEIGHT , 0.0f );
 
-	//	À•W•ÏŠ·Ï‚İ’¸“_ƒtƒ‰ƒO‚Ìİ’è
+	//	ï¿½ï¿½ï¿½Wï¿½ÏŠï¿½ï¿½Ï‚İ’ï¿½ï¿½_ï¿½tï¿½ï¿½ï¿½Oï¿½Ìİ’ï¿½
 	pVtx[ 0 ].rhw = 1.0f;
 	pVtx[ 1 ].rhw = 1.0f;
 	pVtx[ 2 ].rhw = 1.0f;
 	pVtx[ 3 ].rhw = 1.0f;
 
-	//	’¸“_F‚Ìİ’è
+	//	ï¿½ï¿½ï¿½_ï¿½Fï¿½Ìİ’ï¿½
 	pVtx[ 0 ].color = D3DXCOLOR( 255 , 255 , 255 , 255 );
 	pVtx[ 1 ].color = D3DXCOLOR( 255 , 255 , 255 , 255 );
 	pVtx[ 2 ].color = D3DXCOLOR( 255 , 255 , 255 , 255 );
 	pVtx[ 3 ].color = D3DXCOLOR( 255 , 255 , 255 , 255 );
 
-	//	ƒeƒNƒXƒ`ƒƒÀ•W‚Ìİ’è
+	//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½Ìİ’ï¿½
 	pVtx[ 0 ].tex = D3DXVECTOR2( 0 , 0 );
 	pVtx[ 1 ].tex = D3DXVECTOR2( 1 , 0 );
 	pVtx[ 2 ].tex = D3DXVECTOR2( 0 , 1 );
 	pVtx[ 3 ].tex = D3DXVECTOR2( 1 , 1 );
 
 
-	g_pVtxBufferCountDown -> Unlock(); //‚±‚êˆÈ~G‚ê‚Ä‚Í‚¢‚¯‚È‚¢
+	g_pVtxBufferCountDown -> Unlock(); //ï¿½ï¿½ï¿½ï¿½È~ï¿½Gï¿½ï¿½Ä‚Í‚ï¿½ï¿½ï¿½ï¿½È‚ï¿½
 
 	return S_OK;
 
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	bool *GetStart( void )
- ˆø”:		
- –ß‚è’l:	return &g_Start;
- à–¾:		ƒXƒ^[ƒg‚µ‚½‚©‚Ìî•ñæ“¾
+ ï¿½Öï¿½ï¿½ï¿½:	bool *GetStart( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	return &g_Start;
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½Xï¿½^ï¿½[ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½æ“¾
 -----------------------------------------------------------------------------*/
 bool *GetStart( void )
 {
