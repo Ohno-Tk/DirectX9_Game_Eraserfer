@@ -3,50 +3,48 @@
 		[ Utility.cpp ]
 
 -------------------------------------------------------------------------------
-	¡@»ìŽÒ
-		‘å–ì‘ñ–ç
 
-	¡@ì¬“ú
+	ï¿½ï¿½ï¿½@ï¿½ì¬ï¿½ï¿½
 		2016/01/05
 -------------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
-	ƒwƒbƒ_ƒtƒ@ƒCƒ‹
+	ï¿½wï¿½bï¿½_ï¿½tï¿½@ï¿½Cï¿½ï¿½
 -----------------------------------------------------------------------------*/
 #include "main.h"
 #include "Utility.h"
 
 /*-----------------------------------------------------------------------------
-	’è”’è‹`
+	ï¿½è”ï¿½ï¿½`
 -----------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
-	—ñ‹“
+	ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
-	\‘¢‘Ì
+	ï¿½\ï¿½ï¿½ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
-	ƒvƒƒgƒ^ƒCƒvéŒ¾
+	ï¿½vï¿½ï¿½ï¿½gï¿½^ï¿½Cï¿½vï¿½éŒ¾
 -----------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
-	ƒOƒ[ƒoƒ‹•Ï”
+	ï¿½Oï¿½ï¿½ï¿½[ï¿½oï¿½ï¿½ï¿½Ïï¿½
 -----------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	bool RectangleCollision( D3DXVECTOR2 Pos_A , D3DXVECTOR2 Size_A , D3DXVECTOR2 Pos_B , D3DXVECTOR2 Size_B )
- ˆø”:		D3DXVECTOR2 Pos_A	•¨‘ÌA‚ÌÀ•W
-			D3DXVECTOR2 Size_A	•¨‘ÌA‚Ì‘å‚«‚³
-			D3DXVECTOR2 Pos_B	•¨‘ÌB‚ÌÀ•W
-			D3DXVECTOR2 Size_B	•¨‘ÌB‚Ì‘å‚«‚³
+ ï¿½Öï¿½ï¿½ï¿½:	bool RectangleCollision( D3DXVECTOR2 Pos_A , D3DXVECTOR2 Size_A , D3DXVECTOR2 Pos_B , D3DXVECTOR2 Size_B )
+ ï¿½ï¿½ï¿½ï¿½:		D3DXVECTOR2 Pos_A	ï¿½ï¿½ï¿½ï¿½Aï¿½Ìï¿½ï¿½W
+			D3DXVECTOR2 Size_A	ï¿½ï¿½ï¿½ï¿½Aï¿½Ì‘å‚«ï¿½ï¿½
+			D3DXVECTOR2 Pos_B	ï¿½ï¿½ï¿½ï¿½Bï¿½Ìï¿½ï¿½W
+			D3DXVECTOR2 Size_B	ï¿½ï¿½ï¿½ï¿½Bï¿½Ì‘å‚«ï¿½ï¿½
 
- –ß‚è’l:	“–‚½‚Á‚Ä‚¢‚éê‡	return true;
-			“–‚½‚Á‚Ä‚¢‚È‚¢ê‡	return false;
+ ï¿½ß‚ï¿½l:	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ê‡	return true;
+			ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½ê‡	return false;
 
- à–¾:		‹éŒ`‚Æ‹éŒ`‚Ì“–‚½‚è”»’è
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½ï¿½`ï¿½Æ‹ï¿½`ï¿½Ì“ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 bool RectangleCollision( D3DXVECTOR2 Pos_A , D3DXVECTOR2 Size_A , D3DXVECTOR2 Pos_B , D3DXVECTOR2 Size_B )
 {
@@ -54,7 +52,7 @@ bool RectangleCollision( D3DXVECTOR2 Pos_A , D3DXVECTOR2 Size_A , D3DXVECTOR2 Po
 	float x[] = { Pos_A.x , Pos_A.x +  Size_A.x , Pos_B.x , Pos_B.x +  Size_B.x };
 	float y[] = { Pos_A.y , Pos_A.y +  Size_A.y , Pos_B.y , Pos_B.y +  Size_B.y };
 
-	//	‹éŒ`‚Æ‹éŒ`‚Ì“–‚½‚è”»’è
+	//	ï¿½ï¿½`ï¿½Æ‹ï¿½`ï¿½Ì“ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
 	if( x[ 0 ] < x[ 3 ] && x[ 2 ] < x[ 1 ] && y[ 0 ] < y[ 3 ] && y[ 2 ] < y[ 1 ] )
 	{
 
@@ -67,21 +65,21 @@ bool RectangleCollision( D3DXVECTOR2 Pos_A , D3DXVECTOR2 Size_A , D3DXVECTOR2 Po
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	bool CircleCollision( D3DXVECTOR2 Pos_A , D3DXVECTOR2 Pos_B , float Radius_A , float Radius_B )
- ˆø”:		D3DXVECTOR2 Pos_A	•¨‘ÌA‚ÌÀ•W
-			D3DXVECTOR2 Pos_B	•¨‘ÌB‚ÌÀ•W
-			float Radius_A		•¨‘ÌA‚Ì”¼Œa
-			float Radius_B		•¨‘ÌB‚Ì”¼Œa
+ ï¿½Öï¿½ï¿½ï¿½:	bool CircleCollision( D3DXVECTOR2 Pos_A , D3DXVECTOR2 Pos_B , float Radius_A , float Radius_B )
+ ï¿½ï¿½ï¿½ï¿½:		D3DXVECTOR2 Pos_A	ï¿½ï¿½ï¿½ï¿½Aï¿½Ìï¿½ï¿½W
+			D3DXVECTOR2 Pos_B	ï¿½ï¿½ï¿½ï¿½Bï¿½Ìï¿½ï¿½W
+			float Radius_A		ï¿½ï¿½ï¿½ï¿½Aï¿½Ì”ï¿½ï¿½a
+			float Radius_B		ï¿½ï¿½ï¿½ï¿½Bï¿½Ì”ï¿½ï¿½a
 
- –ß‚è’l:	“–‚½‚Á‚Ä‚¢‚éê‡	return true;
-			“–‚½‚Á‚Ä‚¢‚È‚¢ê‡	return false;
+ ï¿½ß‚ï¿½l:	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ê‡	return true;
+			ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½ê‡	return false;
 
- à–¾:		‰~‚Æ‰~‚Ì“–‚½‚è”»’è
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½~ï¿½Æ‰~ï¿½Ì“ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 bool CircleCollision( D3DXVECTOR2 Pos_A , D3DXVECTOR2 Pos_B , float Radius_A , float Radius_B )
 {
 
-	//	‰~‚Æ‰~‚Ì“–‚½‚è”»’è
+	//	ï¿½~ï¿½Æ‰~ï¿½Ì“ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
 	if( ( Pos_B.x - Pos_A.x ) * ( Pos_B.x - Pos_A.x ) + ( Pos_B.y - Pos_A.y ) * ( Pos_B.y - Pos_A.y ) <= ( Radius_A + Radius_B ) * ( Radius_A + Radius_B ) )
 	{
 
@@ -94,21 +92,21 @@ bool CircleCollision( D3DXVECTOR2 Pos_A , D3DXVECTOR2 Pos_B , float Radius_A , f
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	bool SphereCollision( D3DXVECTOR3 Pos_A , D3DXVECTOR3 Pos_B , float Radius_A , float Radius_B )
- ˆø”:		D3DXVECTOR3 Pos_A	•¨‘ÌA‚ÌÀ•W
-			D3DXVECTOR3 Pos_B	•¨‘ÌB‚ÌÀ•W
-			float Radius_A		•¨‘ÌA‚Ì”¼Œa
-			float Radius_B		•¨‘ÌB‚Ì”¼Œa
+ ï¿½Öï¿½ï¿½ï¿½:	bool SphereCollision( D3DXVECTOR3 Pos_A , D3DXVECTOR3 Pos_B , float Radius_A , float Radius_B )
+ ï¿½ï¿½ï¿½ï¿½:		D3DXVECTOR3 Pos_A	ï¿½ï¿½ï¿½ï¿½Aï¿½Ìï¿½ï¿½W
+			D3DXVECTOR3 Pos_B	ï¿½ï¿½ï¿½ï¿½Bï¿½Ìï¿½ï¿½W
+			float Radius_A		ï¿½ï¿½ï¿½ï¿½Aï¿½Ì”ï¿½ï¿½a
+			float Radius_B		ï¿½ï¿½ï¿½ï¿½Bï¿½Ì”ï¿½ï¿½a
 
- –ß‚è’l:	“–‚½‚Á‚Ä‚¢‚éê‡	return true;
-			“–‚½‚Á‚Ä‚¢‚È‚¢ê‡	return false;
+ ï¿½ß‚ï¿½l:	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ê‡	return true;
+			ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½ê‡	return false;
 
- à–¾:		‹…‚Æ‹…‚Ì“–‚½‚è”»’è
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½ï¿½ï¿½Æ‹ï¿½ï¿½Ì“ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 bool SphereCollision( D3DXVECTOR3 Pos_A , D3DXVECTOR3 Pos_B , float Radius_A , float Radius_B )
 {
 
-	//	‹…‚Æ‹…‚Ì“–‚½‚è”»’è
+	//	ï¿½ï¿½ï¿½Æ‹ï¿½ï¿½Ì“ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
 	if( ( Pos_B.x - Pos_A.x ) * ( Pos_B.x - Pos_A.x ) + ( Pos_B.y - Pos_A.y ) * ( Pos_B.y - Pos_A.y ) + ( Pos_B.z - Pos_A.z ) * ( Pos_B.z - Pos_A.z ) <= ( Radius_A + Radius_B ) * ( Radius_A + Radius_B ) )
 	{
 

@@ -1,93 +1,91 @@
 /*=============================================================================
 
-		‰˜‚ê”[ HelpNumber.cpp ]
+		ï¿½ï¿½ï¿½ê”[ HelpNumber.cpp ]
 
 -------------------------------------------------------------------------------
-	¡@»ìÒ
-		‘å–ì‘ñ–ç
 
-	¡@ì¬“ú
+	ï¿½ï¿½ï¿½@ï¿½ì¬ï¿½ï¿½
 		2016/01/05
 -------------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
-	ƒwƒbƒ_ƒtƒ@ƒCƒ‹
+	ï¿½wï¿½bï¿½_ï¿½tï¿½@ï¿½Cï¿½ï¿½
 -----------------------------------------------------------------------------*/
 #include "main.h"
 #include "HelpNumber.h"
 #include "Born.h"
 
 /*-----------------------------------------------------------------------------
-	’è”’è‹`
+	ï¿½è”ï¿½ï¿½`
 -----------------------------------------------------------------------------*/
 #define POLYGON00_TEXTURENAME "data/TEXTURE/GAME/number000.png"
 #define POLYGON01_TEXTURENAME "data/TEXTURE/GAME/yogore.png"
 
-#define MAX_TEXTURE ( 2 )	//	Å‘åƒeƒNƒXƒ`ƒƒ”
+#define MAX_TEXTURE ( 2 )	//	ï¿½Å‘ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½
 
-#define SCORE_DIGIT ( 2 )	//	‰½Œ…‚Ì”š‚Ì•\¦
+#define SCORE_DIGIT ( 2 )	//	ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½Ì•\ï¿½ï¿½
 
-#define SCORE_MAX ( 9999 )	//	ƒXƒRƒA‚ÌÅ‘å’l
+#define SCORE_MAX ( 9999 )	//	ï¿½Xï¿½Rï¿½Aï¿½ÌÅ‘ï¿½l
 
-#define ADD_SCORE ( 10 )	//	‰ÁZ‚·‚éƒXƒRƒA‚Ì’l
+#define ADD_SCORE ( 10 )	//	ï¿½ï¿½ï¿½Zï¿½ï¿½ï¿½ï¿½Xï¿½Rï¿½Aï¿½Ì’l
 
 
-#define POLYGON00_X ( SCREEN_WIDTH - 80.0f )		//	ƒXƒRƒA‚ÌX
-#define POLYGON00_Y ( 50.0f )		//	ƒXƒRƒA‚ÌY
-#define POLYGON00_WIDTH  ( 70.0f )	//	ƒXƒRƒA‚ÌWidth
-#define POLYGON00_HEIGHT ( 70.0f )	//	ƒXƒRƒA‚ÌHeight
+#define POLYGON00_X ( SCREEN_WIDTH - 80.0f )		//	ï¿½Xï¿½Rï¿½Aï¿½ï¿½X
+#define POLYGON00_Y ( 50.0f )		//	ï¿½Xï¿½Rï¿½Aï¿½ï¿½Y
+#define POLYGON00_WIDTH  ( 70.0f )	//	ï¿½Xï¿½Rï¿½Aï¿½ï¿½Width
+#define POLYGON00_HEIGHT ( 70.0f )	//	ï¿½Xï¿½Rï¿½Aï¿½ï¿½Height
 
-#define POLYGON01_X ( SCREEN_WIDTH - 220.0f )		//	ƒXƒRƒA•¶š‚ÌX
-#define POLYGON01_Y ( -10.0f )		//	ƒXƒRƒA•¶š‚ÌY
-#define POLYGON01_WIDTH  ( 150.0f )	//	ƒXƒRƒA•¶š‚ÌWidth
-#define POLYGON01_HEIGHT ( 75.0f )	//	ƒXƒRƒA•¶š‚ÌHeight
+#define POLYGON01_X ( SCREEN_WIDTH - 220.0f )		//	ï¿½Xï¿½Rï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½X
+#define POLYGON01_Y ( -10.0f )		//	ï¿½Xï¿½Rï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Y
+#define POLYGON01_WIDTH  ( 150.0f )	//	ï¿½Xï¿½Rï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Width
+#define POLYGON01_HEIGHT ( 75.0f )	//	ï¿½Xï¿½Rï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Height
 
 /*-----------------------------------------------------------------------------
-	—ñ‹“
+	ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
-	\‘¢‘Ì
+	ï¿½\ï¿½ï¿½ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
-	ƒvƒƒgƒ^ƒCƒvéŒ¾
+	ï¿½vï¿½ï¿½ï¿½gï¿½^ï¿½Cï¿½vï¿½éŒ¾
 -----------------------------------------------------------------------------*/
 
-//	’¸“_‚Ìì¬
+//	ï¿½ï¿½ï¿½_ï¿½Ìì¬
 HRESULT MakeVertexHelpNumber( LPDIRECT3DDEVICE9 pDevice );
 
-//	’¸“_‚Ì•ÏX
+//	ï¿½ï¿½ï¿½_ï¿½Ì•ÏX
 void VerTexHelpNumber( VERTEX_2D* pVtx , int Cnt , int num );
 
 /*-----------------------------------------------------------------------------
-	ƒOƒ[ƒoƒ‹•Ï”
+	ï¿½Oï¿½ï¿½ï¿½[ï¿½oï¿½ï¿½ï¿½Ïï¿½
 -----------------------------------------------------------------------------*/
-LPDIRECT3DVERTEXBUFFER9 g_pVtxBufferScore = NULL;	//	’¸“_ƒoƒbƒtƒ@ƒCƒ“ƒ^ƒtƒF[ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-LPDIRECT3DTEXTURE9 g_pTextureScore[ MAX_TEXTURE ] = { NULL };//	ƒeƒNƒXƒ`ƒƒƒCƒ“ƒ^[ƒtƒF[ƒX
+LPDIRECT3DVERTEXBUFFER9 g_pVtxBufferScore = NULL;	//	ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½^ï¿½tï¿½Fï¿½[ï¿½Xï¿½Ö‚Ìƒ|ï¿½Cï¿½ï¿½ï¿½^
+LPDIRECT3DTEXTURE9 g_pTextureScore[ MAX_TEXTURE ] = { NULL };//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½^ï¿½[ï¿½tï¿½Fï¿½[ï¿½X
 
-D3DXCOLOR g_ScoreColor;	//	F
+D3DXCOLOR g_ScoreColor;	//	ï¿½F
 
-int g_Number;	//	l”
+int g_Number;	//	ï¿½lï¿½ï¿½
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void InitHelpNumber( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		‰Šú‰»
+ ï¿½Öï¿½ï¿½ï¿½:	void InitHelpNumber( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void InitHelpNumber( void )
 {
 
-	//	ƒfƒoƒCƒX‚Ìæ“¾
+	//	ï¿½fï¿½oï¿½Cï¿½Xï¿½Ìæ“¾
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 
 
-	//	ƒeƒNƒXƒ`ƒƒ‚ÌƒGƒ‰[ƒ`ƒFƒbƒN
+	//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌƒGï¿½ï¿½ï¿½[ï¿½`ï¿½Fï¿½bï¿½N
 	if( FAILED( D3DXCreateTextureFromFile(  pDevice , POLYGON00_TEXTURENAME , &g_pTextureScore[ 0 ] ) ) )
 	{
 
-		MessageBox( NULL , "[ HelpNumber.cpp ]\n POLYGON00_TEXTURENAME\n‚Ì“Ç‚İ‚İ‚ª‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½" , "Œx" , MB_OK | MB_ICONHAND );
+		MessageBox( NULL , "[ HelpNumber.cpp ]\n POLYGON00_TEXTURENAME\nï¿½Ì“Ç‚İï¿½ï¿½İ‚ï¿½ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½" , "ï¿½xï¿½ï¿½" , MB_OK | MB_ICONHAND );
 
 	}	//	end of if
 
@@ -95,35 +93,35 @@ void InitHelpNumber( void )
 	if( FAILED( D3DXCreateTextureFromFile(  pDevice , POLYGON01_TEXTURENAME , &g_pTextureScore[ 1 ] ) ) )
 	{
 
-		MessageBox( NULL , "[ HelpNumber.cpp ]\n POLYGON01_TEXTURENAME\n‚Ì“Ç‚İ‚İ‚ª‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½" , "Œx" , MB_OK | MB_ICONHAND );
+		MessageBox( NULL , "[ HelpNumber.cpp ]\n POLYGON01_TEXTURENAME\nï¿½Ì“Ç‚İï¿½ï¿½İ‚ï¿½ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½" , "ï¿½xï¿½ï¿½" , MB_OK | MB_ICONHAND );
 
 	}	//	end of if
 
 
-	//	’¸“_‚Ìì¬
+	//	ï¿½ï¿½ï¿½_ï¿½Ìì¬
 	MakeVertexHelpNumber( pDevice );
 
 
-	//	•Ï”‰Šú‰»
+	//	ï¿½Ïï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	//	F
+	//	ï¿½F
 	g_ScoreColor = D3DXCOLOR( 255 , 255 , 255 , 255 );
 
-	//	ƒXƒRƒA
+	//	ï¿½Xï¿½Rï¿½A
 	g_Number = 11;
 
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void UninitHelpNumber( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		I—¹
+ ï¿½Öï¿½ï¿½ï¿½:	void UninitHelpNumber( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½Iï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void UninitHelpNumber( void )
 {
 
-	if(g_pVtxBufferScore != NULL)	//’¸“_ƒoƒbƒtƒ@‚ÌƒCƒ“ƒ^[ƒtƒF[ƒXƒ|ƒCƒ“ƒ^‚Ì‰ğ•ú
+	if(g_pVtxBufferScore != NULL)	//ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½ÌƒCï¿½ï¿½ï¿½^ï¿½[ï¿½tï¿½Fï¿½[ï¿½Xï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½Ì‰ï¿½ï¿½
 	{
 		g_pVtxBufferScore -> Release();
 		g_pVtxBufferScore  = NULL;
@@ -134,7 +132,7 @@ void UninitHelpNumber( void )
 	for( int Cnt = 0 ; Cnt < MAX_TEXTURE ; Cnt++ )
 	{
 
-		if( g_pTextureScore[ Cnt ] != NULL )	//	ƒeƒNƒXƒ`ƒƒƒ|ƒŠƒSƒ“ŠJ•ú
+		if( g_pTextureScore[ Cnt ] != NULL )	//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½Jï¿½ï¿½
 		{
 			g_pTextureScore[ Cnt ] -> Release();
 			g_pTextureScore[ Cnt ] = NULL;
@@ -146,23 +144,23 @@ void UninitHelpNumber( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void UpdateHelpNumber( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		XV
+ ï¿½Öï¿½ï¿½ï¿½:	void UpdateHelpNumber( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½Xï¿½V
 -----------------------------------------------------------------------------*/
 void UpdateHelpNumber( void )
 {
 
-	int num;	//	”š‚ğ•\¦‚·‚é•Ï”
+	int num;	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿½
 	int value = g_Number;
 
 
-	//	‰¼‘zƒAƒhƒŒƒX‚ğæ“¾‚·‚éƒ|ƒCƒ“ƒ^•Ï”
+	//	ï¿½ï¿½ï¿½zï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½Ïï¿½
 	VERTEX_2D* pVtx;
 
 
-	//ƒoƒbƒtƒ@‚ğƒƒbƒN‚µ‰¼‘zƒAƒhƒŒƒX‚ğæ“¾‚·‚é
+	//ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½zï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
 	g_pVtxBufferScore -> Lock( 0 , 0 ,	( void** )&pVtx , 0 );
 
 	for( int Cnt = 0 ; Cnt < SCORE_DIGIT ; Cnt++ )
@@ -171,76 +169,76 @@ void UpdateHelpNumber( void )
 		num = value % 10;
 		value /= 10;
 
-		//	’¸“_‚Ì•ÏX
+		//	ï¿½ï¿½ï¿½_ï¿½Ì•ÏX
 		VerTexHelpNumber( pVtx , Cnt , num );
 
 	}	//	end of for
 
 
-	g_pVtxBufferScore -> Unlock(); //‚±‚êˆÈ~G‚ê‚Ä‚Í‚¢‚¯‚È‚¢
+	g_pVtxBufferScore -> Unlock(); //ï¿½ï¿½ï¿½ï¿½È~ï¿½Gï¿½ï¿½Ä‚Í‚ï¿½ï¿½ï¿½ï¿½È‚ï¿½
 
 
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void DrawHelpNumber( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		•`‰æ
+ ï¿½Öï¿½ï¿½ï¿½:	void DrawHelpNumber( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½`ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void DrawHelpNumber( void )
 {
 
-	//	ƒfƒoƒCƒX‚Ìæ“¾
+	//	ï¿½fï¿½oï¿½Cï¿½Xï¿½Ìæ“¾
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 
-	//	’¸“_ƒtƒH[ƒ}ƒbƒg‚Ìİ’è
+	//	ï¿½ï¿½ï¿½_ï¿½tï¿½Hï¿½[ï¿½}ï¿½bï¿½gï¿½Ìİ’ï¿½
 	pDevice -> SetFVF( FVF_VERTEX_2D );
 
-	//	ƒXƒgƒŠ[ƒ€‚ğİ’è‚·‚é
+	//	ï¿½Xï¿½gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½İ’è‚·ï¿½ï¿½
 	pDevice -> SetStreamSource( 0 , g_pVtxBufferScore , 0 , sizeof( VERTEX_2D ) );
 
-	//	ƒeƒNƒXƒ`ƒƒ‚ÌƒZƒbƒg
+	//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌƒZï¿½bï¿½g
 	pDevice -> SetTexture( 0 , g_pTextureScore[ 0 ] );
 
 
 	for( int Cnt = 0 ; Cnt < SCORE_DIGIT ; Cnt++ )
 	{
 
-		//	ƒ|ƒŠƒSƒ“‚Ì•`‰æ
+		//	ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½Ì•`ï¿½ï¿½
 		pDevice -> DrawPrimitive( D3DPT_TRIANGLESTRIP , Cnt * NUM_VERTEX , NUM_POLYGON);
 
 	}	//	end of for
 
 
-	//	ƒeƒNƒXƒ`ƒƒ‚ÌƒZƒbƒg
+	//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌƒZï¿½bï¿½g
 	pDevice -> SetTexture( 0 , g_pTextureScore[ 1 ] );
 
-	//	ƒ|ƒŠƒSƒ“‚Ì•`‰æ
+	//	ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½Ì•`ï¿½ï¿½
 	pDevice -> DrawPrimitive( D3DPT_TRIANGLESTRIP , SCORE_DIGIT * NUM_VERTEX , NUM_POLYGON);
 
 
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	HRESULT MakeVertexScore( LPDIRECT3DDEVICE9 pDevice )
- ˆø”:		LPDIRECT3DDEVICE9 pDevice	ƒfƒoƒCƒX
- –ß‚è’l:	—Ç‚¢ê‡	return S_OK;
-			ƒ_ƒ‚Èê‡	return E_FAIL;
- à–¾:		’¸“_‚Ìì¬
+ ï¿½Öï¿½ï¿½ï¿½:	HRESULT MakeVertexScore( LPDIRECT3DDEVICE9 pDevice )
+ ï¿½ï¿½ï¿½ï¿½:		LPDIRECT3DDEVICE9 pDevice	ï¿½fï¿½oï¿½Cï¿½X
+ ï¿½ß‚ï¿½l:	ï¿½Ç‚ï¿½ï¿½ê‡	return S_OK;
+			ï¿½_ï¿½ï¿½ï¿½Èê‡	return E_FAIL;
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½ï¿½ï¿½_ï¿½Ìì¬
 -----------------------------------------------------------------------------*/
 HRESULT MakeVertexHelpNumber( LPDIRECT3DDEVICE9 pDevice )
 {
 
-	int num;	//	”š‚ğ•\¦‚·‚é•Ï”
+	int num;	//	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïï¿½
 	int value = g_Number;
 
 
-	//	‰¼‘zƒAƒhƒŒƒX‚ğæ“¾‚·‚éƒ|ƒCƒ“ƒ^•Ï”
+	//	ï¿½ï¿½ï¿½zï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½Ïï¿½
 	VERTEX_2D* pVtx;
 
 
-	// FAILEDƒ}ƒNƒ‚ÅƒGƒ‰[ƒ`ƒFƒbƒN
+	// FAILEDï¿½}ï¿½Nï¿½ï¿½ï¿½ÅƒGï¿½ï¿½ï¿½[ï¿½`ï¿½Fï¿½bï¿½N
 	if ( FAILED ( pDevice -> CreateVertexBuffer ( sizeof ( VERTEX_2D ) * NUM_VERTEX * SCORE_DIGIT * MAX_TEXTURE , D3DUSAGE_WRITEONLY , FVF_VERTEX_2D , D3DPOOL_MANAGED , &g_pVtxBufferScore , NULL ) ) )
 	{
 
@@ -249,7 +247,7 @@ HRESULT MakeVertexHelpNumber( LPDIRECT3DDEVICE9 pDevice )
 	}	//	end of if
 
 
-	// ƒoƒbƒtƒ@‚ğƒƒbƒN‚µA‰¼‘zƒAƒhƒŒƒX‚ğæ“¾
+	// ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½zï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½æ“¾
 	g_pVtxBufferScore -> Lock ( 0 , 0 , ( void** )&pVtx , 0 );
 
 	for( int Cnt = 0 ; Cnt < SCORE_DIGIT ; Cnt++ )
@@ -258,88 +256,88 @@ HRESULT MakeVertexHelpNumber( LPDIRECT3DDEVICE9 pDevice )
 		num = value % 10;
 		value /= 10;
 
-		//	’¸“_À•W‚Ìİ’è
+		//	ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½Wï¿½Ìİ’ï¿½
 		pVtx[ 0 ].pos = D3DXVECTOR3( POLYGON00_X                   - Cnt * POLYGON00_WIDTH , POLYGON00_Y                    , 0.0f );
 		pVtx[ 1 ].pos = D3DXVECTOR3( POLYGON00_X + POLYGON00_WIDTH - Cnt * POLYGON00_WIDTH , POLYGON00_Y                    , 0.0f );
 		pVtx[ 2 ].pos = D3DXVECTOR3( POLYGON00_X                   - Cnt * POLYGON00_WIDTH , POLYGON00_Y + POLYGON00_HEIGHT , 0.0f );
 		pVtx[ 3 ].pos = D3DXVECTOR3( POLYGON00_X + POLYGON00_WIDTH - Cnt * POLYGON00_WIDTH , POLYGON00_Y + POLYGON00_HEIGHT , 0.0f );
 
-		//	À•W•ÏŠ·Ï‚İ’¸“_ƒtƒ‰ƒO‚Ìİ’è
+		//	ï¿½ï¿½ï¿½Wï¿½ÏŠï¿½ï¿½Ï‚İ’ï¿½ï¿½_ï¿½tï¿½ï¿½ï¿½Oï¿½Ìİ’ï¿½
 		pVtx[ 0 ].rhw = 1.0f;
 		pVtx[ 1 ].rhw = 1.0f;
 		pVtx[ 2 ].rhw = 1.0f;
 		pVtx[ 3 ].rhw = 1.0f;
 
-		//	’¸“_F‚Ìİ’è
+		//	ï¿½ï¿½ï¿½_ï¿½Fï¿½Ìİ’ï¿½
 		pVtx[ 0 ].color = D3DXCOLOR( 255 , 255 , 255 , 255 );
 		pVtx[ 1 ].color = D3DXCOLOR( 255 , 255 , 255 , 255 );
 		pVtx[ 2 ].color = D3DXCOLOR( 255 , 255 , 255 , 255 );
 		pVtx[ 3 ].color = D3DXCOLOR( 255 , 255 , 255 , 255 );
 
-		//	ƒeƒNƒXƒ`ƒƒÀ•W‚Ìİ’è
+		//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½Ìİ’ï¿½
 		pVtx[ 0 ].tex = D3DXVECTOR2( 0.1f * num        , 0 );
 		pVtx[ 1 ].tex = D3DXVECTOR2( 0.1f * num + 0.1f , 0 );
 		pVtx[ 2 ].tex = D3DXVECTOR2( 0.1f * num        , 1 );
 		pVtx[ 3 ].tex = D3DXVECTOR2( 0.1f * num + 0.1f , 1 );
 
-		pVtx += 4;	//	ƒ|ƒCƒ“ƒ^‚ğ‚¸‚ç‚·
+		pVtx += 4;	//	ï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ç‚·
 
 	}	//	end of for
 
 
-	//	’¸“_À•W‚Ìİ’è
+	//	ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½Wï¿½Ìİ’ï¿½
 	pVtx[ 0 ].pos = D3DXVECTOR3( POLYGON01_X                   , POLYGON01_Y                    , 0.0f );
 	pVtx[ 1 ].pos = D3DXVECTOR3( POLYGON01_X + POLYGON01_WIDTH , POLYGON01_Y                    , 0.0f );
 	pVtx[ 2 ].pos = D3DXVECTOR3( POLYGON01_X                   , POLYGON01_Y + POLYGON01_HEIGHT , 0.0f );
 	pVtx[ 3 ].pos = D3DXVECTOR3( POLYGON01_X + POLYGON01_WIDTH , POLYGON01_Y + POLYGON01_HEIGHT , 0.0f );
 
-	//	À•W•ÏŠ·Ï‚İ’¸“_ƒtƒ‰ƒO‚Ìİ’è
+	//	ï¿½ï¿½ï¿½Wï¿½ÏŠï¿½ï¿½Ï‚İ’ï¿½ï¿½_ï¿½tï¿½ï¿½ï¿½Oï¿½Ìİ’ï¿½
 	pVtx[ 0 ].rhw = 1.0f;
 	pVtx[ 1 ].rhw = 1.0f;
 	pVtx[ 2 ].rhw = 1.0f;
 	pVtx[ 3 ].rhw = 1.0f;
 
-	//	’¸“_F‚Ìİ’è
+	//	ï¿½ï¿½ï¿½_ï¿½Fï¿½Ìİ’ï¿½
 	pVtx[ 0 ].color = D3DXCOLOR( 255 , 255 , 255 , 255 );
 	pVtx[ 1 ].color = D3DXCOLOR( 255 , 255 , 255 , 255 );
 	pVtx[ 2 ].color = D3DXCOLOR( 255 , 255 , 255 , 255 );
 	pVtx[ 3 ].color = D3DXCOLOR( 255 , 255 , 255 , 255 );
 
-	//	ƒeƒNƒXƒ`ƒƒÀ•W‚Ìİ’è
+	//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½Ìİ’ï¿½
 	pVtx[ 0 ].tex = D3DXVECTOR2( 0 , 0 );
 	pVtx[ 1 ].tex = D3DXVECTOR2( 1 , 0 );
 	pVtx[ 2 ].tex = D3DXVECTOR2( 0 , 1 );
 	pVtx[ 3 ].tex = D3DXVECTOR2( 1 , 1 );
 
 
-	g_pVtxBufferScore -> Unlock(); //‚±‚êˆÈ~G‚ê‚Ä‚Í‚¢‚¯‚È‚¢
+	g_pVtxBufferScore -> Unlock(); //ï¿½ï¿½ï¿½ï¿½È~ï¿½Gï¿½ï¿½Ä‚Í‚ï¿½ï¿½ï¿½ï¿½È‚ï¿½
 
 	return S_OK;
 
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void VerTexScore( VERTEX_2D* pVtx , int Cnt , int num )
- ˆø”:		VERTEX_2D* pVtx		‰¼‘zƒAƒhƒŒƒX‚ğæ“¾‚·‚éƒ|ƒCƒ“ƒ^•Ï”
-			int Cnt				ƒXƒRƒA‚ÌƒJƒEƒ“ƒ^
-			int num				ƒeƒNƒXƒ`ƒƒ‚ğ‚¸‚ç‚·•Ï”
- –ß‚è’l:	
- à–¾:		’¸“_‚Ì•ÏX
+ ï¿½Öï¿½ï¿½ï¿½:	void VerTexScore( VERTEX_2D* pVtx , int Cnt , int num )
+ ï¿½ï¿½ï¿½ï¿½:		VERTEX_2D* pVtx		ï¿½ï¿½ï¿½zï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½Ïï¿½
+			int Cnt				ï¿½Xï¿½Rï¿½Aï¿½ÌƒJï¿½Eï¿½ï¿½ï¿½^
+			int num				ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ç‚·ï¿½Ïï¿½
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½ï¿½ï¿½_ï¿½Ì•ÏX
 -----------------------------------------------------------------------------*/
 void VerTexHelpNumber( VERTEX_2D* pVtx , int Cnt , int num )
 {
 
-	//	pVtx‚ğCnt•ª‚¸‚ç‚·
+	//	pVtxï¿½ï¿½Cntï¿½ï¿½ï¿½ï¿½ï¿½ç‚·
 	pVtx += Cnt * NUM_VERTEX;
 
 
-	//	’¸“_F‚Ìİ’è
+	//	ï¿½ï¿½ï¿½_ï¿½Fï¿½Ìİ’ï¿½
 	pVtx[ 0 ].color = D3DXCOLOR( g_ScoreColor.r , g_ScoreColor.g , g_ScoreColor.b , g_ScoreColor.a );
 	pVtx[ 1 ].color = D3DXCOLOR( g_ScoreColor.r , g_ScoreColor.g , g_ScoreColor.b , g_ScoreColor.a );
 	pVtx[ 2 ].color = D3DXCOLOR( g_ScoreColor.r , g_ScoreColor.g , g_ScoreColor.b , g_ScoreColor.a );
 	pVtx[ 3 ].color = D3DXCOLOR( g_ScoreColor.r , g_ScoreColor.g , g_ScoreColor.b , g_ScoreColor.a );
 
-	//	ƒeƒNƒXƒ`ƒƒÀ•W‚Ìİ’è
+	//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½Ìİ’ï¿½
 	pVtx[ 0 ].tex = D3DXVECTOR2( 0.1f * num        , 0 );
 	pVtx[ 1 ].tex = D3DXVECTOR2( 0.1f * num + 0.1f , 0 );
 	pVtx[ 2 ].tex = D3DXVECTOR2( 0.1f * num        , 1 );
@@ -349,10 +347,10 @@ void VerTexHelpNumber( VERTEX_2D* pVtx , int Cnt , int num )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	int *GetHelpNumber( void )
- ˆø”:		
- –ß‚è’l:	return &g_Number;
- à–¾:		ƒXƒRƒAî•ñ‚Ìæ“¾
+ ï¿½Öï¿½ï¿½ï¿½:	int *GetHelpNumber( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	return &g_Number;
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½Xï¿½Rï¿½Aï¿½ï¿½ï¿½Ìæ“¾
 -----------------------------------------------------------------------------*/
 int *GetHelpNumber( void )
 {

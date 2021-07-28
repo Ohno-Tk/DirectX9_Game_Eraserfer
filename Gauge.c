@@ -1,16 +1,14 @@
 /*=============================================================================
 
-		ƒQ[ƒW[ Gauge.cpp ]
+		ï¿½Qï¿½[ï¿½W[ Gauge.cpp ]
 
 -------------------------------------------------------------------------------
-	¡@»ìÒ
-		‘å–ì‘ñ–ç
 
-	¡@ì¬“ú
+	ï¿½ï¿½ï¿½@ï¿½ì¬ï¿½ï¿½
 		2017/02/01
 -------------------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------------
-	ƒwƒbƒ_ƒtƒ@ƒCƒ‹
+	ï¿½wï¿½bï¿½_ï¿½tï¿½@ï¿½Cï¿½ï¿½
 -----------------------------------------------------------------------------*/
 #include <stdio.h>
 #include "main.h"
@@ -18,83 +16,83 @@
 #include "Player.h"
 
 /*-----------------------------------------------------------------------------
-	’è”’è‹`
+	ï¿½è”ï¿½ï¿½`
 -----------------------------------------------------------------------------*/
 #define POLYGON00_TEXTURENAME "data/TEXTURE/GAME/Gauge.png"
 #define POLYGON01_TEXTURENAME "data/TEXTURE/GAME/Gauge_bar.jpg"
 
-#define MAX_TEXTURE ( 2 )	//	ƒeƒNƒXƒ`ƒƒ‚ÌÅ‘å”
+#define MAX_TEXTURE ( 2 )	//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌÅ‘å”
 
-#define MAX_GAUGE ( 2 )	//	Å‘åƒQ[ƒW–{”
+#define MAX_GAUGE ( 2 )	//	ï¿½Å‘ï¿½Qï¿½[ï¿½Wï¿½{ï¿½ï¿½
 
 /*-----------------------------------------------------------------------------
-	—ñ‹“
+	ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
-	\‘¢‘Ì
+	ï¿½\ï¿½ï¿½ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 typedef struct
 {
-	D3DXVECTOR2 Pos;	//	À•W
-	D3DXVECTOR2 Size;	//	‘å‚«‚³
-	D3DXCOLOR Color;	//	F
-	int NowLife;		//	Œ»İ‚Ìƒ‰ƒCƒt
-	int MaxLife;		//	Å‘åƒ‰ƒCƒt
-	float Maxlength;	//	Å‘å‚Ì‘å‚«‚³
-	bool Use;	//	g—pƒtƒ‰ƒO
+	D3DXVECTOR2 Pos;	//	ï¿½ï¿½ï¿½W
+	D3DXVECTOR2 Size;	//	ï¿½å‚«ï¿½ï¿½
+	D3DXCOLOR Color;	//	ï¿½F
+	int NowLife;		//	ï¿½ï¿½ï¿½İ‚Ìƒï¿½ï¿½Cï¿½t
+	int MaxLife;		//	ï¿½Å‘åƒ‰ï¿½Cï¿½t
+	float Maxlength;	//	ï¿½Å‘ï¿½Ì‘å‚«ï¿½ï¿½
+	bool Use;	//	ï¿½gï¿½pï¿½tï¿½ï¿½ï¿½O
 }GAUGE;
 
 /*-----------------------------------------------------------------------------
-	ƒvƒƒgƒ^ƒCƒvéŒ¾
+	ï¿½vï¿½ï¿½ï¿½gï¿½^ï¿½Cï¿½vï¿½éŒ¾
 -----------------------------------------------------------------------------*/
 
-//	’¸“_‚Ìì¬
+//	ï¿½ï¿½ï¿½_ï¿½Ìì¬
 HRESULT MakeVertexGauge( LPDIRECT3DDEVICE9 pDevice );
 
-//	’¸“_‚Ì•ÏX
+//	ï¿½ï¿½ï¿½_ï¿½Ì•ÏX
 void VerTexGauge( VERTEX_2D* pVtx , int Cnt );
 
 /*-----------------------------------------------------------------------------
-	ƒOƒ[ƒoƒ‹•Ï”
+	ï¿½Oï¿½ï¿½ï¿½[ï¿½oï¿½ï¿½ï¿½Ïï¿½
 -----------------------------------------------------------------------------*/
-LPDIRECT3DVERTEXBUFFER9 g_pVtxBufferGauge = NULL;	//	’¸“_ƒoƒbƒtƒ@ƒCƒ“ƒ^ƒtƒF[ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-LPDIRECT3DTEXTURE9 g_pTextureGauge[ MAX_TEXTURE ] = { NULL };	//	ƒeƒNƒXƒ`ƒƒƒCƒ“ƒ^[ƒtƒF[ƒX
+LPDIRECT3DVERTEXBUFFER9 g_pVtxBufferGauge = NULL;	//	ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½^ï¿½tï¿½Fï¿½[ï¿½Xï¿½Ö‚Ìƒ|ï¿½Cï¿½ï¿½ï¿½^
+LPDIRECT3DTEXTURE9 g_pTextureGauge[ MAX_TEXTURE ] = { NULL };	//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½^ï¿½[ï¿½tï¿½Fï¿½[ï¿½X
 
-GAUGE g_Gauge[ MAX_GAUGE ];	//	\‘¢‘Ì
+GAUGE g_Gauge[ MAX_GAUGE ];	//	ï¿½\ï¿½ï¿½ï¿½ï¿½
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void InitGauge( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		‰Šú‰»
+ ï¿½Öï¿½ï¿½ï¿½:	void InitGauge( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void InitGauge( void )
 {
 
-	//	ƒfƒoƒCƒX‚Ìæ“¾
+	//	ï¿½fï¿½oï¿½Cï¿½Xï¿½Ìæ“¾
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 
-	//	ƒvƒŒƒCƒ„[î•ñ‚Ìæ“¾
+	//	ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ìæ“¾
 	PLAYER *Player = GetPlayer();
 
 
-	//	ƒeƒNƒXƒ`ƒƒ‚ÌƒGƒ‰[ƒ`ƒFƒbƒN
+	//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌƒGï¿½ï¿½ï¿½[ï¿½`ï¿½Fï¿½bï¿½N
 	if( FAILED( D3DXCreateTextureFromFile(  pDevice , POLYGON00_TEXTURENAME , &g_pTextureGauge[ 0 ] ) ) )
 	{
-		MessageBox( NULL , "[ Gauge.cpp ]\n POLYGON00_TEXTURENAME\n‚Ì“Ç‚İ‚İ‚ª‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½" , "Œx" , MB_OK | MB_ICONHAND );
+		MessageBox( NULL , "[ Gauge.cpp ]\n POLYGON00_TEXTURENAME\nï¿½Ì“Ç‚İï¿½ï¿½İ‚ï¿½ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½" , "ï¿½xï¿½ï¿½" , MB_OK | MB_ICONHAND );
 
 	}	//	end of if
 
 	if( FAILED( D3DXCreateTextureFromFile(  pDevice , POLYGON01_TEXTURENAME , &g_pTextureGauge[ 1 ] ) ) )
 	{
-		MessageBox( NULL , "[ Gauge.cpp ]\n POLYGON01_TEXTURENAME\n‚Ì“Ç‚İ‚İ‚ª‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½" , "Œx" , MB_OK | MB_ICONHAND );
+		MessageBox( NULL , "[ Gauge.cpp ]\n POLYGON01_TEXTURENAME\nï¿½Ì“Ç‚İï¿½ï¿½İ‚ï¿½ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½" , "ï¿½xï¿½ï¿½" , MB_OK | MB_ICONHAND );
 
 	}	//	end of if
 
-	//	\‘¢‘Ì‰Šú‰»
+	//	ï¿½\ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
 
-	//	ƒvƒŒƒCƒ„[
+	//	ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[
 	g_Gauge[ 0 ].Pos = D3DXVECTOR2( 0.0f , 50.0f );
 	g_Gauge[ 0 ].Size = D3DXVECTOR2( 350.0f , 25.0f );
 	g_Gauge[ 0 ].Color = D3DXCOLOR( 255 , 255 , 255 , 255 );
@@ -108,21 +106,21 @@ void InitGauge( void )
 	g_Gauge[ 1 ].Maxlength = g_Gauge[ 1 ].Size.x;
 
 
-	//	’¸“_‚Ìì¬
+	//	ï¿½ï¿½ï¿½_ï¿½Ìì¬
 	MakeVertexGauge( pDevice );
 
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void UninitGauge( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		I—¹
+ ï¿½Öï¿½ï¿½ï¿½:	void UninitGauge( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½Iï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void UninitGauge( void )
 {
 
-	if(g_pVtxBufferGauge != NULL)	//’¸“_ƒoƒbƒtƒ@‚ÌƒCƒ“ƒ^[ƒtƒF[ƒXƒ|ƒCƒ“ƒ^‚Ì‰ğ•ú
+	if(g_pVtxBufferGauge != NULL)	//ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½ÌƒCï¿½ï¿½ï¿½^ï¿½[ï¿½tï¿½Fï¿½[ï¿½Xï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½Ì‰ï¿½ï¿½
 	{
 		g_pVtxBufferGauge -> Release();
 		g_pVtxBufferGauge  = NULL;
@@ -133,7 +131,7 @@ void UninitGauge( void )
 	for( int Cnt = 0 ; Cnt < MAX_TEXTURE ; Cnt++ )
 	{
 
-		if( g_pTextureGauge[ Cnt ] != NULL )	//	ƒeƒNƒXƒ`ƒƒƒ|ƒŠƒSƒ“ŠJ•ú
+		if( g_pTextureGauge[ Cnt ] != NULL )	//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½Jï¿½ï¿½
 		{
 			g_pTextureGauge[ Cnt ] -> Release();
 			g_pTextureGauge[ Cnt ] = NULL;
@@ -145,24 +143,24 @@ void UninitGauge( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void UpdateGauge( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		XV
+ ï¿½Öï¿½ï¿½ï¿½:	void UpdateGauge( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½Xï¿½V
 -----------------------------------------------------------------------------*/
 void UpdateGauge( void )
 {
 
 	float Life;
 
-	//	‰¼‘zƒAƒhƒŒƒX‚ğæ“¾‚·‚éƒ|ƒCƒ“ƒ^•Ï”
+	//	ï¿½ï¿½ï¿½zï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½Ïï¿½
 	VERTEX_2D* pVtx;
 
-	//	ƒvƒŒƒCƒ„[î•ñ‚Ìæ“¾
+	//	ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ìæ“¾
 	PLAYER *Player = GetPlayer();
 
 
-	//ƒoƒbƒtƒ@‚ğƒƒbƒN‚µ‰¼‘zƒAƒhƒŒƒX‚ğæ“¾‚·‚é
+	//ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½zï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
 	g_pVtxBufferGauge -> Lock( 0 , 0 ,	( void** )&pVtx , 0 );
 
 
@@ -170,19 +168,19 @@ void UpdateGauge( void )
 	{
 
 		
-		//	’¸“_‚Ì•ÏX
+		//	ï¿½ï¿½ï¿½_ï¿½Ì•ÏX
 		VerTexGauge( pVtx , Cnt );
 
 	}	//	end of for
 
 
-	g_pVtxBufferGauge -> Unlock(); //‚±‚êˆÈ~G‚ê‚Ä‚Í‚¢‚¯‚È‚¢
+	g_pVtxBufferGauge -> Unlock(); //ï¿½ï¿½ï¿½ï¿½È~ï¿½Gï¿½ï¿½Ä‚Í‚ï¿½ï¿½ï¿½ï¿½È‚ï¿½
 
 
-	//	ƒQ[ƒW‚ª‰½Š„Œ¸‚Á‚½‚©‚ğ‹‚ß‚é
+	//	ï¿½Qï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß‚ï¿½
 	Life = ( float )Player -> Life / g_Gauge[ 1 ].MaxLife;
 
-	//	ƒQ[ƒW‚Ì’·‚³‚ğ•ÏX
+	//	ï¿½Qï¿½[ï¿½Wï¿½Ì’ï¿½ï¿½ï¿½ï¿½ï¿½ÏX
 	g_Gauge[ 1 ].Size.x = Life * g_Gauge[ 1 ].Maxlength;
 
 
@@ -202,35 +200,35 @@ void UpdateGauge( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void DrawGauge( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		•`‰æ
+ ï¿½Öï¿½ï¿½ï¿½:	void DrawGauge( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½`ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void DrawGauge( void )
 {
 
-	//	ƒfƒoƒCƒX‚Ìæ“¾
+	//	ï¿½fï¿½oï¿½Cï¿½Xï¿½Ìæ“¾
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 
-	//	’¸“_ƒtƒH[ƒ}ƒbƒg‚Ìİ’è
+	//	ï¿½ï¿½ï¿½_ï¿½tï¿½Hï¿½[ï¿½}ï¿½bï¿½gï¿½Ìİ’ï¿½
 	pDevice -> SetFVF( FVF_VERTEX_2D );
 
-	//	ƒXƒgƒŠ[ƒ€‚ğİ’è‚·‚é
+	//	ï¿½Xï¿½gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½İ’è‚·ï¿½ï¿½
 	pDevice -> SetStreamSource( 0 , g_pVtxBufferGauge , 0 , sizeof( VERTEX_2D ) );
 
 
-	//	ƒeƒNƒXƒ`ƒƒ‚ÌƒZƒbƒg
+	//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌƒZï¿½bï¿½g
 	pDevice -> SetTexture( 0 , g_pTextureGauge[ 0 ] );
 
-	//	ƒ|ƒŠƒSƒ“‚Ì•`‰æ
+	//	ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½Ì•`ï¿½ï¿½
 	pDevice -> DrawPrimitive( D3DPT_TRIANGLESTRIP , 0 , NUM_POLYGON);
 
 
-	//	ƒeƒNƒXƒ`ƒƒ‚ÌƒZƒbƒg
+	//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌƒZï¿½bï¿½g
 	pDevice -> SetTexture( 0 , g_pTextureGauge[ 1 ] );
 
-	//	ƒ|ƒŠƒSƒ“‚Ì•`‰æ
+	//	ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½Ì•`ï¿½ï¿½
 	pDevice -> DrawPrimitive( D3DPT_TRIANGLESTRIP , 4 , NUM_POLYGON);
 
 
@@ -238,20 +236,20 @@ void DrawGauge( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	HRESULT MakeVertexGauge( LPDIRECT3DDEVICE9 pDevice )
- ˆø”:		LPDIRECT3DDEVICE9 pDevice	ƒfƒoƒCƒX
- –ß‚è’l:	—Ç‚¢ê‡	return S_OK;
-			ƒ_ƒ‚Èê‡	return E_FAIL;
- à–¾:		’¸“_‚Ìì¬
+ ï¿½Öï¿½ï¿½ï¿½:	HRESULT MakeVertexGauge( LPDIRECT3DDEVICE9 pDevice )
+ ï¿½ï¿½ï¿½ï¿½:		LPDIRECT3DDEVICE9 pDevice	ï¿½fï¿½oï¿½Cï¿½X
+ ï¿½ß‚ï¿½l:	ï¿½Ç‚ï¿½ï¿½ê‡	return S_OK;
+			ï¿½_ï¿½ï¿½ï¿½Èê‡	return E_FAIL;
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½ï¿½ï¿½_ï¿½Ìì¬
 -----------------------------------------------------------------------------*/
 HRESULT MakeVertexGauge( LPDIRECT3DDEVICE9 pDevice )
 {
 
-	//	‰¼‘zƒAƒhƒŒƒX‚ğæ“¾‚·‚éƒ|ƒCƒ“ƒ^•Ï”
+	//	ï¿½ï¿½ï¿½zï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½Ïï¿½
 	VERTEX_2D* pVtx;
 
 
-	// FAILEDƒ}ƒNƒ‚ÅƒGƒ‰[ƒ`ƒFƒbƒN
+	// FAILEDï¿½}ï¿½Nï¿½ï¿½ï¿½ÅƒGï¿½ï¿½ï¿½[ï¿½`ï¿½Fï¿½bï¿½N
 	if ( FAILED ( pDevice -> CreateVertexBuffer ( sizeof ( VERTEX_2D ) * NUM_VERTEX * MAX_GAUGE , D3DUSAGE_WRITEONLY , FVF_VERTEX_2D , D3DPOOL_MANAGED , &g_pVtxBufferGauge , NULL ) ) )
 	{
 
@@ -262,54 +260,54 @@ HRESULT MakeVertexGauge( LPDIRECT3DDEVICE9 pDevice )
 
 	float Life;
 
-	//	ƒvƒŒƒCƒ„[î•ñ‚Ìæ“¾
+	//	ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ìæ“¾
 	PLAYER *Player = GetPlayer();
 
-	//	ƒQ[ƒW‚ª‰½Š„Œ¸‚Á‚½‚©‚ğ‹‚ß‚é
+	//	ï¿½Qï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß‚ï¿½
 	Life = ( float )Player -> Life / g_Gauge[ 1 ].MaxLife;
 
-	//	ƒQ[ƒW‚Ì’·‚³‚ğ•ÏX
+	//	ï¿½Qï¿½[ï¿½Wï¿½Ì’ï¿½ï¿½ï¿½ï¿½ï¿½ÏX
 	g_Gauge[ 1 ].Size.x = Life * g_Gauge[ 1 ].Maxlength;
 
 
-	// ƒoƒbƒtƒ@‚ğƒƒbƒN‚µA‰¼‘zƒAƒhƒŒƒX‚ğæ“¾
+	// ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½zï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½æ“¾
 	g_pVtxBufferGauge -> Lock ( 0 , 0 , ( void** )&pVtx , 0 );
 
 
 	for( int Cnt = 0 ; Cnt < MAX_GAUGE ; Cnt++ )
 	{
 
-		//	’¸“_À•W‚Ìİ’è
+		//	ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½Wï¿½Ìİ’ï¿½
 		pVtx[ 0 ].pos = D3DXVECTOR3( g_Gauge[ Cnt ].Pos.x                         , g_Gauge[ Cnt ].Pos.y , 0.0f );
 		pVtx[ 1 ].pos = D3DXVECTOR3( g_Gauge[ Cnt ].Pos.x + g_Gauge[ Cnt ].Size.x , g_Gauge[ Cnt ].Pos.y , 0.0f );
 		pVtx[ 2 ].pos = D3DXVECTOR3( g_Gauge[ Cnt ].Pos.x                         , g_Gauge[ Cnt ].Pos.y + g_Gauge[ Cnt ].Size.y , 0.0f );
 		pVtx[ 3 ].pos = D3DXVECTOR3( g_Gauge[ Cnt ].Pos.x + g_Gauge[ Cnt ].Size.x , g_Gauge[ Cnt ].Pos.y + g_Gauge[ Cnt ].Size.y , 0.0f );
 
-		//	À•W•ÏŠ·Ï‚İ’¸“_ƒtƒ‰ƒO‚Ìİ’è
+		//	ï¿½ï¿½ï¿½Wï¿½ÏŠï¿½ï¿½Ï‚İ’ï¿½ï¿½_ï¿½tï¿½ï¿½ï¿½Oï¿½Ìİ’ï¿½
 		pVtx[ 0 ].rhw = 1.0f;
 		pVtx[ 1 ].rhw = 1.0f;
 		pVtx[ 2 ].rhw = 1.0f;
 		pVtx[ 3 ].rhw = 1.0f;
 
-		//	’¸“_F‚Ìİ’è
+		//	ï¿½ï¿½ï¿½_ï¿½Fï¿½Ìİ’ï¿½
 		pVtx[ 0 ].color = D3DXCOLOR( g_Gauge[ Cnt ].Color.r , g_Gauge[ Cnt ].Color.g , g_Gauge[ Cnt ].Color.b , g_Gauge[ Cnt ].Color.a );
 		pVtx[ 1 ].color = D3DXCOLOR( g_Gauge[ Cnt ].Color.r , g_Gauge[ Cnt ].Color.g , g_Gauge[ Cnt ].Color.b , g_Gauge[ Cnt ].Color.a );
 		pVtx[ 2 ].color = D3DXCOLOR( g_Gauge[ Cnt ].Color.r , g_Gauge[ Cnt ].Color.g , g_Gauge[ Cnt ].Color.b , g_Gauge[ Cnt ].Color.a );
 		pVtx[ 3 ].color = D3DXCOLOR( g_Gauge[ Cnt ].Color.r , g_Gauge[ Cnt ].Color.g , g_Gauge[ Cnt ].Color.b , g_Gauge[ Cnt ].Color.a );
 
-		//	ƒeƒNƒXƒ`ƒƒÀ•W‚Ìİ’è
+		//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½Ìİ’ï¿½
 		pVtx[ 0 ].tex = D3DXVECTOR2( 0 , 0 );
 		pVtx[ 1 ].tex = D3DXVECTOR2( 1 , 0 );
 		pVtx[ 2 ].tex = D3DXVECTOR2( 0 , 1 );
 		pVtx[ 3 ].tex = D3DXVECTOR2( 1 , 1 );
 
-		pVtx += 4;	//	ƒ|ƒCƒ“ƒ^‚ğ‚¸‚ç‚·
+		pVtx += 4;	//	ï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ç‚·
 
 	}	//	end of for
 
 
 
-	g_pVtxBufferGauge -> Unlock(); //‚±‚êˆÈ~G‚ê‚Ä‚Í‚¢‚¯‚È‚¢
+	g_pVtxBufferGauge -> Unlock(); //ï¿½ï¿½ï¿½ï¿½È~ï¿½Gï¿½ï¿½Ä‚Í‚ï¿½ï¿½ï¿½ï¿½È‚ï¿½
 
 	return S_OK;
 
@@ -317,10 +315,10 @@ HRESULT MakeVertexGauge( LPDIRECT3DDEVICE9 pDevice )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void VerTexGauge( VERTEX_2D* pVtx , int Cnt )
- ˆø”:		VERTEX_2D* pVtx , int Cnt
- –ß‚è’l:	
- à–¾:		’¸“_‚Ì•ÏX
+ ï¿½Öï¿½ï¿½ï¿½:	void VerTexGauge( VERTEX_2D* pVtx , int Cnt )
+ ï¿½ï¿½ï¿½ï¿½:		VERTEX_2D* pVtx , int Cnt
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½ï¿½ï¿½_ï¿½Ì•ÏX
 -----------------------------------------------------------------------------*/
 void VerTexGauge( VERTEX_2D* pVtx , int Cnt )
 {
@@ -328,14 +326,14 @@ void VerTexGauge( VERTEX_2D* pVtx , int Cnt )
 	pVtx += Cnt * NUM_VERTEX;
 
 
-	//	’¸“_À•W‚Ìİ’è
+	//	ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½Wï¿½Ìİ’ï¿½
 	pVtx[ 0 ].pos = D3DXVECTOR3( g_Gauge[ Cnt ].Pos.x                         , g_Gauge[ Cnt ].Pos.y , 0.0f );
 	pVtx[ 1 ].pos = D3DXVECTOR3( g_Gauge[ Cnt ].Pos.x + g_Gauge[ Cnt ].Size.x , g_Gauge[ Cnt ].Pos.y , 0.0f );
 	pVtx[ 2 ].pos = D3DXVECTOR3( g_Gauge[ Cnt ].Pos.x                         , g_Gauge[ Cnt ].Pos.y + g_Gauge[ Cnt ].Size.y , 0.0f );
 	pVtx[ 3 ].pos = D3DXVECTOR3( g_Gauge[ Cnt ].Pos.x + g_Gauge[ Cnt ].Size.x , g_Gauge[ Cnt ].Pos.y + g_Gauge[ Cnt ].Size.y , 0.0f );
 
 
-	//	’¸“_F‚Ìİ’è
+	//	ï¿½ï¿½ï¿½_ï¿½Fï¿½Ìİ’ï¿½
 	pVtx[ 0 ].color = D3DXCOLOR( g_Gauge[ Cnt ].Color.r , g_Gauge[ Cnt ].Color.g , g_Gauge[ Cnt ].Color.b , g_Gauge[ Cnt ].Color.a );
 	pVtx[ 1 ].color = D3DXCOLOR( g_Gauge[ Cnt ].Color.r , g_Gauge[ Cnt ].Color.g , g_Gauge[ Cnt ].Color.b , g_Gauge[ Cnt ].Color.a );
 	pVtx[ 2 ].color = D3DXCOLOR( g_Gauge[ Cnt ].Color.r , g_Gauge[ Cnt ].Color.g , g_Gauge[ Cnt ].Color.b , g_Gauge[ Cnt ].Color.a );

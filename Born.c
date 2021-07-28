@@ -1,17 +1,15 @@
 /*=============================================================================
 
-		‰˜‚ê[ Born.cpp ]
+		ï¿½ï¿½ï¿½ï¿½[ Born.cpp ]
 
 -------------------------------------------------------------------------------
-	¡@»ìŽÒ
-		‘å–ì‘ñ–ç
 
-	¡@ì¬“ú
+	ï¿½ï¿½ï¿½@ï¿½ì¬ï¿½ï¿½
 		2016/01/05
 -------------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
-	ƒwƒbƒ_ƒtƒ@ƒCƒ‹
+	ï¿½wï¿½bï¿½_ï¿½tï¿½@ï¿½Cï¿½ï¿½
 -----------------------------------------------------------------------------*/
 #include <time.h>
 #include <math.h>
@@ -25,81 +23,81 @@
 #include "HelpNumber.h"
 
 /*-----------------------------------------------------------------------------
-	’è”’è‹`
+	ï¿½è”ï¿½ï¿½`
 -----------------------------------------------------------------------------*/
-#define POLYGON00_TEXTURENAME "data/TEXTURE/GAME/‰˜‚ê.jpg"
+#define POLYGON00_TEXTURENAME "data/TEXTURE/GAME/ï¿½ï¿½ï¿½ï¿½.jpg"
 
 /*-----------------------------------------------------------------------------
-	—ñ‹“
------------------------------------------------------------------------------*/
-
-/*-----------------------------------------------------------------------------
-	\‘¢‘Ì
+	ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
-	ƒvƒƒgƒ^ƒCƒvéŒ¾
+	ï¿½\ï¿½ï¿½ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 
-//	’¸“_‚Ìì¬
+/*-----------------------------------------------------------------------------
+	ï¿½vï¿½ï¿½ï¿½gï¿½^ï¿½Cï¿½vï¿½éŒ¾
+-----------------------------------------------------------------------------*/
+
+//	ï¿½ï¿½ï¿½_ï¿½Ìì¬
 HRESULT MakeVertexBorn( LPDIRECT3DDEVICE9 pDevice );
 
-//	ƒ^[ƒQƒbƒg‚ÌƒZƒbƒg
+//	ï¿½^ï¿½[ï¿½Qï¿½bï¿½gï¿½ÌƒZï¿½bï¿½g
 void SetBorn( D3DXVECTOR3 Pos );
 
 /*-----------------------------------------------------------------------------
-	ƒOƒ[ƒoƒ‹•Ï”
+	ï¿½Oï¿½ï¿½ï¿½[ï¿½oï¿½ï¿½ï¿½Ïï¿½
 -----------------------------------------------------------------------------*/
-LPDIRECT3DVERTEXBUFFER9 g_pVtxBufferBorn = NULL;	//	’¸“_ƒoƒbƒtƒ@ƒCƒ“ƒ^ƒtƒF[ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
+LPDIRECT3DVERTEXBUFFER9 g_pVtxBufferBorn = NULL;	//	ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½^ï¿½tï¿½Fï¿½[ï¿½Xï¿½Ö‚Ìƒ|ï¿½Cï¿½ï¿½ï¿½^
 
-LPDIRECT3DTEXTURE9 g_pTextureBorn = NULL;//	ƒeƒNƒXƒ`ƒƒƒCƒ“ƒ^[ƒtƒF[ƒX
+LPDIRECT3DTEXTURE9 g_pTextureBorn = NULL;//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½^ï¿½[ï¿½tï¿½Fï¿½[ï¿½X
 
-BORN g_Born[ MAX_BORN ];	//	“G\‘¢‘Ì
+BORN g_Born[ MAX_BORN ];	//	ï¿½Gï¿½\ï¿½ï¿½ï¿½ï¿½
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void InitTarget( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		‰Šú‰»
+ ï¿½Öï¿½ï¿½ï¿½:	void InitTarget( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void InitBorn( void )
 {
 
-	//	ƒfƒoƒCƒX‚ÌŽæ“¾
+	//	ï¿½fï¿½oï¿½Cï¿½Xï¿½ÌŽæ“¾
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 
-	//	ŽŸ‚Ìƒ‚[ƒh‚ÌŽæ“¾
+	//	ï¿½ï¿½ï¿½Ìƒï¿½ï¿½[ï¿½hï¿½ÌŽæ“¾
 	MODE *Mode = GetNextMode();
 
-	//	Œ»Ý‚ÌŽž‚ðŽæ“¾
+	//	ï¿½ï¿½ï¿½Ý‚ÌŽï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾
 	srand((unsigned)time(NULL));
 
 
-	//	ƒGƒ‰[ƒ`ƒFƒbƒN
+	//	ï¿½Gï¿½ï¿½ï¿½[ï¿½`ï¿½Fï¿½bï¿½N
 	if( FAILED( D3DXCreateTextureFromFile(  pDevice , POLYGON00_TEXTURENAME , &g_pTextureBorn  ) ) )
 	{
-		MessageBox( NULL , "ƒrƒ‹ƒ{[ƒh‚Ì“Ç‚Ýž‚Ý‚ª‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½" , "Œx" , MB_OK | MB_ICONHAND );
+		MessageBox( NULL , "ï¿½rï¿½ï¿½ï¿½{ï¿½[ï¿½hï¿½Ì“Ç‚Ýï¿½ï¿½Ý‚ï¿½ï¿½Å‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½Å‚ï¿½ï¿½ï¿½" , "ï¿½xï¿½ï¿½" , MB_OK | MB_ICONHAND );
 
 	}	//	end of if
 
 
-	//	\‘¢‘Ì‰Šú‰»
+	//	ï¿½\ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
 	for( int Cnt = 0 ; Cnt < MAX_BORN ; Cnt++ )
 	{
 
-		//	À•W
+		//	ï¿½ï¿½ï¿½W
 		g_Born[ Cnt ].World.Pos = D3DXVECTOR3( 0.0f , 0.0f , 0.0f );
 
-		//	Šg‘å—¦
+		//	ï¿½gï¿½å—¦
 		g_Born[ Cnt ].World.Scl = D3DXVECTOR3( 1.0f , 1.0f , 1.0f );
 
-		//	‰ñ“]—Ê
+		//	ï¿½ï¿½]ï¿½ï¿½
 		g_Born[ Cnt ].World.Rot = D3DXVECTOR3( 0.0f , 0.0f , 0.0f );
 
-		//	”¼Œa
+		//	ï¿½ï¿½ï¿½a
 		g_Born[ Cnt ].Radius = 25.0f;
 
-		//	Žg—pƒtƒ‰ƒO
+		//	ï¿½gï¿½pï¿½tï¿½ï¿½ï¿½O
 		g_Born[ Cnt ].Use = false;
 
 	}	//	end of for
@@ -132,28 +130,28 @@ void InitBorn( void )
 	
 	}	//	end of if
 
-	//	’¸“_‚Ìì¬
+	//	ï¿½ï¿½ï¿½_ï¿½Ìì¬
 	MakeVertexBorn( pDevice );
 
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void UninitTarget( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		I—¹
+ ï¿½Öï¿½ï¿½ï¿½:	void UninitTarget( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½Iï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void UninitBorn( void )
 {
 
-	if( g_pVtxBufferBorn != NULL )	//	’¸“_ƒoƒbƒtƒ@ƒCƒ“ƒ^ƒtƒF[ƒXŠJ•ú
+	if( g_pVtxBufferBorn != NULL )	//	ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½^ï¿½tï¿½Fï¿½[ï¿½Xï¿½Jï¿½ï¿½
 	{
 		g_pVtxBufferBorn -> Release();
 		g_pVtxBufferBorn = NULL;
 
 	}	//	end of if
 
-	if( g_pTextureBorn != NULL )	//	ƒeƒNƒXƒ`ƒƒƒ|ƒŠƒSƒ“ŠJ•ú
+	if( g_pTextureBorn != NULL )	//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½Jï¿½ï¿½
 	{
 		g_pTextureBorn -> Release();
 		g_pTextureBorn = NULL;
@@ -164,10 +162,10 @@ void UninitBorn( void )
 }	//	end of func
  
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void UpdataTarget( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		XV
+ ï¿½Öï¿½ï¿½ï¿½:	void UpdataTarget( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½Xï¿½V
 -----------------------------------------------------------------------------*/
 void UpdateBorn( void )
 {
@@ -175,37 +173,37 @@ void UpdateBorn( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void DrawTarget( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		•`‰æ
+ ï¿½Öï¿½ï¿½ï¿½:	void DrawTarget( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½`ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void DrawBorn( void )
 {
 
-	//	ƒfƒoƒCƒX‚ÌŽæ“¾
+	//	ï¿½fï¿½oï¿½Cï¿½Xï¿½ÌŽæ“¾
 	LPDIRECT3DDEVICE9 pDevice = GetDevice();
 
 
-	//	ƒpƒCƒvƒ‰ƒCƒ“‚ÌƒXƒgƒŠ[ƒ€
+	//	ï¿½pï¿½Cï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ÌƒXï¿½gï¿½ï¿½ï¿½[ï¿½ï¿½
 	pDevice -> SetStreamSource( 0 , g_pVtxBufferBorn , 0 , sizeof( VERTEX_3D ));
 
 
-	//	’¸“_ƒtƒH[ƒ}ƒbƒg‚ÌÝ’è
+	//	ï¿½ï¿½ï¿½_ï¿½tï¿½Hï¿½[ï¿½}ï¿½bï¿½gï¿½ÌÝ’ï¿½
 	pDevice -> SetFVF( FVF_VERTEX_3D );
 
 
-	//	ƒeƒNƒXƒ`ƒƒ‚ÌƒZƒbƒg
+	//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ÌƒZï¿½bï¿½g
 	pDevice -> SetTexture( 0 , g_pTextureBorn );
 
 
-	//	ƒ¿ƒeƒXƒg
-	pDevice -> SetRenderState( D3DRS_ALPHATESTENABLE , TRUE );	//	ƒ¿ƒeƒXƒg‚ðON‚É‚·‚é
-	pDevice -> SetRenderState( D3DRS_ALPHAREF , 0 );			//	ŽQÆ’l‚ÌÝ’è
-	pDevice -> SetRenderState( D3DRS_ALPHAFUNC , D3DCMP_GREATER );	//	‰‰ŽZŽq‚ðŒˆ‚ß‚é
+	//	ï¿½ï¿½ï¿½eï¿½Xï¿½g
+	pDevice -> SetRenderState( D3DRS_ALPHATESTENABLE , TRUE );	//	ï¿½ï¿½ï¿½eï¿½Xï¿½gï¿½ï¿½ONï¿½É‚ï¿½ï¿½ï¿½
+	pDevice -> SetRenderState( D3DRS_ALPHAREF , 0 );			//	ï¿½Qï¿½Æ’lï¿½ÌÝ’ï¿½
+	pDevice -> SetRenderState( D3DRS_ALPHAFUNC , D3DCMP_GREATER );	//	ï¿½ï¿½ï¿½Zï¿½qï¿½ï¿½ï¿½ï¿½ï¿½ß‚ï¿½
 
 
-	//	‘S‘Ì‚Ìƒ‰ƒCƒg‚ð—LŒø‚É‚·‚é
+	//	ï¿½Sï¿½Ì‚Ìƒï¿½ï¿½Cï¿½gï¿½ï¿½Lï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½
 	pDevice -> SetRenderState( D3DRS_LIGHTING , FALSE );
 
 
@@ -215,11 +213,11 @@ void DrawBorn( void )
 		if( g_Born[ Cnt ].Use == true )
 		{
 
-			//	‹ts—ñ‚ ‚è‚Ìƒ[ƒ‹ƒhÀ•W•ÏŠ·
+			//	ï¿½tï¿½sï¿½ñ‚ ‚ï¿½Ìƒï¿½ï¿½[ï¿½ï¿½ï¿½hï¿½ï¿½ï¿½Wï¿½ÏŠï¿½
 			SetWorldInv( g_Born[ Cnt ].World.Pos , g_Born[ Cnt ].World.Scl );
 
 
-			//	ƒ|ƒŠƒSƒ“‚Ì•`‰æ
+			//	ï¿½|ï¿½ï¿½ï¿½Sï¿½ï¿½ï¿½Ì•`ï¿½ï¿½
 			pDevice -> DrawPrimitive( D3DPT_TRIANGLESTRIP , Cnt * NUM_VERTEX , NUM_POLYGON );
 
 		}	//	end of if
@@ -227,62 +225,62 @@ void DrawBorn( void )
 	}
 
 
-	//	‘S‘Ì‚Ìƒ‰ƒCƒg‚ð—LŒø‚É‚·‚é
+	//	ï¿½Sï¿½Ì‚Ìƒï¿½ï¿½Cï¿½gï¿½ï¿½Lï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½
 	pDevice -> SetRenderState( D3DRS_LIGHTING , TRUE );
 
 
-	//	Œ³‚É–ß‚·
-	pDevice -> SetRenderState( D3DRS_ALPHATESTENABLE , FALSE );	//	ƒ¿ƒeƒXƒg‚ðOFF‚É‚·‚é
+	//	ï¿½ï¿½ï¿½É–ß‚ï¿½
+	pDevice -> SetRenderState( D3DRS_ALPHATESTENABLE , FALSE );	//	ï¿½ï¿½ï¿½eï¿½Xï¿½gï¿½ï¿½OFFï¿½É‚ï¿½ï¿½ï¿½
 
 
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void MakeVertexBorn( LPDIRECT3DDEVICE9 pDevice )
- ˆø”:		LPDIRECT3DDEVICE9 pDevice
- –ß‚è’l:	‚È‚µ
- à–¾:		’¸“_‚Ìì¬
+ ï¿½Öï¿½ï¿½ï¿½:	void MakeVertexBorn( LPDIRECT3DDEVICE9 pDevice )
+ ï¿½ï¿½ï¿½ï¿½:		LPDIRECT3DDEVICE9 pDevice
+ ï¿½ß‚ï¿½l:	ï¿½È‚ï¿½
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½ï¿½ï¿½_ï¿½Ìì¬
 -----------------------------------------------------------------------------*/
 HRESULT MakeVertexBorn( LPDIRECT3DDEVICE9 pDevice )
 {
-	VERTEX_3D* pVtx;	//	‰¼‘zƒAƒhƒŒƒX‚ðŽæ“¾‚·‚éƒ|ƒCƒ“ƒ^•Ï”
+	VERTEX_3D* pVtx;	//	ï¿½ï¿½ï¿½zï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½|ï¿½Cï¿½ï¿½ï¿½^ï¿½Ïï¿½
 
 
-	//	’¸“_ƒoƒbƒtƒ@‚Ì¶¬
+	//	ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½Ìï¿½ï¿½ï¿½
 	if( FAILED( pDevice -> CreateVertexBuffer( sizeof( VERTEX_3D ) * NUM_VERTEX * MAX_BORN , D3DUSAGE_WRITEONLY , FVF_VERTEX_3D , D3DPOOL_MANAGED , &g_pVtxBufferBorn , NULL ) ) )
 	{
 		return E_FAIL;
 
 	}	//	end of if
 
-	//	ƒoƒbƒtƒ@‚ðƒƒbƒN‚µ‰¼‘zƒAƒhƒŒƒX‚ðŽæ“¾‚·‚é
+	//	ï¿½oï¿½bï¿½tï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½zï¿½Aï¿½hï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
 	g_pVtxBufferBorn -> Lock( 0 , 0 , (void**)&pVtx , 0 );
 
 	for( int Cnt = 0 ; Cnt < MAX_BORN ; Cnt++ )
 	{
 
-		//	’¸“_À•W‚ÌÝ’è
+		//	ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½Wï¿½ÌÝ’ï¿½
 		pVtx[ 0 ].pos = D3DXVECTOR3( -30.0f, 10.0f , 0.0f );
 		pVtx[ 1 ].pos = D3DXVECTOR3( 30.0f , 10.0f , 0.0f );
 		pVtx[ 2 ].pos = D3DXVECTOR3( -30.0f, 0.0f , 0.0f );
 		pVtx[ 3 ].pos = D3DXVECTOR3( 30.0f , 0.0f , 0.0f );
 
 
-		//	–@ü‚ÌÝ’è
+		//	ï¿½@ï¿½ï¿½ï¿½ÌÝ’ï¿½
 		pVtx[ 0 ].normal = D3DXVECTOR3( 0.0f , 0.0f , -1.0f );
 		pVtx[ 1 ].normal = D3DXVECTOR3( 0.0f , 0.0f , -1.0f );
 		pVtx[ 2 ].normal = D3DXVECTOR3( 0.0f , 0.0f , -1.0f );
 		pVtx[ 3 ].normal = D3DXVECTOR3( 0.0f , 0.0f , -1.0f );
 
 
-		//	’¸“_F‚ÌÝ’è
+		//	ï¿½ï¿½ï¿½_ï¿½Fï¿½ÌÝ’ï¿½
 		pVtx[ 0 ].color = D3DCOLOR_RGBA( 255 , 255 , 255 , 255 );
 		pVtx[ 1 ].color = D3DCOLOR_RGBA( 255 , 255 , 255 , 255 );
 		pVtx[ 2 ].color = D3DCOLOR_RGBA( 255 , 255 , 255 , 255 );
 		pVtx[ 3 ].color = D3DCOLOR_RGBA( 255 , 255 , 255 , 255 );
 
 
-		//	ƒeƒNƒXƒ`ƒƒÀ•W‚ÌÝ’è
+		//	ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½ÌÝ’ï¿½
 		pVtx[ 0 ].tex = D3DXVECTOR2( 0 , 0 );
 		pVtx[ 1 ].tex = D3DXVECTOR2( 1 , 0 );
 		pVtx[ 2 ].tex = D3DXVECTOR2( 0 , 1 );
@@ -293,7 +291,7 @@ HRESULT MakeVertexBorn( LPDIRECT3DDEVICE9 pDevice )
 	}
 
 
-	//	ƒoƒbƒtƒ@‚ÌƒAƒ“ƒƒbƒN
+	//	ï¿½oï¿½bï¿½tï¿½@ï¿½ÌƒAï¿½ï¿½ï¿½ï¿½ï¿½bï¿½N
 	g_pVtxBufferBorn -> Unlock();
 
 
@@ -303,11 +301,11 @@ HRESULT MakeVertexBorn( LPDIRECT3DDEVICE9 pDevice )
 
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void SetTarget( D3DXVECTOR3 Pos , D3DXVECTOR3 Move )
- ˆø”:		D3DXVECTOR3 Pos		À•W
-			D3DXVECTOR3 Move	ˆÚ“®—Ê
- –ß‚è’l:	
- à–¾:		ƒ^[ƒQƒbƒg‚ÌƒZƒbƒg
+ ï¿½Öï¿½ï¿½ï¿½:	void SetTarget( D3DXVECTOR3 Pos , D3DXVECTOR3 Move )
+ ï¿½ï¿½ï¿½ï¿½:		D3DXVECTOR3 Pos		ï¿½ï¿½ï¿½W
+			D3DXVECTOR3 Move	ï¿½Ú“ï¿½ï¿½ï¿½
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½^ï¿½[ï¿½Qï¿½bï¿½gï¿½ÌƒZï¿½bï¿½g
 -----------------------------------------------------------------------------*/
 void SetBorn( D3DXVECTOR3 Pos )
 {
@@ -318,10 +316,10 @@ void SetBorn( D3DXVECTOR3 Pos )
 		if( g_Born[ Cnt ].Use == false )
 		{
 
-			//	À•W
+			//	ï¿½ï¿½ï¿½W
 			g_Born[ Cnt ].World.Pos = Pos;
 
-			//	Žg—pƒtƒ‰ƒO
+			//	ï¿½gï¿½pï¿½tï¿½ï¿½ï¿½O
 			g_Born[ Cnt ].Use = true;
 
 			SetHelp( D3DXVECTOR3( g_Born[ Cnt ].World.Pos.x , g_Born[ Cnt ].World.Pos.y + 40.0f , g_Born[ Cnt ].World.Pos.z ) );
@@ -335,10 +333,10 @@ void SetBorn( D3DXVECTOR3 Pos )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	Born *GetBornNor( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		ƒ^[ƒQƒbƒgî•ñ‚ÌŽæ“¾
+ ï¿½Öï¿½ï¿½ï¿½:	Born *GetBornNor( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½^ï¿½[ï¿½Qï¿½bï¿½gï¿½ï¿½ï¿½ÌŽæ“¾
 -----------------------------------------------------------------------------*/
 BORN *GetBorn( void )
 {

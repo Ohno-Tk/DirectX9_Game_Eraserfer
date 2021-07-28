@@ -1,18 +1,16 @@
 /*=============================================================================
 
-		ƒ^ƒCƒgƒ‹[ title.cpp ]
+		ï¿½^ï¿½Cï¿½gï¿½ï¿½[ title.cpp ]
 
 -------------------------------------------------------------------------------
-	¡@»ìŽÒ
-		‘å–ì‘ñ–ç
 
-	¡@ì¬“ú
+	ï¿½ï¿½ï¿½@ï¿½ì¬ï¿½ï¿½
 		2016/12/15
 -------------------------------------------------------------------------------
-	¡@Update
+	ï¿½ï¿½ï¿½@Update
 =============================================================================*/
 /*-----------------------------------------------------------------------------
-	ƒwƒbƒ_ƒtƒ@ƒCƒ‹
+	ï¿½wï¿½bï¿½_ï¿½tï¿½@ï¿½Cï¿½ï¿½
 -----------------------------------------------------------------------------*/
 #include "main.h"
 #include "result.h"
@@ -28,108 +26,108 @@
 #include "Born.h"
 
 /*-----------------------------------------------------------------------------
-	’è”’è‹`
+	ï¿½è”ï¿½ï¿½`
 -----------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
-	—ñ‹“
+	ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
-	\‘¢‘Ì
+	ï¿½\ï¿½ï¿½ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
-	ƒvƒƒgƒ^ƒCƒvéŒ¾
+	ï¿½vï¿½ï¿½ï¿½gï¿½^ï¿½Cï¿½vï¿½éŒ¾
 -----------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
-	ƒOƒ[ƒoƒ‹•Ï”
+	ï¿½Oï¿½ï¿½ï¿½[ï¿½oï¿½ï¿½ï¿½Ïï¿½
 -----------------------------------------------------------------------------*/
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void InitResult( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		‰Šú‰»
+ ï¿½Öï¿½ï¿½ï¿½:	void InitResult( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void InitResult( void )
 {
 
-	InitCamera();	//	ƒJƒƒ‰‚Ì‰Šú‰»
+	InitCamera();	//	ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
 
-	InitMeshField();		//	ƒƒbƒVƒ…ƒtƒB[ƒ‹ƒh‚Ì‰Šú‰»
+	InitMeshField();		//	ï¿½ï¿½ï¿½bï¿½Vï¿½ï¿½ï¿½tï¿½Bï¿½[ï¿½ï¿½ï¿½hï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
 
-	InitMeshWall();		//	ƒƒbƒVƒ…ƒEƒH[ƒ‹‚Ì‰Šú‰»
+	InitMeshWall();		//	ï¿½ï¿½ï¿½bï¿½Vï¿½ï¿½ï¿½Eï¿½Hï¿½[ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
 
-	InitSkydome();		//	ƒXƒJƒCƒh[ƒ€‚Ì‰Šú‰»
+	InitSkydome();		//	ï¿½Xï¿½Jï¿½Cï¿½hï¿½[ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
 
-	InitBorn();		//	•‚¯l‚Ì‰Šú‰»
+	InitBorn();		//	ï¿½ï¿½ï¿½ï¿½ï¿½lï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
 
-	InitPlayer();		//	ƒvƒŒƒCƒ„[‚Ì‰Šú‰»
+	InitPlayer();		//	ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
 
-	InitResultBg();		//	ƒŠƒUƒ‹ƒg‚Ì‰Šú‰»
+	InitResultBg();		//	ï¿½ï¿½ï¿½Uï¿½ï¿½ï¿½gï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
 
-	//	‰¹ŠyÄ¶
+	//	ï¿½ï¿½ï¿½yï¿½Äï¿½
 	PlaySound( SOUND_LABEL_BGM_RESULT );
 
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void UninitResult( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		I—¹
+ ï¿½Öï¿½ï¿½ï¿½:	void UninitResult( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½Iï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void UninitResult( void )
 {
 
-	UninitMeshField();		//	ƒƒbƒVƒ…ƒtƒB[ƒ‹ƒh‚ÌI—¹
+	UninitMeshField();		//	ï¿½ï¿½ï¿½bï¿½Vï¿½ï¿½ï¿½tï¿½Bï¿½[ï¿½ï¿½ï¿½hï¿½ÌIï¿½ï¿½
 
-	UninitMeshWall();	//	ƒƒbƒVƒ…ƒEƒH[ƒ‹‚ÌI—¹
+	UninitMeshWall();	//	ï¿½ï¿½ï¿½bï¿½Vï¿½ï¿½ï¿½Eï¿½Hï¿½[ï¿½ï¿½ï¿½ÌIï¿½ï¿½
 
-	UninitSkydome();		//	ƒXƒJƒCƒh[ƒ€‚ÌI—¹
+	UninitSkydome();		//	ï¿½Xï¿½Jï¿½Cï¿½hï¿½[ï¿½ï¿½ï¿½ÌIï¿½ï¿½
 
-	UninitPlayer();	//	ƒvƒŒƒCƒ„[‚ÌI—¹
+	UninitPlayer();	//	ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ÌIï¿½ï¿½
 
-	UninitBorn();	//	•‚¯l‚ÌI—¹
+	UninitBorn();	//	ï¿½ï¿½ï¿½ï¿½ï¿½lï¿½ÌIï¿½ï¿½
 
-	UninitResultBg();	//	ƒŠƒUƒ‹ƒg‚ÌI—¹
+	UninitResultBg();	//	ï¿½ï¿½ï¿½Uï¿½ï¿½ï¿½gï¿½ÌIï¿½ï¿½
 
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void UpdateResult( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		XV
+ ï¿½Öï¿½ï¿½ï¿½:	void UpdateResult( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½Xï¿½V
 -----------------------------------------------------------------------------*/
 void UpdateResult( void )
 {
 
-	UpdateMeshField();		//	ƒƒbƒVƒ…ƒtƒB[ƒ‹ƒh‚ÌXV
+	UpdateMeshField();		//	ï¿½ï¿½ï¿½bï¿½Vï¿½ï¿½ï¿½tï¿½Bï¿½[ï¿½ï¿½ï¿½hï¿½ÌXï¿½V
 
-	UpdateMeshWall();	//	ƒƒbƒVƒ…ƒEƒH[ƒ‹‚ÌXV
+	UpdateMeshWall();	//	ï¿½ï¿½ï¿½bï¿½Vï¿½ï¿½ï¿½Eï¿½Hï¿½[ï¿½ï¿½ï¿½ÌXï¿½V
 
-	UpdateSkydome();		//	ƒXƒJƒCƒh[ƒ€‚ÌXV
+	UpdateSkydome();		//	ï¿½Xï¿½Jï¿½Cï¿½hï¿½[ï¿½ï¿½ï¿½ÌXï¿½V
 
-	UpdatePlayer();	//	ƒvƒŒƒCƒ„[‚ÌXV
+	UpdatePlayer();	//	ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ÌXï¿½V
 
-	UpdateBorn();	//	•‚¯l‚ÌXV
+	UpdateBorn();	//	ï¿½ï¿½ï¿½ï¿½ï¿½lï¿½ÌXï¿½V
 
-	UpdateResultBg();	//	ƒŠƒUƒ‹ƒg‚ÌXV
+	UpdateResultBg();	//	ï¿½ï¿½ï¿½Uï¿½ï¿½ï¿½gï¿½ÌXï¿½V
 
-	//	‰æ–Ê‘JˆÚ
+	//	ï¿½ï¿½Ê‘Jï¿½ï¿½
 	if( GetKeyboardTrigger( DIK_SPACE ) )
 	{
 
-		//	ƒtƒF[ƒh‚ÌƒZƒbƒg
+		//	ï¿½tï¿½Fï¿½[ï¿½hï¿½ÌƒZï¿½bï¿½g
 		SetFade( FADE_OUT , MODE_TITLE );
 
-		//	‰¹ŠyÄ¶
+		//	ï¿½ï¿½ï¿½yï¿½Äï¿½
 		PlaySound( SOUND_LABEL_SE_ENTER );
 
-		//	‰½”Ô–Ú‚Ì‰¹‚ðŽ~‚ß‚é
+		//	ï¿½ï¿½ï¿½Ô–Ú‚Ì‰ï¿½ï¿½ï¿½ï¿½~ï¿½ß‚ï¿½
 		StopSound( SOUND_LABEL_BGM_RESULT );
 
 	}	//	end of if
@@ -137,24 +135,24 @@ void UpdateResult( void )
 }	//	end of func
 
 /*-----------------------------------------------------------------------------
- ŠÖ”–¼:	void DrawResult( void )
- ˆø”:		
- –ß‚è’l:	
- à–¾:		•`‰æ
+ ï¿½Öï¿½ï¿½ï¿½:	void DrawResult( void )
+ ï¿½ï¿½ï¿½ï¿½:		
+ ï¿½ß‚ï¿½l:	
+ ï¿½ï¿½ï¿½ï¿½:		ï¿½`ï¿½ï¿½
 -----------------------------------------------------------------------------*/
 void DrawResult( void )
 {
 
-	DrawMeshField();		//	ƒƒbƒVƒ…ƒtƒB[ƒ‹ƒh‚Ì•`‰æ
+	DrawMeshField();		//	ï¿½ï¿½ï¿½bï¿½Vï¿½ï¿½ï¿½tï¿½Bï¿½[ï¿½ï¿½ï¿½hï¿½Ì•`ï¿½ï¿½
 
-//	DrawSkydome();		//	ƒXƒJƒCƒh[ƒ€‚Ì•`‰æ
+//	DrawSkydome();		//	ï¿½Xï¿½Jï¿½Cï¿½hï¿½[ï¿½ï¿½ï¿½Ì•`ï¿½ï¿½
 
-	DrawMeshWall();		//	ƒƒbƒVƒ…ƒEƒH[ƒ‹‚Ì•`‰æ
+	DrawMeshWall();		//	ï¿½ï¿½ï¿½bï¿½Vï¿½ï¿½ï¿½Eï¿½Hï¿½[ï¿½ï¿½ï¿½Ì•`ï¿½ï¿½
 
-	DrawPlayer();		//	ƒvƒŒƒCƒ„[‚Ì•`‰æ
+	DrawPlayer();		//	ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ì•`ï¿½ï¿½
 
-	DrawBorn();		//	•‚¯l‚Ì•`‰æ
+	DrawBorn();		//	ï¿½ï¿½ï¿½ï¿½ï¿½lï¿½Ì•`ï¿½ï¿½
 
-	DrawResultBg();		//	ƒŠƒUƒ‹ƒg‚Ì•`‰æ
+	DrawResultBg();		//	ï¿½ï¿½ï¿½Uï¿½ï¿½ï¿½gï¿½Ì•`ï¿½ï¿½
 
 }	//	end of func
